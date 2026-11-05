@@ -1,0 +1,414 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#000000">
+  <meta name="description" content="AVI CONNECTION — Conectando ideas, creando realidades.">
+  <title>AVI CONNECTION</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --black: #000;
+      --white: #fff;
+      --violet: #af81eb;
+      --ease-cinema: cubic-bezier(.22, 1, .36, 1);
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body {
+      width: 100%; height: 100%; margin: 0;
+      overflow: hidden; overscroll-behavior: none;
+    }
+    body {
+      background: var(--black); color: var(--white);
+      font-family: Inter, "Segoe UI", Arial, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+    button { font: inherit; }
+    .screen { position: fixed; inset: 0; overflow: hidden; }
+    .frame-shell[hidden] { display: none; }
+
+    /* 01. Portada: únicamente el emblema oficial en blanco, sobre negro. */
+    .welcome {
+      z-index: 2;
+      display: grid;
+      place-items: center;
+      background: #000;
+      opacity: 1;
+      transition: opacity 1.05s var(--ease-cinema);
+    }
+    .logo-button {
+      position: relative;
+      display: grid;
+      place-items: center;
+      width: clamp(136px, 14vw, 194px);
+      aspect-ratio: 1;
+      padding: 18px;
+      border: 0;
+      border-radius: 22px;
+      background: transparent;
+      color: #fff;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+      transition: transform .9s var(--ease-cinema),
+                  opacity .8s var(--ease-cinema),
+                  filter .8s var(--ease-cinema);
+    }
+    /* El halo no constituye otro elemento visual: ilumina el símbolo. */
+    .logo-button::before {
+      content: "";
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(136, 84, 216, .17),
+                                  rgba(103, 53, 176, .055) 38%, transparent 72%);
+      filter: blur(19px);
+      pointer-events: none;
+      transition: transform .75s ease, opacity .75s ease;
+    }
+    .logo-symbol {
+      position: relative;
+      width: 100%;
+      height: auto;
+      display: block;
+      overflow: visible;
+      fill: #fff;
+      filter: drop-shadow(0 0 9px rgba(218, 193, 255, .17));
+      animation: logo-breathe 4.8s ease-in-out infinite;
+      transition: filter .65s ease;
+    }
+    .logo-button:hover { transform: scale(1.075); }
+    .logo-button:hover::before { transform: scale(1.35); }
+    .logo-button:hover .logo-symbol {
+      filter: drop-shadow(0 0 18px rgba(194, 149, 255, .42));
+    }
+    .logo-button:active { transform: scale(.97); }
+    .logo-button:focus-visible {
+      outline: 2px solid rgba(202, 172, 241, .85);
+      outline-offset: 14px;
+    }
+    .logo-button:disabled { cursor: default; }
+    @keyframes logo-breathe {
+      0%, 100% { opacity: 1; }
+      50% { opacity: .90; }
+    }
+    body.phase-opening .welcome { opacity: 0; pointer-events: none; }
+    body.phase-opening .logo-button {
+      transform: scale(1.15);
+      opacity: 0;
+      filter: blur(9px);
+    }
+
+    /* 02. El negro permanece continuo mientras entra/sale el video. */
+    .movie { z-index: 1; background: #000; }
+    .movie video {
+      position: absolute;
+      inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: center;
+      background: #000;
+      opacity: 0;
+      transition: opacity 1.55s ease;
+    }
+    .cinema-vignette {
+      position: absolute; inset: 0; z-index: 1;
+      pointer-events: none;
+      background: radial-gradient(ellipse 92% 96% at 50% 50%,
+          transparent 54%, rgba(0,0,0,.24) 100%);
+    }
+    .cinema-curtain {
+      position: absolute; inset: 0; z-index: 2;
+      background: #000;
+      opacity: 1; pointer-events: none;
+      transition: opacity 1.45s ease;
+    }
+    body.phase-video .movie video { opacity: 1; }
+    body.phase-video .cinema-curtain { opacity: 0; }
+    body.phase-finish .movie video { opacity: 0; transition-duration: .95s; }
+    body.phase-finish .cinema-curtain { opacity: 1; transition-duration: .95s; }
+
+    .screen-message {
+      position: absolute; z-index: 5;
+      left: 50%; bottom: clamp(23px, 5vh, 55px);
+      transform: translateX(-50%);
+      max-width: min(90vw, 520px);
+      width: max-content;
+      margin: 0; padding: 11px 19px;
+      border-radius: 10px;
+      background: rgba(23, 15, 35, .78);
+      color: #dfd4ee;
+      text-align: center;
+      font-size: 12px;
+      line-height: 1.6;
+      display: none; /* Solo aparece si hay un error o una demora. */
+    }
+
+    /* 03. La interfaz principal se revela sobre la película, sin salto. */
+    .frame-shell {
+      z-index: 3;
+      background: #000;
+      visibility: hidden;
+      opacity: 0;
+      transition: opacity 1.25s ease, visibility 1.25s;
+    }
+    .frame-shell.is-visible { visibility: visible; opacity: 1; }
+    .frame-shell iframe {
+      display: block;
+      width: 100%; height: 100%;
+      border: 0;
+      background: #000;
+    }
+    .frame-cover {
+      position: absolute; inset: 0; z-index: 1;
+      display: grid; place-items: center;
+      background: #000;
+      pointer-events: none;
+      opacity: 1;
+      transition: opacity 1.3s var(--ease-cinema);
+    }
+    .frame-cover .logo-symbol {
+      width: clamp(66px, 7vw, 90px);
+      opacity: .7;
+      animation: loading-pulse 2.5s ease-in-out infinite;
+    }
+    .frame-shell.is-ready .frame-cover { opacity: 0; }
+    @keyframes loading-pulse {
+      0%, 100% { opacity: .33; filter: drop-shadow(0 0 4px rgba(167,120,229,.1)); }
+      50% { opacity: .9; filter: drop-shadow(0 0 13px rgba(167,120,229,.3)); }
+    }
+
+    @media (orientation: portrait) {
+      .logo-button { width: clamp(136px, 35vw, 185px); }
+      .movie video { object-position: center center; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation: none !important;
+        transition-duration: .01ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Símbolo A con punto, vectorizado a partir del logotipo de AVI CONNECTION. -->
+  <main class="screen welcome" id="welcome">
+    <button class="logo-button" id="play" type="button"
+            aria-label="Iniciar AVI CONNECTION">
+      <svg class="logo-symbol" viewBox="18 10 95 94" aria-hidden="true"
+           focusable="false" xmlns="http://www.w3.org/2000/svg">
+        <path d="M62.8 17.2h6L104.5 89.6H92.1L65.8 36.7 39.3 89.6H26.9Z"/>
+        <circle cx="65.8" cy="74.4" r="6.5"/>
+      </svg>
+    </button>
+  </main>
+
+  <!-- Videos ya existentes del sitio (se seleccionan según orientación). -->
+  <section class="screen movie" id="movie" aria-label="Introducción"
+           aria-hidden="true">
+    <video id="introVideo" playsinline webkit-playsinline preload="none" muted
+           disablepictureinpicture disableremoteplayback
+           aria-label="Video introductorio de AVI CONNECTION"></video>
+    <div class="cinema-vignette" aria-hidden="true"></div>
+    <div class="cinema-curtain" aria-hidden="true"></div>
+    <p class="screen-message" id="screenMessage" role="status" aria-live="polite"></p>
+  </section>
+
+  <!-- avi.html sigue embebido para conservar el modo de pantalla completa. -->
+  <section class="screen frame-shell" id="shell" hidden aria-hidden="true"
+           aria-label="AVI CONNECTION — Pantalla principal">
+    <iframe id="aviFrame" title="AVI CONNECTION — Pantalla principal"
+            allow="fullscreen" allowfullscreen></iframe>
+    <div class="frame-cover" aria-hidden="true">
+      <svg class="logo-symbol" viewBox="18 10 95 94" focusable="false"
+           xmlns="http://www.w3.org/2000/svg">
+        <path d="M62.8 17.2h6L104.5 89.6H92.1L65.8 36.7 39.3 89.6H26.9Z"/>
+        <circle cx="65.8" cy="74.4" r="6.5"/>
+      </svg>
+    </div>
+  </section>
+
+  <script>
+  (() => {
+    'use strict';
+
+    const INTRO_DELAY_MS = 650;
+    const VIDEO_START_TIMEOUT_MS = 16000;
+    const VIDEO_STALL_TIMEOUT_MS = 18000;
+    const FRAME_TIMEOUT_MS = 20000;
+    const VIDEO_HORIZONTAL = './assets/videos/avi%20intro%20horizontal.mp4';
+    const VIDEO_VERTICAL = './assets/videos/avi%20intro%20vertical.mp4';
+
+    const byId = (id) => document.getElementById(id);
+    const play = byId('play');
+    const welcome = byId('welcome');
+    const movie = byId('movie');
+    const video = byId('introVideo');
+    const message = byId('screenMessage');
+    const shell = byId('shell');
+    const frame = byId('aviFrame');
+
+    let started = false;
+    let finishing = false;
+    let videoStarted = false;
+    let frameRequested = false;
+    let frameLoaded = false;
+    let revealScheduled = false;
+    let playbackTimeout = null;
+    let stallTimeout = null;
+    let frameTimeout = null;
+    const directSuite = /^#(?:hub|suite)$/i.test(window.location.hash);
+
+    function requestCinemaMode() {
+      // Fullscreen debe solicitarse sincrónicamente dentro del clic del usuario.
+      if (document.fullscreenElement || !document.documentElement.requestFullscreen) return;
+      try {
+        const attempt = document.documentElement.requestFullscreen({ navigationUI: 'hide' });
+        attempt?.catch?.(() => { /* Continuar en ventana si se rechaza. */ });
+      } catch (_) { /* Navegadores que no admiten fullscreen. */ }
+    }
+
+    function showNotice(text) {
+      message.textContent = text;
+      message.style.display = 'block';
+    }
+
+    function selectIntroVideo() {
+      const portrait = window.matchMedia('(orientation: portrait)').matches;
+      video.src = portrait ? VIDEO_VERTICAL : VIDEO_HORIZONTAL;
+      video.muted = true;
+      video.defaultMuted = true;
+      video.volume = 0;
+      video.preload = 'auto';
+      video.load();
+    }
+
+    function queueFrame(skipOpening) {
+      if (frameRequested) return;
+      frameRequested = true;
+      shell.hidden = false;
+      frame.src = './avi.html' + (skipOpening ? '#suite' : '');
+      frameTimeout = window.setTimeout(() => {
+        if (!frameLoaded) {
+          showNotice('La interfaz tarda más de lo habitual en cargar. Verifica tu conexión.');
+        }
+      }, FRAME_TIMEOUT_MS);
+    }
+
+    function revealFrame() {
+      if (!frameLoaded || !finishing || revealScheduled) return;
+      revealScheduled = true;
+      window.clearTimeout(frameTimeout);
+      message.style.display = 'none';
+
+      // Entra el contenedor y luego se disuelve su cubierta negra.
+      window.setTimeout(() => {
+        shell.classList.add('is-visible');
+        window.requestAnimationFrame(() => {
+          window.requestAnimationFrame(() => {
+            shell.classList.add('is-ready');
+            shell.setAttribute('aria-hidden', 'false');
+            movie.setAttribute('aria-hidden', 'true');
+          });
+        });
+        window.setTimeout(() => video.pause(), 1350);
+      }, 220);
+    }
+
+    function finishCinema(reason = 'ended') {
+      if (finishing) return;
+      finishing = true;
+      window.clearTimeout(playbackTimeout);
+      window.clearTimeout(stallTimeout);
+      document.body.classList.add('phase-finish');
+      // La suite comienza a cargar solo cuando el video termina.
+      queueFrame(false);
+      revealFrame();
+      if (reason === 'missing') {
+        showNotice('No se pudo reproducir la introducción. Abriendo AVI CONNECTION…');
+      }
+    }
+
+    function startMovie() {
+      if (finishing) return;
+      playbackTimeout = window.setTimeout(() => {
+        if (!videoStarted && !finishing) finishCinema('missing');
+      }, VIDEO_START_TIMEOUT_MS);
+      video.muted = true;
+      video.volume = 0;
+      try { video.currentTime = 0; } catch (_) { /* Aún no hay metadatos. */ }
+      let promise;
+      try { promise = video.play(); }
+      catch (_) { finishCinema('missing'); return; }
+      if (promise && typeof promise.then === 'function') {
+        promise.then(() => {
+          if (finishing) { video.pause(); return; }
+          videoStarted = true;
+          window.clearTimeout(playbackTimeout);
+          document.body.classList.add('phase-video');
+          movie.setAttribute('aria-hidden', 'false');
+        }).catch(() => finishCinema('missing'));
+      } else {
+        // Compatibilidad con versiones antiguas de navegadores.
+        videoStarted = true;
+        document.body.classList.add('phase-video');
+        movie.setAttribute('aria-hidden', 'false');
+      }
+    }
+
+    frame.addEventListener('load', () => {
+      frameLoaded = true;
+      revealFrame();
+    });
+    video.addEventListener('ended', () => finishCinema());
+    video.addEventListener('error', () => {
+      if (started && !finishing) finishCinema('missing');
+    });
+    video.addEventListener('stalled', () => {
+      if (!videoStarted || finishing) return;
+      window.clearTimeout(stallTimeout);
+      stallTimeout = window.setTimeout(() => {
+        if (!video.ended && video.readyState < 3) finishCinema('missing');
+      }, VIDEO_STALL_TIMEOUT_MS);
+    });
+    video.addEventListener('playing', () => {
+      window.clearTimeout(stallTimeout);
+      window.clearTimeout(playbackTimeout);
+    });
+    video.addEventListener('timeupdate', () => {
+      if (!finishing && videoStarted && Number.isFinite(video.duration) &&
+          video.duration > 0 && video.currentTime >= video.duration - .065) {
+        finishCinema();
+      }
+    });
+
+    if (directSuite) {
+      // Enlaces #hub y #suite siguen entrando sin repetir la película.
+      started = true;
+      finishing = true;
+      play.disabled = true;
+      welcome.setAttribute('aria-hidden', 'true');
+      document.body.classList.add('phase-opening', 'phase-finish');
+      queueFrame(true);
+    } else {
+      play.addEventListener('click', () => {
+        if (started) return;
+        started = true;
+        play.disabled = true;
+        welcome.setAttribute('aria-hidden', 'true');
+        requestCinemaMode();
+        selectIntroVideo();
+        document.body.classList.add('phase-opening');
+        window.setTimeout(startMovie, INTRO_DELAY_MS);
+      }, { once: true });
+    }
+
+    document.addEventListener('fullscreenchange', () => {
+      try {
+        frame.contentWindow?.dispatchEvent(new Event('avi:host-fullscreenchange'));
+      } catch (_) { /* Puede estar en otro origen. */ }
+    });
+  })();
+  </script>
+</body>
+</html>

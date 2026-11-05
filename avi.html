@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+
+<html data-app="none" data-theme="avi-original" data-wx="clear" lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1, viewport-fit=cover" name="viewport"/>
+<meta content="#10071f" name="theme-color"/>
+<meta content="AVI CONNECTION — Conectando ideas, creando realidades. Descubre CONNECTION SUITE, CONNECTION FILES y el ecosistema tecnológico." name="description"/>
+<title>AVI CONNECTION — Experience 9.1</title>
+<link href="./assets/imagenes/avilogo.png" rel="icon" type="image/png"/>
+<link href="./assets/imagenes/pixavilogo.png" rel="apple-touch-icon"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap" id="avi-google-font" rel="stylesheet"/>
+
+<link href="./avi.css" rel="stylesheet"/></head>
+<body class="avi-loaded avi9-side-left avi9-style-glass">
+<!-- 1. ESCENA AMBIENTAL MULTICAPA -->
+<div aria-hidden="true" class="scene" id="scene">
+<div class="scene__base"></div>
+<div class="scene__glow scene__glow--one"></div>
+<div class="scene__glow scene__glow--two"></div>
+<div class="wx-layer">
+<div class="wx-bg is-active" id="wxBgA"></div>
+<div class="wx-bg" id="wxBgB"></div>
+<div class="wx-ambient-cloud"></div>
+<div class="wx-ambient-sun"></div>
+</div>
+<canvas class="wx-particles" id="wxCanvas"></canvas>
+<div class="scene__custom" id="customMediaLayer">
+<img alt="" hidden="" id="customImage"/>
+<video hidden="" id="customVideo" loop="" muted="" playsinline=""></video>
+<iframe hidden="" id="customEmbed" title="Fondo multimedia"></iframe>
+</div>
+<div class="scene__overlay"></div>
+<canvas class="scene__particles" id="particlesCanvas"></canvas>
+<div class="scene__vignette"></div>
+</div>
+<!-- 2. SHELL PRINCIPAL DEL DASHBOARD -->
+<div class="app-shell">
+<!-- Barra Lateral Izquierda -->
+<aside aria-label="Navegación principal" class="avi-sidebar" id="aviSidebar">
+<div class="avi-side-brand">
+<div class="brand-group" id="brandGroup">
+<a class="brand--official" href="#inicio" id="brandLink" title="AVI CONNECTION · Inicio">
+<svg aria-label="Logo AVI CONNECTION" class="brand--official__mark" role="img" viewbox="0 0 100 100">
+<defs>
+<filter height="200%" id="aviBrandGlow" width="200%" x="-50%" y="-50%">
+<fegaussianblur result="glow" stddeviation="4"></fegaussianblur>
+<femerge>
+<femergenode in="glow"></femergenode>
+<femergenode in="SourceGraphic"></femergenode>
+</femerge>
+</filter>
+</defs>
+<path d="M9 86 L50 14 L91 86 L76 86 L50 41 L24 86 Z" fill="#fff9ff" filter="url(#aviBrandGlow)"></path>
+<circle cx="50" cy="70" fill="#fff9ff" filter="url(#aviBrandGlow)" r="6.5"></circle>
+</svg>
+<span aria-hidden="true" class="brand--official__type"><span>VI</span><strong>CONNECTION</strong></span>
+</a>
+<button aria-expanded="false" aria-label="Mostrar proyectos del ecosistema" class="portfolio-toggle" id="portfolioToggle" type="button">
+<span aria-hidden="true" class="portfolio-toggle__glyph">&gt;</span>
+</button>
+</div>
+</div>
+<div class="avi-side-nav-scroll">
+<div class="avi-side-kicker"><span>ESPACIO DE TRABAJO</span></div>
+<nav aria-label="Vistas principales" class="avi-nav-links">
+<button aria-current="page" class="avi-nav-entry is-selected" data-avi-nav="inicio" title="Inicio" type="button">
+<svg fill="none" stroke="currentColor" stroke-width="1.8" viewbox="0 0 24 24">
+<path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1Z"></path>
+</svg>
+<span class="avi-nav-label">Inicio</span>
+</button>
+<button class="avi-nav-entry" data-avi-nav="suite" title="Connection Suite" type="button">
+<svg fill="none" stroke="currentColor" stroke-width="1.8" viewbox="0 0 24 24">
+<rect height="7" rx="1.5" width="7" x="3" y="3"></rect>
+<rect height="7" rx="1.5" width="7" x="14" y="3"></rect>
+<rect height="7" rx="1.5" width="7" x="3" y="14"></rect>
+<rect height="7" rx="1.5" width="7" x="14" y="14"></rect>
+</svg>
+<span class="avi-nav-label">Connection Suite</span>
+</button>
+<button class="avi-nav-entry" data-avi-nav="proyectos" title="Connection Files" type="button">
+<svg fill="none" stroke="currentColor" stroke-width="1.8" viewbox="0 0 24 24">
+<rect height="16" rx="2" width="12" x="7" y="3"></rect>
+<path d="M4 7v13a2 2 0 0 0 2 2h10M10 8h6M10 12h6"></path>
+</svg>
+<span class="avi-nav-label">Connection Files</span>
+</button>
+</nav>
+<div class="avi-side-divider"><span>HERRAMIENTAS</span></div>
+<nav aria-label="Herramientas" class="avi-nav-links">
+<button class="avi-nav-entry" data-avi-nav="buscar" title="Buscador web" type="button">
+<svg fill="none" stroke="currentColor" stroke-width="1.8" viewbox="0 0 24 24">
+<circle cx="11" cy="11" r="7"></circle>
+<path d="m16 16 5 5"></path>
+</svg>
+<span class="avi-nav-label">Buscador web</span>
+</button>
+<button class="avi-nav-entry" data-avi-nav="avi" title="Asistente AVI" type="button">
+<svg fill="none" stroke="currentColor" stroke-width="1.8" viewbox="0 0 24 24">
+<path d="m12 2 2.1 6.1L20 10l-5.9 2.1L12 18l-2.1-5.9L4 10l5.9-1.9L12 2Z"></path>
+</svg>
+<span class="avi-nav-label">Asistente AVI</span>
+</button>
+<button class="avi-nav-entry" data-avi-nav="ajustes" title="Configuración" type="button">
+<svg fill="none" stroke="currentColor" stroke-width="1.8" viewbox="0 0 24 24">
+<path d="M12 3v2m0 14v2m9-9h-2M5 12H3m15.4-6.4-1.5 1.5M7.1 16.9l-1.5 1.5m12.8 0-1.5-1.5M7.1 7.1 5.6 5.6"></path>
+<circle cx="12" cy="12" r="4"></circle>
+</svg>
+<span class="avi-nav-label">Configuración</span>
+</button>
+</nav>
+</div>
+<div class="avi-side-bottom">
+<div aria-label="Hora y fecha local" class="clock" role="timer">
+<time id="clockTime">--:--</time>
+<span id="clockDate">--</span>
+</div>
+</div>
+</aside>
+<!-- Isla Superior de Navegación del Ecosistema -->
+<nav aria-hidden="true" aria-label="Ecosistema AVI CONNECTION" class="portfolio-island" id="portfolioIsland">
+<div class="portfolio-island__items">
+<a data-eco-action="pay" href="#avi-pay">AVI PAY</a>
+<a data-eco-action="news" href="#avi-news">AVI NEWS</a>
+<a data-eco-app="avi-resort" href="#avi-resort">AVI RESORT</a>
+<a data-eco-app="avi-horizons" href="#avi-horizons">AVI HORIZONS</a>
+<a data-eco-app="avi-shop" href="#avi-shop">AVI SHOP</a>
+<a data-eco-app="avi-labs" href="#avi-labs">AVI LABS</a>
+</div>
+</nav>
+<!-- Acciones Rápidas Arriba a la Derecha -->
+<nav aria-label="Acciones rápidas" class="avi-top-actions">
+<button aria-label="Paleta de comandos" class="icon-btn" id="topSearchBtn" title="Paleta de comandos (Ctrl+K)" type="button">
+<svg viewbox="0 0 24 24">
+<circle cx="11" cy="11" r="7"></circle>
+<path d="m16 16 5 5"></path>
+</svg>
+</button>
+<button aria-label="Cuenta AVI" class="icon-btn" id="accountBtn" title="Cuenta AVI" type="button">
+<svg viewbox="0 0 24 24">
+<circle cx="12" cy="8" r="3.4"></circle>
+<path d="M5.2 20c.1-4 2.8-6.2 6.8-6.2s6.7 2.2 6.8 6.2"></path>
+</svg>
+</button>
+<button aria-label="Notificaciones" class="icon-btn" id="notificationsBtn" title="Notificaciones" type="button">
+<svg viewbox="0 0 24 24">
+<path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"></path>
+<path d="M10 21h4"></path>
+</svg>
+<span class="notifications-dot" hidden="" id="notificationsDot"></span>
+</button>
+<button aria-label="Configuración" class="icon-btn" id="settingsBtn" title="Configuración" type="button">
+<svg viewbox="0 0 24 24">
+<circle cx="12" cy="12" r="3.2"></circle>
+<path d="M12 2v2.5M12 19.5V22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M2 12h2.5M19.5 12H22M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8"></path>
+</svg>
+</button>
+<button aria-label="Pantalla completa" class="icon-btn" id="fullscreenBtn" title="Pantalla completa" type="button">
+<svg viewbox="0 0 24 24">
+<path d="M8 4H4v4M16 4h4v4M4 16v4h4m12-4v4h-4"></path>
+</svg>
+</button>
+</nav>
+<!-- ÁREA PRINCIPAL CON SCROLL -->
+<div class="avi-dashboard-main" id="aviDashboardMain">
+<main class="avi-dashboard-hub" id="hub">
+<!-- ==================================================================
+             VISTA 1: INICIO (avi8-home)
+             ================================================================== -->
+<section aria-labelledby="aviHomeTitle" class="avi-view" data-view="inicio" id="viewInicio">
+<!-- Hero Institucional -->
+<section class="glass-panel hero-card">
+<div>
+<span class="kicker" id="aviWelcomeKicker">BIENVENIDO A AVI CONNECTION</span>
+<h1 id="aviHomeTitle">Donde conectamos ideas <em>para crear realidades.</em></h1>
+<p>Somos un ecosistema tecnológico nacido en el Perú. Transformamos desafíos cotidianos en oportunidades
+                para aprender, emprender, crear e investigar.</p>
+<div class="avi-inline-609ef9297d">
+<button class="btn-primary" data-goto-view="suite" type="button">Explorar Connection Suite ↗</button>
+<button class="btn-ghost" id="heroCmdBtn" type="button">Buscar comando (Ctrl+K)</button>
+</div>
+</div>
+<div aria-hidden="true" class="hero-mark">
+<svg viewbox="0 0 100 100">
+<path d="M9 86 L50 14 L91 86 L76 86 L50 41 L24 86 Z" fill="currentColor"></path>
+<circle cx="50" cy="70" fill="currentColor" r="6.5"></circle>
+</svg>
+</div>
+</section>
+<!-- Misión y Visión -->
+<section aria-label="Misión y visión" class="values-grid">
+<article class="glass-panel">
+<div class="value-title"><span aria-hidden="true">◎</span>
+<h2>Misión</h2>
+</div>
+<p>Crear soluciones tecnológicas accesibles y útiles que ayuden a las personas a aprender, emprender,
+                comunicarse y trabajar mejor, impulsando la creatividad y la innovación desde el Perú.</p>
+</article>
+<article class="glass-panel">
+<div class="value-title"><span aria-hidden="true">✧</span>
+<h2>Visión</h2>
+</div>
+<p>Convertirnos en un ecosistema peruano de innovación reconocido por desarrollar ideas originales y
+                responsables que generen un impacto positivo y duradero en la sociedad.</p>
+</article>
+</section>
+<!-- Continuar donde lo dejaste -->
+<section class="glass-panel" hidden="" id="recentSection">
+<div class="section-head">
+<div>
+<span class="kicker">TU ESPACIO, A TU RITMO</span>
+<h2>Continuar donde lo dejaste</h2>
+<p>Accede de nuevo a tus últimas actividades guardadas en este navegador.</p>
+</div>
+<button class="btn-ghost" id="clearRecentBtn" type="button">Borrar historial</button>
+</div>
+<div class="recent-grid" id="recentGrid"></div>
+</section>
+<!-- AVI NEWS -->
+<section aria-labelledby="newsHeading" class="glass-panel" id="aviNewsSection">
+<div class="section-head">
+<div>
+<span class="kicker">ACTUALIDAD EN UN SOLO LUGAR</span>
+<h2 id="newsHeading">AVI <em>NEWS</em></h2>
+<p>Dos noticias del Perú y dos del mundo, con vista rápida de lectura integrada.</p>
+</div>
+<button class="btn-ghost" id="refreshNewsBtn" type="button">↻ Actualizar</button>
+</div>
+<div aria-live="polite" class="news-grid" id="newsGrid"></div>
+<div class="avi-inline-c83731a98f">
+<span id="newsStatus">Consultando fuentes de noticias…</span>
+<span>Haz clic en cualquier titular para abrir la lectura rápida.</span>
+</div>
+</section>
+<!-- Orientador por Objetivos -->
+<section aria-labelledby="goalsHeading" class="glass-panel" id="aviGoalsSection">
+<div class="section-head">
+<div>
+<span class="kicker">TU SIGUIENTE PASO</span>
+<h2 id="goalsHeading">¿Qué quieres hacer hoy?</h2>
+<p>Elige un objetivo y descubre por dónde comenzar dentro del ecosistema.</p>
+</div>
+</div>
+<div aria-label="Objetivos" class="goals-grid" role="group">
+<button class="goal-btn" data-goal="emprender" type="button"><span class="goal-icon">◈</span><strong>Emprender</strong><small class="avi-inline-57f9e31d78">Haz crecer una
+                  idea</small></button>
+<button class="goal-btn" data-goal="aprender" type="button"><span class="goal-icon">▤</span><strong>Aprender</strong><small class="avi-inline-57f9e31d78">Explora
+                  habilidades</small></button>
+<button class="goal-btn" data-goal="crear" type="button"><span class="goal-icon">✳</span><strong>Crear</strong><small class="avi-inline-57f9e31d78">Diseña tu
+                  proyecto</small></button>
+<button class="goal-btn" data-goal="investigar" type="button"><span class="goal-icon">⌁</span><strong>Investigar</strong><small class="avi-inline-57f9e31d78">Ciencia y
+                  espacio</small></button>
+<button class="goal-btn" data-goal="organizar" type="button"><span class="goal-icon">▦</span><strong>Organizar</strong><small class="avi-inline-57f9e31d78">Cuida tus
+                  archivos</small></button>
+</div>
+<div aria-live="polite" class="goal-result" hidden="" id="goalResult">
+<div>
+<span class="kicker">RUTA SUGERIDA</span>
+<h3 class="avi-inline-60946a2f75" id="goalResultTitle"></h3>
+<p class="avi-inline-758416d880" id="goalResultText"></p>
+</div>
+<button class="btn-primary" id="goalActionBtn" type="button">Ir ahora ↗</button>
+</div>
+</section>
+<!-- HERRAMIENTAS DE PRODUCTIVIDAD (WIDGETS) -->
+<section aria-labelledby="prodHeading" class="glass-panel" id="aviProductivitySection">
+<div class="section-head">
+<div>
+<span class="kicker">ENFOQUE Y ORGANIZACIÓN</span>
+<h2 id="prodHeading">Herramientas Operativas</h2>
+<p>Potencia tu flujo de trabajo sin salir del ecosistema AVI.</p>
+</div>
+</div>
+<div class="avi-inline-5379808864">
+<!-- Reloj Pomodoro -->
+<div class="avi-inline-a2f2006cda">
+<h3 class="avi-inline-e98cd8fe01">◷
+                  Focus Timer</h3>
+<div class="avi-inline-2100dca0ad" id="pomodoroDisplay">
+                  25:00</div>
+<div class="avi-inline-91475ac2c7">
+<button class="btn-primary avi-inline-ee3d55bf99" id="pomoToggleBtn" type="button">Iniciar</button>
+<button class="btn-ghost avi-inline-ee3d55bf99" id="pomoResetBtn" type="button">Reiniciar</button>
+</div>
+</div>
+<!-- Bloc de Notas -->
+<div class="avi-inline-6d9539ce5d">
+<div class="avi-inline-1a323d88b5">
+<h3 class="avi-inline-abe48c027d">✎ Bloc Rápido</h3>
+<small class="avi-inline-b751abdc15" id="notepadStatus">Guardado local</small>
+</div>
+<textarea class="input-field avi-inline-fb8c6678f9" id="aviNotepad" placeholder="Apunta tus ideas aquí... se guardarán automáticamente."></textarea>
+</div>
+<!-- Sonidos Ambientales -->
+<div class="avi-inline-6d9539ce5d">
+<h3 class="avi-inline-57aebeb1bb">♪ Atmósfera Activa</h3>
+<div class="avi-inline-e2afe434b5">
+<button class="btn-ghost ambient-btn avi-inline-7eb60b47f4" data-sound="rain" type="button">🌧 Lluvia Constante</button>
+<button class="btn-ghost ambient-btn avi-inline-7eb60b47f4" data-sound="waves" type="button">🌊 Olas del Mar</button>
+<button class="btn-ghost ambient-btn avi-inline-7eb60b47f4" data-sound="white" type="button">🌫 Ruido Blanco</button>
+<button class="btn-ghost ambient-btn avi-inline-73e2904fed" data-sound="stop" type="button">⏹ Detener
+                    Audio</button>
+</div>
+</div>
+</div>
+</section>
+<!-- PERÚ 2035 -->
+<section aria-labelledby="futureHeading" class="glass-panel" id="aviFutureSection">
+<div class="section-head">
+<div>
+<span class="kicker">IMAGINAR PARA TRANSFORMAR</span>
+<h2 id="futureHeading">PERÚ <em>2035</em></h2>
+<p>Retos nacionales que inspiran soluciones tecnológicas desde hoy.</p>
+</div>
+</div>
+<div class="split-layout">
+<div aria-label="Desafíos Perú 2035" class="challenge-list" role="group">
+<button class="challenge-btn is-selected" data-challenge="educacion" type="button"><span class="kicker">01</span><strong>Educación accesible</strong><span class="avi-inline-6d00061700">↗</span></button>
+<button class="challenge-btn" data-challenge="conectividad" type="button"><span class="kicker">02</span><strong>Conectividad digital</strong><span class="avi-inline-6d00061700">↗</span></button>
+<button class="challenge-btn" data-challenge="servicios" type="button"><span class="kicker">03</span><strong>Servicios más simples</strong><span class="avi-inline-6d00061700">↗</span></button>
+</div>
+<div aria-live="polite" class="challenge-detail">
+<span class="kicker">OPORTUNIDAD DE INNOVACIÓN</span>
+<h3 class="avi-inline-c2dba45ace" id="challengeTitle">Aprender sin barreras</h3>
+<p class="avi-inline-5e33da7ce8" id="challengeDesc">Explorar herramientas
+                  educativas que se adapten a diferentes ritmos, dispositivos y contextos de acceso en todo el país.</p>
+</div>
+</div>
+</section>
+<!-- AVI IDEAS -->
+<section aria-labelledby="ideasHeading" class="glass-panel" id="aviIdeasSection">
+<div class="section-head">
+<div>
+<span class="kicker">PARTICIPACIÓN</span>
+<h2 id="ideasHeading">AVI <em>IDEAS</em></h2>
+<p>Describe un desafío cotidiano o una propuesta. Se guarda localmente en tu navegador.</p>
+</div>
+</div>
+<div class="split-layout">
+<div>
+<h3 class="avi-inline-f06aec1133">¿Qué problema te gustaría resolver?</h3>
+<p class="avi-inline-dd12cbd4c2">Tus apuntes e ideas permanecen de forma privada en este
+                  dispositivo mediante almacenamiento local.</p>
+</div>
+<form class="ideas-form" id="ideasForm">
+<input class="input-field" id="ideaTitle" maxlength="90" placeholder="Título de tu idea (ej. Clases virtuales ligeras)" required=""/>
+<textarea class="input-field" id="ideaText" maxlength="600" placeholder="¿Qué sucede y cómo podríamos mejorarlo?" required="" rows="3"></textarea>
+<div class="avi-inline-6b5f047e53">
+<small class="avi-inline-57f9e31d78" id="ideaStatus">Almacenado en este navegador.</small>
+<button class="btn-primary" type="submit">Guardar mi idea</button>
+</div>
+</form>
+</div>
+<div class="ideas-saved-grid" hidden="" id="ideasSavedGrid"></div>
+</section>
+<!-- AVI INSIGHTS -->
+<section aria-labelledby="insightsHeading" class="glass-panel" id="aviInsightsSection">
+<div class="section-head">
+<div>
+<span class="kicker">CONOCIMIENTO</span>
+<h2 id="insightsHeading">AVI <em>INSIGHTS</em></h2>
+<p>Reflexiones para entender la tecnología y utilizarla con criterio.</p>
+</div>
+</div>
+<div class="insights-grid">
+<article class="insight-card">
+<span class="kicker">INTELIGENCIA ARTIFICIAL</span>
+<h3 class="avi-inline-60946a2f75">Más allá de usar IA</h3>
+<p class="avi-inline-c58c05e0fc">La verdadera innovación empieza por
+                  comprender qué problema humano merece resolverse.</p>
+<button class="btn-ghost avi-inline-4a9d68981f" data-insight="ia" type="button">Leer reflexión ↗</button>
+</article>
+<article class="insight-card">
+<span class="kicker">SEGURIDAD DIGITAL</span>
+<h3 class="avi-inline-60946a2f75">Tu información también vale</h3>
+<p class="avi-inline-c58c05e0fc">Hábitos sencillos para proteger tus
+                  cuentas, archivos y proyectos en un entorno conectado.</p>
+<button class="btn-ghost avi-inline-4a9d68981f" data-insight="seguridad" type="button">Leer reflexión ↗</button>
+</article>
+<article class="insight-card">
+<span class="kicker">CIENCIA Y FUTURO</span>
+<h3 class="avi-inline-60946a2f75">Investigar es preguntar mejor</h3>
+<p class="avi-inline-c58c05e0fc">Cómo convertir la curiosidad científica
+                  en un experimento que pueda ponerse a prueba.</p>
+<button class="btn-ghost avi-inline-4a9d68981f" data-insight="ciencia" type="button">Leer reflexión ↗</button>
+</article>
+</div>
+</section>
+</section>
+<!-- ==================================================================
+             VISTA 2: CONNECTION SUITE
+             ================================================================== -->
+<section aria-labelledby="suiteHeading" class="avi-view" data-view="suite" hidden="" id="viewSuite">
+<div class="glass-panel">
+<div class="section-head">
+<div>
+<span class="kicker">ECOSISTEMA Y ACCESOS PERSONALES</span>
+<h1 id="suiteHeading">CONNECTION <em>SUITE</em></h1>
+<p>Explora las plataformas oficiales de AVI CONNECTION o añade tus aplicaciones web favoritas.</p>
+</div>
+<button class="btn-primary" id="openCatalogBtn" type="button">+ Catálogo de aplicaciones</button>
+</div>
+<div class="suite-searchbar" role="search">
+<svg fill="none" height="20" stroke="currentColor" stroke-width="1.8" viewbox="0 0 24 24" width="20">
+<circle cx="11" cy="11" r="7"></circle>
+<path d="m16 16 5 5"></path>
+</svg>
+<label class="sr-only" for="suiteSearchInput">Buscar o añadir aplicación</label>
+<input autocomplete="off" id="suiteSearchInput" placeholder="Filtra tus apps o busca servicios populares (ej. Notion, Figma, GitHub, Spotify)..." type="search"/>
+<button class="btn-ghost avi-inline-4c82ac38f7" hidden="" id="suiteSearchClear" type="button">✕</button>
+</div>
+<div aria-live="polite" class="suite-QuickAdd" hidden="" id="suiteQuickAdd"></div>
+<div aria-label="Aplicaciones de CONNECTION SUITE" class="apps-grid" id="appsRibbon" role="group"></div>
+</div>
+</section>
+<!-- ==================================================================
+             VISTA 3: CONNECTION FILES
+             ================================================================== -->
+<section aria-labelledby="filesHeading" class="avi-view" data-view="proyectos" hidden="" id="viewProyectos">
+<div class="glass-panel">
+<div class="section-head">
+<div>
+<span class="kicker">ALMACENAMIENTO LOCAL EN INDEXEDDB</span>
+<h1 id="filesHeading">CONNECTION <em>FILES</em></h1>
+<p>Organiza carpetas y archivos directamente en tu navegador sin enviarlos a servidores externos.</p>
+</div>
+<div class="files-tabs" role="tablist">
+<button class="btn-ghost is-current" data-file-tab="mine" type="button">Mi unidad</button>
+<button class="btn-ghost" data-file-tab="recent" type="button">Recientes</button>
+<button class="btn-ghost" data-file-tab="orders" type="button">Pedidos</button>
+</div>
+</div>
+<div class="files-toolbar" id="filesToolbar">
+<button class="btn-primary" id="createFolderBtn" type="button">+ Nueva carpeta</button>
+<button class="btn-ghost" id="uploadFileBtn" type="button">↑ Subir archivos</button>
+<input hidden="" id="hiddenFileInput" multiple="" type="file"/>
+<input class="input-field avi-inline-c5a73f72a7" id="fileSearchInput" placeholder="Buscar archivo o carpeta..." type="search"/>
+<button class="btn-ghost" id="toggleFileViewBtn" title="Alternar cuadrícula o lista" type="button">☷
+                Vista</button>
+</div>
+<div class="avi-inline-80debc6b73" id="fileBreadcrumbs">
+</div>
+<div class="files-dropzone" id="filesDropzone">
+<div class="avi-inline-b16e70954a" id="filesStatusText">Arrastra archivos aquí o usa los
+                botones superiores.</div>
+<div class="files-grid" id="filesGrid"></div>
+</div>
+</div>
+</section>
+</main>
+</div>
+</div>
+<!-- ========================================================================
+       3. MODALES Y PANELES LATERALES
+       ======================================================================== -->
+<!-- Modal Lectura Rápida AVI NEWS -->
+<dialog aria-labelledby="newsModalTitle" class="avi-modal" id="newsDialog">
+<div class="modal-header">
+<span class="kicker" id="newsModalRegion">AVI NEWS · LECTURA RÁPIDA</span>
+<button class="btn-ghost avi-inline-dfb97ac67c" id="closeNewsModal" type="button">✕</button>
+</div>
+<div class="modal-body">
+<div class="news-cover avi-inline-3e2ca8c26e" id="newsModalCover">
+</div>
+<small class="avi-inline-3fff256fcf" id="newsModalMeta"></small>
+<h2 class="avi-inline-44b98e5f9f" id="newsModalTitle"></h2>
+<p class="avi-inline-d73ec05b7b" id="newsModalExcerpt"></p>
+<div class="avi-inline-2c5f9ea1dc">
+<div class="avi-inline-27231daefd">
+<button class="btn-ghost" id="prevNewsBtn" type="button">‹ Anterior</button>
+<span class="avi-inline-b16e70954a" id="newsPagerLabel">1 / 4</span>
+<button class="btn-ghost" id="nextNewsBtn" type="button">Siguiente ›</button>
+</div>
+<div class="avi-inline-50ad9d12ae">
+<button class="btn-ghost" id="copyNewsLinkBtn" type="button">Copiar enlace</button>
+<a class="btn-primary" href="https://rpp.pe" id="newsOriginalLink" rel="noopener noreferrer" target="_blank">Fuente original ↗</a>
+</div>
+</div>
+</div>
+</dialog>
+<!-- Modal AVI INSIGHTS -->
+<dialog aria-labelledby="insightModalTitle" class="avi-modal" id="insightDialog">
+<div class="modal-header">
+<span class="kicker">AVI INSIGHTS · REFLEXIÓN</span>
+<button class="btn-ghost avi-inline-dfb97ac67c" id="closeInsightModal" type="button">✕</button>
+</div>
+<div class="modal-body">
+<h2 class="avi-inline-8754d15d7b" id="insightModalTitle"></h2>
+<div class="avi-inline-39f6152f2c" id="insightModalContent"></div>
+</div>
+</dialog>
+<!-- Modal Vista Previa de Aplicación Oficial -->
+<dialog aria-labelledby="previewAppTitle" class="avi-modal" id="appPreviewDialog">
+<div class="modal-header">
+<span class="kicker">CONNECTION SUITE · PLATAFORMA</span>
+<button class="btn-ghost avi-inline-dfb97ac67c" id="closePreviewModal" type="button">✕</button>
+</div>
+<div class="modal-body">
+<div class="avi-inline-b905b72451">
+<div class="avi-inline-f68e911197" id="previewAppIcon">
+</div>
+<div>
+<span class="kicker" id="previewAppTag">MÓDULO</span>
+<h2 class="avi-inline-f59825bd6d" id="previewAppTitle"></h2>
+</div>
+</div>
+<p class="avi-inline-a28cd1dd55" id="previewAppDesc"></p>
+<div class="avi-inline-72251e6ec4" id="previewAppAreas">
+</div>
+<div class="avi-inline-a97892dd72">
+<button class="btn-ghost" id="previewCancelBtn" type="button">Volver</button>
+<a class="btn-primary" href="#" id="previewOpenLink">Abrir plataforma ↗</a>
+</div>
+</div>
+</dialog>
+<!-- Modal a Pantalla Completa: Catálogo de Aplicaciones (#aviAddDialog) -->
+<dialog aria-labelledby="catalogTitle" class="avi-modal avi-modal--fullscreen" id="aviAddDialog">
+<div class="modal-header">
+<div>
+<span class="kicker">CONNECTION SUITE · PERSONALIZACIÓN</span>
+<h2 class="avi-inline-4a32e09715" id="catalogTitle">Catálogo de Aplicaciones</h2>
+</div>
+<button class="btn-ghost" id="closeCatalogModal" type="button">Cerrar ✕</button>
+</div>
+<div class="modal-fullscreen-inner">
+<p class="avi-inline-b6afdddc11">Haz clic en cualquier servicio para añadirlo o quitarlo de tu
+        CONNECTION SUITE. Los accesos se guardan en este navegador.</p>
+<div class="app-catalog-grid" id="catalogGrid"></div>
+<form class="glass-panel avi-inline-ace910b27e" id="customShortcutForm">
+<span class="kicker">ENLACE HTTPS PERSONALIZADO</span>
+<h3 class="avi-inline-ec5f48048f">Añadir cualquier sitio web</h3>
+<div class="avi-inline-300ec813d5">
+<input class="input-field" id="customAppName" maxlength="24" placeholder="Nombre (ej. Mi Portal)" required=""/>
+<input class="input-field" id="customAppUrl" placeholder="https://ejemplo.com" required="" type="url"/>
+</div>
+<button class="btn-primary" type="submit">+ Agregar a Connection Suite</button>
+</form>
+</div>
+</dialog>
+<!-- Modal a Pantalla Completa: Buscador Web Integrado (#aviWebDialog) -->
+<dialog aria-labelledby="webSearchTitle" class="avi-modal avi-modal--fullscreen" id="aviWebDialog">
+<div class="modal-header">
+<div>
+<span class="kicker">CONOCIMIENTO ABIERTO · WIKIPEDIA ES</span>
+<h2 class="avi-inline-4a32e09715" id="webSearchTitle">Buscador Web Integrado</h2>
+</div>
+<button class="btn-ghost" id="closeWebModal" type="button">Cerrar ✕</button>
+</div>
+<div class="modal-fullscreen-inner">
+<form class="avi-inline-06528c5209" id="webSearchForm">
+<input class="input-field" id="webSearchInput" placeholder="Investiga cualquier concepto científico, histórico o tecnológico sin salir de AVI..." required="" type="search"/>
+<button class="btn-primary" type="submit">Buscar ↗</button>
+</form>
+<div class="glass-panel avi-inline-c8da3d02c6" hidden="" id="webReaderBox">
+<button class="btn-ghost avi-inline-3ef1fa1aa1" id="webReaderBackBtn" type="button">← Volver a
+          resultados</button>
+<h3 class="avi-inline-a48a690b4f" id="webReaderTitle"></h3>
+<p class="avi-inline-6abcd9e466" id="webReaderExtract"></p>
+</div>
+<div class="avi-inline-433580404d" id="webResultsGrid"></div>
+</div>
+</dialog>
+<!-- Modal Paleta de Comandos (Ctrl+K) -->
+<dialog aria-label="Paleta de comandos" class="avi-modal" id="commandDialog">
+<div class="modal-header">
+<span class="kicker">NAVEGACIÓN RÁPIDA · CTRL + K</span>
+<button class="btn-ghost avi-inline-dfb97ac67c" id="closeCommandModal" type="button">ESC</button>
+</div>
+<div class="modal-body">
+<input autocomplete="off" class="input-field avi-inline-a82d7062cc" id="commandInput" placeholder="Escribe una sección, aplicación o tema (ej. PIXAVI, Archivos, Aurora, Clima)..." type="search"/>
+<div class="avi-inline-e77f49cf14" id="commandList">
+</div>
+</div>
+</dialog>
+<!-- Panel Lateral: Configuración (#settingsLayer) -->
+<div class="side-drawer" hidden="" id="settingsLayer">
+<div class="side-drawer__backdrop" data-close-drawer="settingsLayer"></div>
+<aside aria-labelledby="settingsDrawerTitle" aria-modal="true" class="side-drawer__panel" role="dialog">
+<div class="modal-header">
+<div>
+<span class="kicker">EXPERIENCE 9.1</span>
+<h2 class="avi-inline-b4fdd3fee0" id="settingsDrawerTitle">Configuración</h2>
+</div>
+<button class="btn-ghost" data-close-drawer="settingsLayer" type="button">✕</button>
+</div>
+<div class="drawer-scroll">
+<!-- 1. Temas -->
+<span class="kicker">01 · TEMAS VISUALES (33 ESTILOS)</span>
+<div class="theme-grid" id="settingsThemeGrid"></div>
+<label class="avi-inline-7aa8d42a72">
+<span>Tema automático según la hora</span>
+<input id="prefAutoTheme" type="checkbox"/>
+</label>
+<hr class="avi-inline-53ce9d0a0f"/>
+<!-- 2. Fondo Personalizado -->
+<span class="kicker">02 · FONDO MULTIMEDIA</span>
+<p class="avi-inline-694b1ba60b">Sube una imagen o video MP4 desde tu
+          dispositivo o usa una URL externa.</p>
+<div class="avi-inline-db398af518">
+<button class="btn-primary" id="bgUploadTrigger" type="button">Subir imagen / video</button>
+<button class="btn-ghost" id="bgResetTrigger" type="button">Fondo original</button>
+<input accept="image/*,video/mp4,video/webm" hidden="" id="bgFileInput" type="file"/>
+</div>
+<div class="avi-inline-b95ddaa4d0">
+<input class="input-field" id="bgUrlInput" placeholder="URL MP4 o YouTube..." type="url"/>
+<button class="btn-ghost" id="bgUrlApply" type="button">Aplicar</button>
+</div>
+<hr class="avi-inline-53ce9d0a0f"/>
+<!-- 3. Clima Inteligente -->
+<span class="kicker">03 · CONNECTION EXPERIENCE (CLIMA)</span>
+<div class="avi-inline-20b532df09">
+<label class="avi-inline-e71ae94b55">Ciudad (Open-Meteo)
+            <select class="input-field avi-inline-a3a5568692" id="prefWxCity">
+<option value="Cusco">Cusco</option>
+<option value="Lima">Lima</option>
+<option value="Arequipa">Arequipa</option>
+<option value="Trujillo">Trujillo</option>
+<option value="Piura">Piura</option>
+<option value="Puno">Puno</option>
+<option value="Iquitos">Iquitos</option>
+</select>
+</label>
+<label class="avi-inline-e71ae94b55">Simulación climática
+            <select class="input-field avi-inline-a3a5568692" id="prefWxSim">
+<option value="real">Clima real en vivo</option>
+<option value="sun">☀ Soleado</option>
+<option value="rain">🌧 Lluvia</option>
+<option value="storm">⛈ Tormenta</option>
+<option value="snow">❄ Nieve</option>
+<option value="night">🌙 Noche</option>
+<option value="off">✕ Desactivado</option>
+</select>
+</label>
+</div>
+<hr class="avi-inline-53ce9d0a0f"/>
+<!-- 4. Partículas -->
+<span class="kicker">04 · PARTÍCULAS INTERACTIVAS</span>
+<div class="avi-inline-20b532df09">
+<label class="avi-inline-e71ae94b55">Diseño
+            <select class="input-field avi-inline-a3a5568692" id="prefParticleStyle">
+<option value="stars">Polvo estelar</option>
+<option value="network">Constelaciones</option>
+<option value="meteor">Meteoros</option>
+<option value="crystal">Cristales</option>
+<option value="organic">Orgánicas</option>
+</select>
+</label>
+<label class="avi-inline-e71ae94b55">Densidad
+            <input class="avi-inline-b0c79c7ade" id="prefParticleDensity" max="100" min="10" type="range" value="55"/>
+</label>
+</div>
+<hr class="avi-inline-53ce9d0a0f"/>
+<!-- 5. Interfaz y Accesibilidad -->
+<span class="kicker">05 · INTERFAZ Y ACCESIBILIDAD</span>
+<div class="avi-inline-20b532df09">
+<label class="avi-inline-e71ae94b55">Fuente
+            <select class="input-field avi-inline-a3a5568692" id="prefFont">
+<option value="Inter">Inter</option>
+<option value="Montserrat">Montserrat</option>
+<option value="Poppins">Poppins</option>
+<option value="Orbitron">Orbitron</option>
+<option value="Roboto">Roboto</option>
+</select>
+</label>
+<label class="avi-inline-e71ae94b55">Estilo del Sidebar
+            <select class="input-field avi-inline-a3a5568692" id="prefSideStyle">
+<option value="glass">Cristal oscuro</option>
+<option value="solid">Sólido</option>
+<option value="outline">Minimalista</option>
+</select>
+</label>
+<label class="avi-inline-e71ae94b55">Opacidad de paneles
+            <input class="avi-inline-0da2141e50" id="prefPanelOpacity" max="98" min="40" type="range" value="82"/>
+</label>
+<label class="avi-inline-e71ae94b55">Escala de texto
+            <input class="avi-inline-0da2141e50" id="prefTextScale" max="125" min="88" type="range" value="100"/>
+</label>
+</div>
+<div class="avi-inline-720bf40688">
+<label class="avi-inline-d6e5fed808"><span>Contraste elevado</span><input id="prefHighContrast" type="checkbox"/></label>
+<label class="avi-inline-d6e5fed808"><span>Reducir animaciones</span><input id="prefReducedMotion" type="checkbox"/></label>
+</div>
+<hr class="avi-inline-53ce9d0a0f"/>
+<!-- 6. Perfil y Contenido -->
+<span class="kicker">06 · PERFIL Y CONTENIDO</span>
+<div class="avi-inline-ffde739058">
+<label class="avi-inline-e71ae94b55">Tu Nombre
+            <input class="input-field avi-inline-a3a5568692" id="prefUserName" placeholder="Ej. Alex" type="text"/>
+</label>
+<label class="avi-inline-e71ae94b55">URL de Avatar
+            <input class="input-field avi-inline-a3a5568692" id="prefAvatarUrl" placeholder="https://..." type="url"/>
+</label>
+<div class="avi-inline-8af92b8f75">
+<span>Color de Acento (Neon)</span>
+<div class="avi-inline-c5f72a8bf3">
+<input class="avi-inline-81b21a5ed7" id="prefCustomAccent" type="color"/>
+<button class="btn-ghost avi-inline-42438ced32" id="prefCustomAccentClear" type="button">Restablecer</button>
+</div>
+</div>
+</div>
+<div class="avi-inline-720bf40688">
+<label class="avi-inline-d6e5fed808"><span>Mostrar AVI NEWS</span><input id="prefShowNews" type="checkbox"/></label>
+<label class="avi-inline-d6e5fed808"><span>Mostrar Objetivos</span><input id="prefShowGoals" type="checkbox"/></label>
+<label class="avi-inline-d6e5fed808"><span>Mostrar Perú 2035</span><input id="prefShowFuture" type="checkbox"/></label>
+<label class="avi-inline-d6e5fed808"><span>Mostrar AVI IDEAS</span><input id="prefShowIdeas" type="checkbox"/></label>
+<label class="avi-inline-d6e5fed808"><span>Mostrar AVI INSIGHTS</span><input id="prefShowInsights" type="checkbox"/></label>
+</div>
+</div>
+</aside>
+</div>
+<!-- Panel Lateral: Asistente AVI (#avi9Agent) -->
+<div class="side-drawer" hidden="" id="avi9Agent">
+<div class="side-drawer__backdrop" data-close-drawer="avi9Agent"></div>
+<aside aria-labelledby="aviAgentTitle" aria-modal="true" class="side-drawer__panel" role="dialog">
+<div class="modal-header">
+<div class="avi-inline-ea96bdd3a7">
+<span class="avi-inline-8a9d3446e4">✧</span>
+<div>
+<span class="kicker">ASISTENTE INTERACTIVO</span>
+<h2 class="avi-inline-fbb760c13a" id="aviAgentTitle">AVI</h2>
+</div>
+</div>
+<button class="btn-ghost" data-close-drawer="avi9Agent" type="button">✕</button>
+</div>
+<div class="drawer-scroll avi-inline-c73c0ad696" id="agentMessages">
+<div class="avi-inline-2f39b8d03e">
+          Hola, soy AVI. Puedo llevarte a cualquier módulo de CONNECTION SUITE, abrir tus archivos locales, cambiar el
+          tema visual o consultar el clima de tu ciudad.
+        </div>
+</div>
+<div class="avi-inline-fddc284b71">
+<button class="btn-ghost avi-inline-bff3066070" data-agent-chip="Abrir Connection Suite" type="button">Connection Suite</button>
+<button class="btn-ghost avi-inline-bff3066070" data-agent-chip="Abrir mis archivos" type="button">Mis Archivos</button>
+<button class="btn-ghost avi-inline-bff3066070" data-agent-chip="Aplicar tema Aurora" type="button">Tema Aurora</button>
+<button class="btn-ghost avi-inline-bff3066070" data-agent-chip="Consultar clima" type="button">Clima</button>
+</div>
+<form class="avi-inline-2cba5148e7" id="agentForm">
+<input autocomplete="off" class="input-field" id="agentInput" placeholder="Escribe un comando o consulta..." required=""/>
+<button class="btn-primary" type="submit">Enviar</button>
+</form>
+</aside>
+</div>
+<!-- Panel Lateral: Notificaciones (#notificationsLayer) -->
+<div class="side-drawer" hidden="" id="notificationsLayer">
+<div class="side-drawer__backdrop" data-close-drawer="notificationsLayer"></div>
+<aside aria-labelledby="notifTitle" aria-modal="true" class="side-drawer__panel" role="dialog">
+<div class="modal-header">
+<div>
+<span class="kicker">REGISTRO DE ACTIVIDAD</span>
+<h2 class="avi-inline-2d063841ee" id="notifTitle">Notificaciones</h2>
+</div>
+<button class="btn-ghost" data-close-drawer="notificationsLayer" type="button">✕</button>
+</div>
+<div class="drawer-scroll" id="notificationsList"></div>
+<div class="avi-inline-3fee4a40dc">
+<button class="btn-ghost avi-inline-cad980f4b7" id="clearNotifsBtn" type="button">Limpiar historial</button>
+</div>
+</aside>
+</div>
+<!-- Widget Flotante de Clima Abajo a la Derecha -->
+<button class="avi-weather-widget" id="weatherWidgetBtn" title="Haz clic para configurar el clima" type="button">
+<span class="avi-inline-f28ca72b88" id="wxWidgetIcon">⛅</span>
+<span class="avi-inline-c28bd948da">
+<strong class="avi-inline-e14cf2ddb2" id="wxWidgetTemp">-- °C</strong>
+<small class="avi-inline-67acabeb0f" id="wxWidgetCity">Cusco · Clima</small>
+</span>
+</button>
+<!-- Notificación Toast Inferior -->
+<div aria-live="polite" class="toast" id="toast" role="status"></div>
+<!-- ========================================================================
+       4. ARQUITECTURA JAVASCRIPT MODULAR Y AUTOCONTENIDA
+       ======================================================================== -->
+
+<script defer="True" src="./avi.js"></script></body>
+</html>
