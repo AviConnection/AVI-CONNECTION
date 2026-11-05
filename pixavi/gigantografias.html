@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#09050e">
+<title>Gigantografías — PIXAVI</title>
+<meta name="description" content="Gráficos y mensajes pensados para espacios grandes, exhibiciones y señalización visual.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<link rel="stylesheet" href="gigantografias.css">
+</head>
+<body>
+<div class="backing" aria-hidden="true"><div class="glow a"></div><div class="glow b"></div><div class="glow c"></div><div class="grain"></div></div>
+
+<!-- ============ A. ENCABEZADO ============ -->
+<header class="topbar">
+  <!-- Logo: ../assets/logo-pixavi.png (si cambias la ruta de tu logo, edítala aquí y en el pie de página) -->
+  <a class="brand" href="../index.html" aria-label="PIXAVI — ir a la página principal"><img alt="" src="../assets/logo-pixavi.png" onerror="this.style.display='none'"><span><span class="brand-word">PIXAVI</span><span class="brand-caption">BY AVI CONNECTION</span></span></a>
+  <nav class="nav-major" aria-label="Navegación principal">
+    <a class="active" href="../index.html">Servicios</a>
+    <a class="anchor" href="#caracteristicas">Características</a>
+    <a class="anchor" href="#opciones">Opciones</a>
+    <a class="anchor" href="#galeria">Galería</a>
+    <a class="anchor" href="#personalizar">Personalizar</a>
+  </nav>
+  <div class="top-actions">
+    <a class="back-btn" href="../index.html">← Volver a servicios</a>
+    <a class="round-btn" href="../index.html" aria-label="Página principal" title="Página principal"><svg viewBox="0 0 24 24"><path d="M3 11.5 12 4l9 7.5"/><path d="M5.5 10v10h13V10"/></svg></a>
+  </div>
+</header>
+
+<main>
+<!-- ============ B. PRESENTACIÓN DEL PRODUCTO ============ -->
+<section class="hero" id="inicio">
+  <div class="hero-copy reveal">
+    <div class="crumbs"><a href="../index.html">Inicio</a> / <a href="../index.html">Servicios</a> / <b>Gigantografías</b></div>
+    <div class="hero-kicker">GRAN FORMATO</div>
+    <h1>Ideas a <em>gran escala</em></h1>
+    <p class="lead">Gráficos y mensajes pensados para espacios grandes, exhibiciones y señalización visual.</p>
+    <div class="phrase">Ideas a gran escala</div>
+    <div class="hero-specs"><span>Gran formato</span><span>Señalización</span><span>Preparación de diseño</span></div>
+    <div class="hero-actions">
+      <a class="primary" href="#personalizar">PERSONALIZAR AHORA ↓</a>
+      <a class="secondary" href="#galeria">Ver galería</a>
+    </div>
+    <div class="live"><span class="live-dot"></span><span>DISEÑO · CREATIVIDAD · TECNOLOGÍA</span></div>
+  </div>
+
+  <!-- ===== 📷 IMAGEN PRINCIPAL =====
+       Para fijarla en el código: guarda tu foto en  gigantografias/img/gigantografia-principal.jpg
+       (la ruta se define en MAIN_IMAGE dentro de gigantografias.js).
+       Para probar sin tocar el código: botón «Cambiar imagen» (se guarda en el navegador). -->
+  <figure class="hero-media reveal" id="mainFrame">
+    <div class="frame"><img id="mainImage" alt="Gigantografías — imagen principal" decoding="async"></div>
+    <span class="badge" id="mainBadge">Vista referencial</span>
+    <span class="float-chip">PIXAVI · Impresos</span>
+    <figcaption class="media-tools">
+      <button type="button" class="mini-btn" id="mainPick">⇪ Cambiar imagen</button>
+      <button type="button" class="mini-btn danger" id="mainReset" hidden>↺ Quitar la mía</button>
+    </figcaption>
+    <input type="file" id="mainInput" accept="image/*" hidden>
+  </figure>
+</section>
+
+<!-- ============ C. CARACTERÍSTICAS ============ -->
+<section class="section" id="caracteristicas">
+  <div class="sec-head reveal">
+    <div><span class="tiny">Gigantografías</span><h2>Características del servicio</h2></div>
+    <p>Lo que incluye este servicio de PIXAVI.</p>
+  </div>
+  <div class="cards">
+    <article class="card reveal"><span class="num">01</span><div class="ico"><svg viewBox="0 0 24 24"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9z"/></svg></div><h3>Gran formato</h3></article>
+    <article class="card reveal"><span class="num">02</span><div class="ico"><svg viewBox="0 0 24 24"><path d="M4 7l8-4 8 4-8 4z"/><path d="M4 12l8 4 8-4"/><path d="M4 17l8 4 8-4"/></svg></div><h3>Señalización</h3></article>
+    <article class="card reveal"><span class="num">03</span><div class="ico"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="9" cy="9" r="1.6"/><path d="M21 16l-5-5-9 9"/></svg></div><h3>Preparación de diseño</h3></article>
+    <article class="card reveal"><span class="num">04</span><div class="ico"><svg viewBox="0 0 24 24"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/></svg></div><h3>Banners y piezas de gran formato</h3></article>
+    <article class="card reveal"><span class="num">05</span><div class="ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div><h3>Escalado de contenido visual</h3></article>
+    <article class="card reveal"><span class="num">06</span><div class="ico"><svg viewBox="0 0 24 24"><path d="M5 12l4.5 4.5L19 7"/></svg></div><h3>Revisión de proporciones y resolución</h3></article>
+  </div>
+</section>
+
+<!-- ============ D. ESPECIFICACIONES Y OPCIONES ============ -->
+<section class="section" id="opciones">
+  <div class="sec-head reveal">
+    <div><span class="tiny">Especificaciones</span><h2>Opciones disponibles</h2></div>
+    <p>Toca una opción para seleccionarla; se refleja en el configurador y en el resumen de tu pedido.</p>
+  </div>
+  <div class="cards" id="optGrid"><!-- generado por gigantografias.js a partir de FIELDS --></div>
+  <p class="hint">¿Ya elegiste? <a href="#personalizar" style="color:#f0c4fa">Ir al configurador ↓</a></p>
+</section>
+
+<!-- ============ E. GALERÍA DE IMÁGENES ============ -->
+<section class="section" id="galeria">
+  <div class="sec-head reveal">
+    <div><span class="tiny">Ejemplos</span><h2>Galería de gigantografías</h2></div>
+    <p>Toca una imagen para ampliarla. Puedes cambiar, eliminar o agregar tus propias fotografías.</p>
+  </div>
+  <div class="g-toolbar reveal">
+    <button type="button" class="primary" id="addPick">＋ Agregar imágenes</button>
+    <button type="button" class="secondary" id="galReset">↺ Restaurar predeterminadas</button>
+    <span class="hint">Se guardan en este navegador (sin servidor). También puedes arrastrar archivos aquí.</span>
+    <input type="file" id="addInput" accept="image/*" multiple hidden>
+    <input type="file" id="replaceInput" accept="image/*" hidden>
+  </div>
+  <!-- ===== 📷 GALERÍA =====
+       Las imágenes fijas se definen en DEFAULT_IMAGES (archivo gigantografias.js).
+       Guarda tus fotos en  gigantografias/img/  con esos nombres y listo. -->
+  <div class="gallery" id="gallery" aria-live="polite"></div>
+</section>
+
+<!-- ============ F. PERSONALIZACIÓN ============ -->
+<section class="section" id="personalizar">
+  <div class="sec-head reveal">
+    <div><span class="tiny">Configura tu pedido</span><h2>Personaliza tu pedido</h2></div>
+    <p>La vista previa y el resumen se actualizan en vivo con cada selección.</p>
+  </div>
+  <div class="config reveal">
+    <div class="config-head">
+      <div class="mark"><svg viewBox="0 0 24 24"><rect x="2" y="6" width="20" height="9" rx="1"/><path d="M6 15v6M18 15v6M5.5 9.5h13"/></svg></div>
+      <div><span class="tiny">Configura tu pedido</span><h2>Gigantografías</h2></div>
+    </div>
+    <div class="config-body">
+      <div class="preview-col">
+        <div class="stagebox" id="stagebox"></div>
+        <div class="preview-note">Vista previa referencial · se actualiza en vivo</div>
+        <ul class="sum-list" id="sumList" aria-label="Resumen de opciones seleccionadas"></ul>
+      </div>
+      <div class="fields-col" id="fields"></div>
+    </div>
+    <div class="config-foot">
+      <div class="sum"><b id="sumTitle"></b><span id="sumText"></span></div>
+      <a class="primary" href="#cotizar">CONTINUAR A COTIZACIÓN ↓</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ G. PARTE FINAL ============ -->
+<section class="section" id="cotizar">
+  <div class="cta reveal">
+    <div style="position:relative">
+      <span class="tiny">PIXAVI / SOLICITUD</span>
+      <h2>Solicita tu cotización</h2>
+      <p>Revisa el resumen, deja tus datos de contacto y envíalo por WhatsApp. Los precios y la disponibilidad se confirmarán antes de efectuar cualquier pago; no se realizará ningún cargo.</p>
+      <pre class="quote-text" id="quoteText" aria-label="Resumen que se enviará"></pre>
+    </div>
+    <div class="contact">
+      <div><label for="cName">Nombre de contacto</label><input id="cName" autocomplete="name" placeholder="Tu nombre"></div>
+      <div><label for="cPhone">Teléfono o correo</label><input id="cPhone" autocomplete="tel" placeholder="Para coordinar contigo"></div>
+      <button class="primary" id="sendBtn" type="button">SOLICITAR COTIZACIÓN POR WHATSAPP ↗</button>
+      <button class="secondary" id="copyBtn" type="button">Copiar resumen</button>
+      <a class="secondary" href="../index.html">← Volver a servicios</a>
+      <div class="smsg">Tus imágenes de la galería solo se guardan en este navegador y no se envían con la cotización; compártelas por el chat si las necesitas como referencia.</div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="footer">
+  <a class="brand" href="../index.html"><img alt="" src="../assets/logo-pixavi.png" onerror="this.style.display='none'"><span><span class="brand-word">PIXAVI</span><span class="brand-caption">BY AVI CONNECTION</span></span></a>
+  <p>CREAMOS IMPRESIONES QUE HACEN DESTACAR TUS IDEAS.</p>
+  <a class="flink" href="../index.html">← Volver a la página principal</a>
+</footer>
+
+<div class="toast" id="toast" role="status"></div>
+<script src="gigantografias.js"></script>
+</body>
+</html>

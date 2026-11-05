@@ -1,0 +1,2829 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta name="theme-color" content="#05030b" />
+  <meta name="description"
+    content="PIXAVI — Estudio creativo, producción gráfica y soluciones digitales de AVI CONNECTION." />
+  <title>PIXAVI — Estudio Creativo | AVI CONNECTION</title>
+  <link rel="icon" type="image/png" href="../assets/imagenes/pixavilogo.png" />
+  <link rel="apple-touch-icon" href="../assets/imagenes/pixavilogo.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@500;600;700;800&display=swap"
+    rel="stylesheet" />
+
+  <style>
+    /* ==========================================================================
+       1. NÚCLEO VISUAL REACTIVO AL PRODUCTO (60 FPS GPU-ACCELERATED)
+       ========================================================================== */
+    :root {
+      color-scheme: dark;
+      --bg-deep: #04030b;
+      --bg-Rich: #090612;
+      --ink: #f5f2fa;
+      --muted: #b8aed0;
+      --c1: #f45aad;
+      --c2: #7135df;
+      --stroke: rgba(255, 255, 255, 0.13);
+      --panel: rgba(17, 11, 29, 0.78);
+      --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+      --font-display: 'Outfit', 'Inter', sans-serif;
+      --sz: 1;
+      --ease-out: cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      width: 100%;
+      height: 100%;
+      background: var(--bg-deep);
+      color: var(--ink);
+      font-family: var(--font-sans);
+      font-size: calc(15px * var(--sz));
+      line-height: 1.55;
+      overflow: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body.high-contrast {
+      --ink: #ffffff;
+      --muted: #ede6ff;
+      --stroke: rgba(255, 255, 255, 0.45);
+      --panel: rgba(8, 5, 16, 0.94);
+    }
+
+    body.reduced-motion *,
+    body.reduced-motion *::before,
+    body.reduced-motion *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
+
+    button,
+    input,
+    select,
+    textarea {
+      font: inherit;
+      color: inherit;
+    }
+
+    button {
+      cursor: pointer;
+      background: none;
+      border: 0;
+      transition: transform 0.25s var(--ease-out), background 0.25s, border-color 0.25s, box-shadow 0.25s;
+    }
+
+    button:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+
+    button:focus-visible,
+    input:focus-visible,
+    select:focus-visible,
+    textarea:focus-visible {
+      outline: 2px solid var(--c1);
+      outline-offset: 3px;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    [hidden] {
+      display: none !important;
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+    }
+
+    /* ==========================================================================
+       2. ESCENA AMBIENTAL MULTICAPA Y DIRECCIÓN DE ARTE DINÁMICA
+       ========================================================================== */
+    #app {
+      position: fixed;
+      inset: 0;
+      overflow: hidden;
+      isolation: isolate;
+      background: var(--bg-deep);
+    }
+
+    .backing {
+      position: absolute;
+      inset: -2%;
+      z-index: -3;
+      background:
+        radial-gradient(ellipse 58% 55% at 72% 40%, color-mix(in srgb, var(--c1) 25%, transparent), transparent 70%),
+        radial-gradient(ellipse 50% 60% at 25% 75%, color-mix(in srgb, var(--c2) 26%, transparent), transparent 72%),
+        var(--bg-deep);
+      transition: background 0.9s ease;
+    }
+
+    .service-art {
+      position: absolute;
+      inset: 0;
+      background-position: 72% center;
+      background-size: cover;
+      opacity: 0;
+      transform: scale(1.06);
+      filter: saturate(1.12);
+      transition: opacity 0.95s var(--ease-out), transform 7s ease;
+      will-change: opacity, transform;
+    }
+
+    .service-art.active {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .scene-vignette {
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      pointer-events: none;
+      background:
+        linear-gradient(90deg, rgba(4, 3, 11, 0.98) 0%, rgba(5, 3, 14, 0.90) 28%, rgba(6, 4, 15, 0.50) 54%, rgba(5, 3, 12, 0.12) 82%),
+        linear-gradient(0deg, rgba(4, 3, 11, 0.88) 0%, transparent 22%, transparent 78%, rgba(4, 3, 11, 0.68) 100%);
+    }
+
+
+    /* ==========================================================================
+       3. BARRA SUPERIOR DE ACCESO RÁPIDO (SIN FRICCIÓN COMERCIAL)
+       ========================================================================== */
+    .layout {
+      position: relative;
+      z-index: 5;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      min-height: 0;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      padding: 22px clamp(20px, 4vw, 68px) 8px;
+      min-height: 80px;
+      flex-shrink: 0;
+      background: linear-gradient(180deg, rgba(4, 3, 12, 0.55), transparent);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-shrink: 0;
+    }
+
+    .brand-mark {
+      width: 38px;
+      height: 38px;
+      border-radius: 0;
+      background: transparent;
+      display: grid;
+      place-items: center;
+      box-shadow: none;
+      border: 0;
+      padding: 0;
+    }
+
+    .brand-mark img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+    }
+
+    .brand-mark svg {
+      width: 22px;
+      height: 22px;
+      fill: #fff;
+    }
+
+    .brand-word {
+      font-family: var(--font-display);
+      font-size: 16px;
+      font-weight: 800;
+      letter-spacing: 0.24em;
+      display: block;
+    }
+
+    .brand-caption {
+      font-size: 9px;
+      letter-spacing: 0.28em;
+      color: var(--muted);
+      display: block;
+    }
+
+    .nav-pills {
+      margin-left: 24px;
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .pill-action {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 15px;
+      border-radius: 99px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--stroke);
+      backdrop-filter: blur(12px);
+      color: #efe9f8;
+    }
+
+    .pill-action:hover,
+    .pill-action.active {
+      background: color-mix(in srgb, var(--c1) 20%, rgba(255, 255, 255, 0.08));
+      border-color: var(--c1);
+      transform: translateY(-1px);
+    }
+
+    .pill-action .dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--c1);
+      box-shadow: 0 0 8px var(--c1);
+    }
+
+    .top-actions {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .round-btn {
+      position: relative;
+      height: 40px;
+      min-width: 40px;
+      padding: 0 11px;
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--stroke);
+      color: #fff;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      backdrop-filter: blur(12px);
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .round-btn:hover {
+      background: rgba(255, 255, 255, 0.15);
+      border-color: rgba(255, 255, 255, 0.35);
+      transform: translateY(-2px);
+    }
+
+    .round-btn.is-active {
+      border-color: var(--c1);
+      color: var(--c1);
+    }
+
+    .round-btn svg {
+      width: 18px;
+      height: 18px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 1.75;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .cart-counter {
+      position: absolute;
+      right: -5px;
+      top: -5px;
+      min-width: 19px;
+      height: 19px;
+      padding: 0 5px;
+      background: var(--c1);
+      color: #100518;
+      border-radius: 99px;
+      font-size: 10px;
+      font-weight: 800;
+      line-height: 19px;
+      text-align: center;
+      box-shadow: 0 0 14px var(--c1);
+    }
+
+    .time-top {
+      font-variant-numeric: tabular-nums;
+      font-size: 13px;
+      letter-spacing: 0.14em;
+      margin-left: 8px;
+      color: var(--muted);
+    }
+
+    /* ==========================================================================
+       4. CARRUSEL CON EFECTO LINTERNA (HOVER GLOW) E INCLINACIÓN 3D
+       ========================================================================== */
+    .category-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin: 10px clamp(20px, 4vw, 68px) 0;
+    }
+
+    .category-kicker {
+      font-size: 10px;
+      color: var(--muted);
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+
+    .strip-nav {
+      display: flex;
+      gap: 6px;
+    }
+
+    .strip-arrow {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      border: 1px solid var(--stroke);
+      background: rgba(255, 255, 255, 0.04);
+      display: grid;
+      place-items: center;
+      font-size: 15px;
+    }
+
+    .strip-arrow:hover {
+      background: rgba(255, 255, 255, 0.16);
+      border-color: var(--c1);
+    }
+
+    .service-wrap {
+      margin: 6px 0 0;
+      position: relative;
+      flex-shrink: 0;
+    }
+
+    .service-scroll {
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+      padding: 12px clamp(20px, 4vw, 68px) 26px;
+      overflow-x: auto;
+      scrollbar-width: none;
+      scroll-snap-type: x proximity;
+      perspective: 900px;
+    }
+
+    .service-scroll::-webkit-scrollbar {
+      display: none;
+    }
+
+    .service-card {
+      --mx: 50%;
+      --my: 50%;
+      --rx: 0deg;
+      --ry: 0deg;
+      position: relative;
+      flex: 0 0 100px;
+      text-align: left;
+      padding: 0;
+      scroll-snap-align: center;
+      transform-style: preserve-3d;
+      transition: flex-basis 0.35s var(--ease-out);
+    }
+
+    .service-card.active {
+      z-index: 4;
+      flex-basis: 142px;
+    }
+
+    .service-card .mini-art {
+      position: relative;
+      width: 100px;
+      height: 100px;
+      border-radius: 18px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      background: #160d24;
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.4);
+      transform: rotateX(var(--rx)) rotateY(var(--ry));
+      transition: width 0.36s var(--ease-out), height 0.36s var(--ease-out), transform 0.18s ease-out, box-shadow 0.36s, border-color 0.36s;
+    }
+
+    /* Efecto Linterna (Hover Glow) con CSS Puro */
+    .service-card .mini-art::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      background: radial-gradient(110px circle at var(--mx) var(--my), rgba(255, 255, 255, 0.38), transparent 65%);
+      opacity: 0;
+      transition: opacity 0.25s ease;
+      pointer-events: none;
+      mix-blend-mode: screen;
+    }
+
+    .service-card:hover .mini-art::after,
+    .service-card.active .mini-art::after {
+      opacity: 1;
+    }
+
+    .service-card .mini-art img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.45s ease;
+    }
+
+    .service-card.active .mini-art,
+    .service-card:hover .mini-art,
+    .service-card:focus-visible .mini-art {
+      width: 138px;
+      height: 134px;
+      border: 2px solid var(--c1);
+      box-shadow: 0 0 0 3px color-mix(in srgb, var(--c1) 22%, transparent), 0 22px 42px rgba(0, 0, 0, 0.72);
+    }
+
+    .service-card:hover .mini-art img,
+    .service-card.active .mini-art img {
+      transform: scale(1.07);
+    }
+
+    .pixel-badge {
+      position: absolute;
+      top: 7px;
+      left: 7px;
+      z-index: 2;
+      padding: 2px 6px;
+      border-radius: 6px;
+      font-size: 8px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      background: rgba(8, 5, 18, 0.85);
+      border: 1px solid #52bce8;
+      color: #8ce2ff;
+      backdrop-filter: blur(6px);
+    }
+
+    .service-card .mini-label {
+      font-size: 11px;
+      color: #dcd4ea;
+      margin-top: 8px;
+      max-width: 136px;
+      line-height: 1.22;
+      opacity: 0.75;
+      transition: opacity 0.25s, color 0.25s;
+    }
+
+    .service-card.active .mini-label,
+    .service-card:hover .mini-label {
+      font-weight: 700;
+      color: #fff;
+      opacity: 1;
+    }
+
+    .service-card .mini-spec {
+      opacity: 0;
+      max-width: 140px;
+      font-size: 9.5px;
+      color: var(--c1);
+      font-weight: 600;
+      margin-top: 2px;
+      transform: translateY(-4px);
+      transition: opacity 0.3s, transform 0.3s;
+    }
+
+    .service-card.active .mini-spec {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ==========================================================================
+       5. ESCAPARATE HERO COMERCIAL
+       ========================================================================== */
+    .hero {
+      flex: 1;
+      min-height: 0;
+      padding: 0 clamp(20px, 6vw, 110px) 48px;
+      display: flex;
+      align-items: center;
+      position: relative;
+    }
+
+    .hero-copy {
+      max-width: 580px;
+      width: 58%;
+      transform: translateY(10px);
+      opacity: 0;
+      transition: opacity 0.42s var(--ease-out), transform 0.48s var(--ease-out);
+    }
+
+    .hero-copy.in {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .hero-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--c1);
+      letter-spacing: 0.24em;
+      font-size: 10.5px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .hero-kicker::before {
+      content: '';
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: var(--c1);
+      box-shadow: 0 0 10px var(--c1);
+    }
+
+    .hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(36px, 5.2vw, 80px);
+      line-height: 1.03;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      margin: 12px 0 14px;
+      text-wrap: balance;
+      text-shadow: 0 8px 38px rgba(0, 0, 0, 0.55);
+    }
+
+    .hero p {
+      color: #e3dcef;
+      max-width: 510px;
+      line-height: 1.68;
+      font-size: clamp(13px, 1.08vw, 16px);
+      margin: 0 0 18px;
+      text-shadow: 0 2px 18px #000;
+    }
+
+    .hero-specs {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin: 16px 0 24px;
+    }
+
+    .hero-specs span {
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      background: rgba(255, 255, 255, 0.06);
+      border-radius: 99px;
+      padding: 6px 13px;
+      font-size: 11px;
+      font-weight: 500;
+      color: #f4eefc;
+      backdrop-filter: blur(12px);
+    }
+
+    .hero-price-tag {
+      display: inline-flex;
+      align-items: baseline;
+      gap: 8px;
+      margin-bottom: 18px;
+      padding: 8px 16px;
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.05);
+      border-left: 3px solid var(--c1);
+      backdrop-filter: blur(10px);
+    }
+
+    .hero-price-tag small {
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .hero-price-tag strong {
+      font-family: var(--font-display);
+      font-size: 20px;
+      color: #fff;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary,
+    .btn-secondary {
+      padding: 13px 24px;
+      border-radius: 99px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+    }
+
+    .btn-primary {
+      background: linear-gradient(120deg, var(--c1), var(--c2));
+      color: #fff;
+      box-shadow: 0 10px 28px color-mix(in srgb, var(--c1) 38%, transparent);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px) scale(1.02);
+      box-shadow: 0 14px 34px color-mix(in srgb, var(--c1) 55%, transparent);
+    }
+
+    .btn-secondary {
+      border: 1px solid rgba(255, 255, 255, 0.24);
+      background: rgba(255, 255, 255, 0.07);
+      color: #fff;
+      backdrop-filter: blur(12px);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.16);
+      border-color: var(--c1);
+      transform: translateY(-2px);
+    }
+
+    .footer {
+      position: absolute;
+      bottom: 18px;
+      left: clamp(20px, 4vw, 68px);
+      z-index: 7;
+      font-size: 9px;
+      letter-spacing: 0.2em;
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    /* ==========================================================================
+       6. ANFITRIÓN HOLOGRÁFICO MAQUI (MICROCAT AI EN SVG CON SEGUIMIENTO OCULAR)
+       ========================================================================== */
+    .maqui-dock {
+      position: fixed;
+      right: clamp(18px, 3vw, 42px);
+      bottom: 20px;
+      z-index: 65;
+      display: flex;
+      align-items: flex-end;
+      gap: 12px;
+    }
+
+    .maqui-bubble {
+      max-width: 310px;
+      padding: 14px 16px;
+      border-radius: 18px 18px 4px 18px;
+      background: rgba(18, 11, 32, 0.92);
+      border: 1px solid color-mix(in srgb, var(--c1) 50%, rgba(255, 255, 255, 0.2));
+      backdrop-filter: blur(20px);
+      box-shadow: 0 16px 45px rgba(0, 0, 0, 0.65), 0 0 24px color-mix(in srgb, var(--c1) 18%, transparent);
+      font-size: 12px;
+      line-height: 1.5;
+      color: #f3ecff;
+      transform-origin: bottom right;
+      animation: bubblePop 0.32s var(--ease-out);
+    }
+
+    @keyframes bubblePop {
+      from {
+        opacity: 0;
+        transform: scale(0.9) translateY(8px);
+      }
+
+      to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+      }
+    }
+
+    .maqui-bubble-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 5px;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.16em;
+      color: var(--c1);
+    }
+
+    .maqui-bubble-actions {
+      display: flex;
+      gap: 6px;
+      margin-top: 9px;
+    }
+
+    .maqui-mini-btn {
+      padding: 4px 10px;
+      border-radius: 99px;
+      font-size: 10.5px;
+      font-weight: 700;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      color: #fff;
+    }
+
+    .maqui-mini-btn:hover {
+      border-color: var(--c1);
+      background: color-mix(in srgb, var(--c1) 25%, transparent);
+    }
+
+    .maqui-avatar-btn {
+      position: relative;
+      width: 68px;
+      height: 68px;
+      border-radius: 22px;
+      background: transparent;
+      border: 2px solid color-mix(in srgb, var(--c1) 70%, rgba(255, 255, 255, 0.35));
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.65), 0 0 20px color-mix(in srgb, var(--c1) 32%, transparent);
+      display: grid;
+      place-items: center;
+      padding: 0;
+      overflow: hidden;
+      animation: maquiFloat 4s ease-in-out infinite;
+    }
+
+    @keyframes maquiFloat {
+
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-4px);
+      }
+    }
+
+    .maqui-avatar-btn:hover {
+      transform: scale(1.06);
+      border-color: #fff;
+    }
+
+    .maqui-avatar-btn img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: inherit;
+      display: block;
+    }
+
+    .maqui-status-ring {
+      position: absolute;
+      bottom: -3px;
+      right: -3px;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: #47f5a6;
+      border: 2px solid #090612;
+      box-shadow: 0 0 8px #47f5a6;
+    }
+
+    /* ==========================================================================
+       7. MODAL CONFIGURADOR / COTIZADOR EN VIVO + SIMULADOR DE ACABADOS
+       ========================================================================== */
+    .shade {
+      position: fixed;
+      inset: 0;
+      z-index: 80;
+      background: rgba(3, 2, 10, 0.65);
+      backdrop-filter: blur(8px);
+      animation: fadeIn 0.25s ease;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+
+    .drawer {
+      position: fixed;
+      right: 16px;
+      top: 16px;
+      bottom: 16px;
+      width: min(560px, calc(100vw - 32px));
+      z-index: 85;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 26px;
+      background: linear-gradient(155deg, rgba(24, 14, 39, 0.94), rgba(10, 7, 20, 0.96));
+      backdrop-filter: blur(30px) saturate(140%);
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 30px 100px rgba(0, 0, 0, 0.75);
+      overflow: hidden;
+      animation: drawerSlide 0.32s var(--ease-out);
+    }
+
+    @keyframes drawerSlide {
+      from {
+        transform: translateX(30px);
+        opacity: 0;
+      }
+
+      to {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+
+    .drawer-head {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 20px 26px 16px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+    }
+
+    .drawer-head .tiny {
+      font-size: 9.5px;
+      letter-spacing: 0.26em;
+      color: var(--c1);
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .drawer-head h2 {
+      font-family: var(--font-display);
+      font-size: 22px;
+      margin: 2px 0 0;
+    }
+
+    .close-x {
+      margin-left: auto;
+      width: 36px;
+      height: 36px;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.07);
+      color: #fff;
+      font-size: 19px;
+      display: grid;
+      place-items: center;
+    }
+
+    .close-x:hover {
+      background: rgba(255, 255, 255, 0.18);
+      border-color: var(--c1);
+    }
+
+    .drawer-body {
+      padding: 20px 26px 28px;
+      overflow-y: auto;
+      flex: 1;
+      scrollbar-width: thin;
+      scrollbar-color: var(--c1) transparent;
+    }
+
+    /* Simulador Táctil de Acabados (UV / Mate / Foil) */
+    .finish-simulator {
+      --fx: 50%;
+      --fy: 50%;
+      position: relative;
+      height: 185px;
+      margin-bottom: 18px;
+      border-radius: 18px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      background: #140b20;
+      cursor: crosshair;
+      user-select: none;
+    }
+
+    .finish-simulator img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .finish-overlay {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+
+    /* Efecto Laminado Mate: suaviza y difumina el reflejo */
+    .finish-simulator[data-finish="mate"] .finish-overlay {
+      background: radial-gradient(180px circle at var(--fx) var(--fy), rgba(255, 255, 255, 0.16), rgba(10, 6, 18, 0.35) 75%);
+    }
+
+    /* Efecto Brillo UV Sectorizado: reflejo especular nítido de alto contraste */
+    .finish-simulator[data-finish="uv"] .finish-overlay {
+      background:
+        radial-gradient(120px circle at var(--fx) var(--fy), rgba(255, 255, 255, 0.65), rgba(244, 90, 173, 0.25) 38%, transparent 70%),
+        repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 8px, transparent 8px 16px);
+      mix-blend-mode: overlay;
+    }
+
+    /* Efecto Foil Dorado / Holográfico */
+    .finish-simulator[data-finish="foil"] .finish-overlay {
+      background: radial-gradient(150px circle at var(--fx) var(--fy), rgba(255, 215, 110, 0.78), rgba(255, 130, 210, 0.35) 45%, transparent 75%);
+      mix-blend-mode: color-dodge;
+    }
+
+    .sim-badge {
+      position: absolute;
+      bottom: 10px;
+      left: 12px;
+      right: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 6px 11px;
+      border-radius: 10px;
+      background: rgba(7, 4, 15, 0.82);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      backdrop-filter: blur(10px);
+      font-size: 10.5px;
+      color: #e9e1f7;
+      pointer-events: none;
+    }
+
+    .config-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin: 16px 0;
+    }
+
+    .config-field {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .config-field.full {
+      grid-column: 1 / -1;
+    }
+
+    .config-field label {
+      font-size: 11px;
+      font-weight: 700;
+      color: #d7cde8;
+      letter-spacing: 0.04em;
+    }
+
+    .config-field select,
+    .config-field input,
+    .config-field textarea {
+      width: 100%;
+      padding: 10px 12px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      color: #fff;
+      font-size: 12.5px;
+    }
+
+    .config-field select option {
+      background: #140b24;
+      color: #fff;
+    }
+
+    .finish-pills {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+
+    .finish-pill {
+      padding: 9px 8px;
+      border-radius: 11px;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      background: rgba(255, 255, 255, 0.05);
+      font-size: 11px;
+      font-weight: 600;
+      text-align: center;
+    }
+
+    .finish-pill.active {
+      border-color: var(--c1);
+      background: color-mix(in srgb, var(--c1) 24%, transparent);
+      color: #fff;
+      box-shadow: 0 0 15px color-mix(in srgb, var(--c1) 30%, transparent);
+    }
+
+    .live-quote-box {
+      margin-top: 16px;
+      padding: 16px 18px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.02));
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .live-quote-price {
+      font-family: var(--font-display);
+      font-size: 26px;
+      font-weight: 800;
+      color: #fff;
+    }
+
+    /* ==========================================================================
+       8. MODAL VALIDADOR PRE-PRENSA (PRE-FLIGHT CHECK)
+       ========================================================================== */
+    .preflight-modal {
+      position: fixed;
+      inset: clamp(16px, 6vh, 60px) clamp(16px, 8vw, 160px);
+      z-index: 95;
+      max-width: 880px;
+      margin: 0 auto;
+      border-radius: 26px;
+      background: linear-gradient(145deg, rgba(24, 13, 38, 0.96), rgba(9, 7, 19, 0.98));
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 35px 110px rgba(0, 0, 0, 0.85);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      animation: drawerSlide 0.3s var(--ease-out);
+    }
+
+    .dropzone {
+      border: 2px dashed rgba(255, 255, 255, 0.25);
+      border-radius: 18px;
+      padding: 28px 20px;
+      text-align: center;
+      background: rgba(255, 255, 255, 0.03);
+      transition: border-color 0.25s, background 0.25s;
+      cursor: pointer;
+    }
+
+    .dropzone:hover,
+    .dropzone.dragover {
+      border-color: var(--c1);
+      background: color-mix(in srgb, var(--c1) 12%, transparent);
+    }
+
+    .report-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(185px, 1fr));
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .report-card {
+      padding: 13px 14px;
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+    }
+
+    .report-card small {
+      display: block;
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .report-card strong {
+      display: block;
+      font-size: 14px;
+      margin-top: 4px;
+    }
+
+    .status-ok {
+      color: #52f2b8;
+    }
+
+    .status-warn {
+      color: #ffca63;
+    }
+
+    /* ==========================================================================
+       9. CARRITO DE SERVICIOS Y EXPORTACIÓN DE ORDEN
+       ========================================================================== */
+    .pix-cart {
+      position: fixed;
+      inset: clamp(12px, 4vh, 42px) clamp(12px, 5vw, 90px);
+      z-index: 95;
+      display: flex;
+      flex-direction: column;
+      max-width: 1180px;
+      margin: 0 auto;
+      border-radius: 26px;
+      overflow: hidden;
+      background: linear-gradient(135deg, rgba(26, 14, 38, 0.96), rgba(9, 8, 20, 0.98));
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      box-shadow: 0 40px 110px rgba(0, 0, 0, 0.85);
+      animation: drawerSlide 0.32s var(--ease-out);
+    }
+
+    .cart-main {
+      min-height: 0;
+      overflow: auto;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 340px;
+      gap: 28px;
+      padding: 24px 28px;
+      flex: 1;
+    }
+
+    .cart-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .cart-item {
+      display: flex;
+      gap: 14px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.13);
+      border-radius: 16px;
+      padding: 14px;
+      align-items: center;
+    }
+
+    .cart-item-art {
+      width: 68px;
+      height: 68px;
+      border-radius: 12px;
+      overflow: hidden;
+      flex-shrink: 0;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+    }
+
+    .cart-item-art img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .cart-item-main {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .cart-item-main strong {
+      font-size: 14px;
+      display: block;
+    }
+
+    .cart-item-specs {
+      font-size: 11.5px;
+      color: var(--c1);
+      margin: 2px 0 4px;
+      font-weight: 600;
+    }
+
+    .cart-item-notes {
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .cart-summary {
+      align-self: start;
+      background: rgba(255, 255, 255, 0.04);
+      padding: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 20px;
+    }
+
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 9px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+      font-size: 13px;
+    }
+
+    .customer-inputs {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin: 14px 0;
+    }
+
+    .customer-inputs input {
+      width: 100%;
+      padding: 10px 12px;
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      background: rgba(255, 255, 255, 0.06);
+      color: #fff;
+      font-size: 12px;
+    }
+
+    /* Intro Rápida */
+    .intro {
+      position: fixed;
+      inset: 0;
+      z-index: 120;
+      background: #04030a;
+      display: grid;
+      place-items: center;
+      transition: opacity 0.55s ease;
+    }
+
+    .intro.leaving {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .intro-box {
+      text-align: center;
+      padding: 20px;
+    }
+
+    .intro-box h2 {
+      font-family: var(--font-display);
+      font-size: clamp(42px, 7vw, 88px);
+      letter-spacing: 0.25em;
+      margin: 0;
+      background: linear-gradient(95deg, #ffe5d4, #f59be0, #9ad8ff);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .intro-box p {
+      font-size: 11px;
+      letter-spacing: 0.28em;
+      color: var(--muted);
+      margin-top: 12px;
+    }
+
+    @media (max-width: 820px) {
+
+      .nav-pills,
+      .time-top {
+        display: none;
+      }
+
+      .hero-copy {
+        width: 100%;
+        max-width: none;
+      }
+
+      .cart-main {
+        grid-template-columns: 1fr;
+      }
+
+      .maqui-bubble {
+        max-width: 240px;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .topbar {
+        padding: 16px 16px 6px;
+      }
+
+      .service-scroll {
+        padding: 10px 16px 20px;
+      }
+
+      .hero {
+        padding: 0 18px 86px;
+        align-items: flex-end;
+      }
+
+      .hero h1 {
+        font-size: clamp(32px, 9.5vw, 50px);
+      }
+
+      .config-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .drawer,
+      .preflight-modal,
+      .pix-cart {
+        inset: 0;
+        width: 100%;
+        border-radius: 0;
+      }
+    }
+
+
+    /* ======================================================================
+       PIXAVI 2.0 · ESTRUCTURA COMERCIAL, ACCESIBILIDAD Y MOVIMIENTO SUTIL
+       ====================================================================== */
+    html, body {
+      height: auto;
+      min-height: 100%;
+      overflow-x: hidden;
+      overflow-y: auto;
+      scroll-behavior: smooth;
+    }
+    body { min-height: 100vh; }
+    #app {
+      position: relative;
+      inset: auto;
+      min-height: 100vh;
+      height: auto;
+      overflow: visible;
+      background: transparent;
+    }
+    .backing {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+    }
+    .service-art { opacity: .13; }
+    .service-art.active { opacity: .16; }
+    .scene-vignette {
+      background: linear-gradient(90deg, rgba(4,3,11,.92), rgba(5,3,14,.67) 55%, rgba(5,3,12,.42)),
+                  linear-gradient(0deg, rgba(4,3,11,.84), transparent 35%, rgba(4,3,11,.55));
+    }
+    .layout {
+      z-index: 5;
+      min-height: 100vh;
+      height: auto;
+      overflow: visible;
+    }
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 70;
+      min-height: 76px;
+      padding: 14px clamp(18px, 5vw, 76px);
+      background: rgba(5,3,12,.78);
+      border-bottom: 1px solid rgba(255,255,255,.08);
+      backdrop-filter: blur(22px);
+      -webkit-backdrop-filter: blur(22px);
+    }
+    .brand-mark { box-shadow: none; }
+    .nav-pills { margin-left: auto; gap: 7px; }
+    .nav-pills .pill-action { font-size: 11px; padding: 8px 12px; }
+    .top-actions { margin-left: 10px; }
+    .round-btn { border-radius: 12px; }
+    .intro-hero {
+      position: relative;
+      isolation: isolate;
+      min-height: min(690px, calc(100vh - 76px));
+      padding: 100px clamp(22px, 8vw, 124px) 110px;
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(260px, .95fr);
+      align-items: center;
+      gap: clamp(28px, 6vw, 90px);
+      overflow: hidden;
+    }
+    .intro-hero::before {
+      content: '';
+      position: absolute;
+      z-index: -1;
+      width: 55vw;
+      height: 55vw;
+      max-width: 760px;
+      max-height: 760px;
+      right: -13vw;
+      top: -14vw;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(231,65,164,.16), rgba(112,48,195,.08) 42%, transparent 72%);
+      pointer-events: none;
+    }
+    .intro-hero-copy { max-width: 690px; }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      color: #e88ac8;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+    }
+    .eyebrow-line { width: 24px; height: 2px; background: #e65cb4; box-shadow: 0 0 12px rgba(230,92,180,.65); }
+    .intro-hero h1 {
+      max-width: 760px;
+      margin: 18px 0 20px;
+      font-family: var(--font-display);
+      font-size: clamp(46px, 6.5vw, 88px);
+      line-height: .99;
+      letter-spacing: -.055em;
+      text-wrap: balance;
+    }
+    .intro-hero h1 em, .section-heading h2 em, .closing-cta h2 em { color: #e978bc; font-style: normal; }
+    .intro-hero-copy > p {
+      max-width: 580px;
+      color: #d3c9df;
+      font-size: clamp(14px, 1.2vw, 17px);
+      line-height: 1.8;
+      margin: 0;
+    }
+    .intro-hero-actions { display:flex; flex-wrap:wrap; gap:12px; margin-top:30px; }
+    .intro-proof { display:flex; flex-wrap:wrap; align-items:center; gap:12px; margin-top:42px; color:#9889aa; font-size:9px; font-weight:700; letter-spacing:.13em; }
+    .intro-proof i { width:4px; height:4px; border-radius:50%; background:#d86db5; }
+    .intro-hero-art { min-height:390px; position:relative; display:grid; place-items:center; }
+    .art-glow { position:absolute; width:290px; height:290px; border-radius:50%; background:rgba(179,67,185,.18); filter:blur(65px); }
+    .art-orbit { position:absolute; width:340px; height:340px; border:1px solid rgba(232,133,202,.2); border-radius:50%; transform:rotate(-28deg) scaleY(.62); }
+    .art-orbit-two { width:410px; height:410px; border-color:rgba(137,93,221,.18); transform:rotate(35deg) scaleY(.48); }
+    .art-panel { position:absolute; width:250px; height:320px; border:1px solid rgba(255,255,255,.18); border-radius:24px; box-shadow:0 35px 90px rgba(0,0,0,.48); backdrop-filter:blur(18px); }
+    .art-panel-back { transform:translate(55px,-20px) rotate(10deg); background:linear-gradient(145deg,rgba(136,57,149,.7),rgba(20,11,37,.88)); padding:25px; color:rgba(255,255,255,.78); font:800 12px var(--font-display); letter-spacing:.23em; }
+    .art-panel-back small { display:block; margin-top:7px; font:600 8px var(--font-sans); letter-spacing:.2em; color:#d1a8d8; }
+    .art-panel-front { transform:translate(-22px,12px) rotate(-7deg); background:linear-gradient(155deg,rgba(31,20,51,.96),rgba(9,7,19,.96)); padding:32px 27px; display:flex; flex-direction:column; justify-content:flex-end; }
+    .art-symbol { position:absolute; top:26px; left:27px; font:800 110px/.9 var(--font-display); color:#f1b2db; opacity:.9; text-shadow:0 0 42px rgba(229,94,178,.32); }
+    .art-panel-title { font:700 28px/1.05 var(--font-display); letter-spacing:-.04em; }
+    .art-panel-front small { margin-top:16px; color:#bda7cf; font-size:8px; font-weight:800; letter-spacing:.16em; }
+    .hero-scroll-cue { position:absolute; left:clamp(22px,8vw,124px); bottom:32px; display:flex; align-items:center; gap:12px; color:#8d809f; font-size:9px; letter-spacing:.19em; font-weight:700; }
+    .hero-scroll-cue span { width:30px; height:1px; background:#d86db5; }
+    .content-section { position:relative; padding:92px clamp(20px,7vw,108px); }
+    .services-section { background:linear-gradient(180deg,rgba(13,8,24,.76),rgba(10,7,19,.55)); border-top:1px solid rgba(255,255,255,.06); border-bottom:1px solid rgba(255,255,255,.06); }
+    .section-heading { display:flex; align-items:flex-end; justify-content:space-between; gap:28px; margin-bottom:34px; }
+    .section-heading h2 { margin:10px 0 0; font:700 clamp(32px,4vw,52px)/1.05 var(--font-display); letter-spacing:-.045em; }
+    .section-heading > p { max-width:420px; margin:0 0 3px; color:var(--muted); font-size:13px; line-height:1.75; }
+    .service-toolbar { display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:16px; margin-bottom:16px; }
+    .filter-group { display:flex; flex-wrap:wrap; gap:7px; }
+    .filter-chip { padding:9px 14px; border:1px solid rgba(255,255,255,.13); border-radius:99px; background:rgba(255,255,255,.035); color:#c9bfd6; font-size:11px; font-weight:700; transition:background .2s,border-color .2s,color .2s; }
+    .filter-chip:hover,.filter-chip.is-active { color:#fff; border-color:rgba(232,112,190,.65); background:rgba(218,80,166,.14); }
+    .service-search { min-width:min(100%,270px); display:flex; align-items:center; gap:9px; padding:0 12px; height:40px; border:1px solid rgba(255,255,255,.13); border-radius:12px; background:rgba(4,3,12,.55); color:#a99ab9; }
+    .service-search svg { width:17px; height:17px; fill:none; stroke:currentColor; stroke-width:1.7; }
+    .service-search input { min-width:0; flex:1; border:0; outline:0; background:transparent; color:#fff; font-size:11px; }
+    .service-search kbd { padding:2px 6px; border:1px solid rgba(255,255,255,.14); border-radius:5px; font-size:9px; }
+    .service-results-line { display:flex; justify-content:space-between; gap:12px; color:#867991; font-size:10px; margin:0 0 15px; }
+    .service-scroll { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:14px; padding:0; overflow:visible; perspective:none; }
+    .service-card { min-width:0; width:100%; display:flex; flex-direction:column; padding:10px; border:1px solid rgba(255,255,255,.1); border-radius:18px; background:rgba(255,255,255,.035); text-decoration:none; transform:none !important; transition:background .22s,border-color .22s,transform .22s; }
+    .service-card:hover,.service-card.active,.service-card:focus-visible { border-color:rgba(226,101,183,.58); background:rgba(198,76,161,.09); transform:translateY(-2px) !important; }
+    .service-card .mini-art { width:100%; height:150px; border-radius:12px; transform:none !important; box-shadow:none; transition:filter .25s; }
+    .service-card.active .mini-art,.service-card:hover .mini-art,.service-card:focus-visible .mini-art { width:100%; height:150px; border:1px solid rgba(255,255,255,.18); box-shadow:none; }
+    .service-card .mini-art::after { display:none; }
+    .service-card .mini-art img { transition:transform .3s ease; }
+    .service-card:hover .mini-art img { transform:scale(1.025); }
+    .service-card .mini-label { max-width:none; margin:12px 2px 0; color:#f3edf8; font-size:13px; font-weight:700; opacity:1; }
+    .service-card .mini-spec { opacity:1; transform:none; max-width:none; margin:6px 2px 2px; color:#c78ab7; font-size:10px; }
+    .service-card[hidden] { display:none !important; }
+    .no-services { padding:30px; border:1px dashed rgba(255,255,255,.16); border-radius:14px; color:var(--muted); text-align:center; font-size:13px; }
+    .service-detail-section { position:relative; padding:48px clamp(20px,7vw,108px) 80px; background:linear-gradient(125deg,rgba(42,13,43,.62),rgba(8,7,20,.86)); }
+    .service-detail-section .hero { min-height:430px; max-width:1300px; margin:0 auto; padding:25px 0; display:grid; grid-template-columns:minmax(0,1.4fr) minmax(220px,.6fr); gap:35px; align-items:center; }
+    .service-detail-section .hero-copy { width:100%; max-width:710px; }
+    .service-detail-section .hero h2 { font:800 clamp(38px,5vw,64px)/1.02 var(--font-display); letter-spacing:-.045em; margin:12px 0 16px; }
+    .price-note { margin-top:14px !important; color:#988aa8 !important; font-size:10px !important; }
+    .detail-side-note { max-width:320px; justify-self:end; padding:30px; border-left:1px solid rgba(229,126,194,.45); background:linear-gradient(135deg,rgba(255,255,255,.04),transparent); }
+    .detail-side-kicker { display:block; color:#c887b6; font-size:9px; font-weight:800; letter-spacing:.18em; margin-bottom:24px; }
+    .detail-side-note strong { display:block; font:700 27px/1.12 var(--font-display); }
+    .detail-side-note em { color:#e88ac8; font-style:normal; }
+    .detail-side-note > span:last-child { display:block; margin-top:14px; color:#ad9fbb; font-size:11px; line-height:1.6; }
+    .portfolio-section { background:rgba(4,3,11,.35); }
+    .project-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:20px; }
+    .project-card { display:block; overflow:hidden; border:1px solid rgba(255,255,255,.12); border-radius:20px; background:rgba(255,255,255,.035); transition:transform .25s,border-color .25s; }
+    .project-card:hover { transform:translateY(-4px); border-color:rgba(228,119,190,.55); }
+    .project-art { position:relative; height:270px; overflow:hidden; display:flex; flex-direction:column; justify-content:flex-end; padding:28px; isolation:isolate; }
+    .project-art::before { content:''; position:absolute; inset:0; z-index:-2; }
+    .project-art-travel::before { background:linear-gradient(155deg,#18364c,#497c8b 48%,#d5a477); }
+    .project-art-pacay::before { background:linear-gradient(135deg,#291d42,#623c79 56%,#b879a2); }
+    .project-art-label { position:absolute; left:28px; top:25px; font-size:8px; font-weight:800; letter-spacing:.2em; color:rgba(255,255,255,.72); }
+    .project-art strong { position:relative; z-index:2; font:800 clamp(32px,4vw,52px)/.92 var(--font-display); letter-spacing:-.05em; color:white; text-shadow:0 5px 25px rgba(0,0,0,.24); }
+    .project-art small { position:relative; z-index:2; margin-top:12px; font-size:8px; font-weight:800; letter-spacing:.19em; color:rgba(255,255,255,.78); }
+    .travel-sun { position:absolute; width:170px; height:170px; right:13%; top:18%; border-radius:50%; background:rgba(255,222,165,.7); filter:blur(1px); }
+    .travel-mountain { position:absolute; z-index:-1; bottom:-45px; width:70%; height:190px; border-radius:50% 50% 0 0; transform:rotate(-12deg); }
+    .mountain-one { right:-7%; background:linear-gradient(130deg,#1b414b,#142f39); }
+    .mountain-two { left:14%; bottom:-82px; background:linear-gradient(130deg,#345a62,#1b3540); transform:rotate(17deg); }
+    .project-art-pacay::after { content:''; position:absolute; width:320px; height:320px; right:-30px; top:-105px; border:1px solid rgba(255,255,255,.24); border-radius:50%; box-shadow:0 0 0 22px rgba(255,255,255,.035),0 0 0 52px rgba(255,255,255,.025); }
+    .pacay-mark { position:absolute; top:60px; right:65px; font:800 115px/.9 var(--font-display); color:rgba(255,255,255,.18); }
+    .project-card-copy { display:flex; align-items:center; justify-content:space-between; gap:16px; padding:22px 24px; }
+    .project-type { color:#cb86b4; font-size:8px; font-weight:800; letter-spacing:.16em; }
+    .project-card-copy h3 { margin:6px 0 4px; font:700 20px var(--font-display); }
+    .project-card-copy p { margin:0; color:var(--muted); font-size:11px; }
+    .project-arrow { color:#e88ac8; font-size:23px; }
+    .process-section { background:linear-gradient(180deg,rgba(22,11,32,.75),rgba(8,6,17,.75)); border-top:1px solid rgba(255,255,255,.06); border-bottom:1px solid rgba(255,255,255,.06); }
+    .process-grid { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:12px; }
+    .process-step { position:relative; min-height:220px; padding:24px 20px; border:1px solid rgba(255,255,255,.11); border-radius:17px; background:rgba(255,255,255,.035); }
+    .process-number { color:#d67eb9; font:700 12px var(--font-display); letter-spacing:.12em; }
+    .process-icon { margin:22px 0 14px; color:#ed9acb; font-size:26px; }
+    .process-step h3 { margin:0 0 8px; font:700 17px var(--font-display); }
+    .process-step p { margin:0; color:#b9acc8; font-size:11px; line-height:1.65; }
+    .closing-cta { display:flex; align-items:center; justify-content:space-between; gap:24px; padding:68px clamp(20px,7vw,108px); background:radial-gradient(ellipse at 15% 50%,rgba(209,62,157,.19),transparent 55%),rgba(8,5,16,.85); }
+    .closing-cta h2 { margin:10px 0 8px; font:700 clamp(30px,4vw,48px)/1.05 var(--font-display); letter-spacing:-.04em; }
+    .closing-cta p { margin:0; color:var(--muted); font-size:12px; }
+    .footer { position:relative; inset:auto; display:flex; align-items:center; justify-content:space-between; gap:18px; padding:24px clamp(20px,7vw,108px); background:#05030b; color:#8d809d; font-size:9px; letter-spacing:.12em; }
+    .footer a { color:#c9a6c6; }
+
+    /* MAQUI: avatar calmado y chat accesible */
+    .maqui-dock { z-index:100; align-items:flex-end; flex-direction:column; }
+    #mobilePreflightBtn { display:none; }
+    .maqui-avatar-btn { animation:none; width:70px; height:70px; border-radius:22px; transition:transform .22s ease,border-color .22s ease,box-shadow .22s ease; }
+    .maqui-avatar-btn:hover { transform:translateY(-2px) scale(1.025); border-color:#fff; }
+    .maqui-avatar-btn img { animation:maquiImageFloat 8s ease-in-out infinite; }
+    @keyframes maquiImageFloat { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-2px)} }
+    .maqui-chat-panel { width:min(390px,calc(100vw - 30px)); height:min(590px,calc(100dvh - 115px)); display:flex; flex-direction:column; overflow:hidden; border:1px solid rgba(230,116,190,.35); border-radius:22px; background:rgba(12,8,22,.97); box-shadow:0 28px 90px rgba(0,0,0,.68),0 0 35px rgba(206,73,166,.11); backdrop-filter:blur(24px); animation:chatEnter .24s var(--ease-out); }
+    .maqui-chat-panel[hidden] { display:none !important; }
+    @keyframes chatEnter { from{opacity:0;transform:translateY(10px) scale(.985)} to{opacity:1;transform:translateY(0) scale(1)} }
+    .maqui-chat-header { display:flex; align-items:center; justify-content:space-between; gap:12px; padding:15px 17px; border-bottom:1px solid rgba(255,255,255,.09); background:rgba(255,255,255,.025); }
+    .maqui-chat-identity { display:flex; align-items:center; gap:11px; }
+    .maqui-chat-identity img { width:39px; height:39px; object-fit:cover; border-radius:12px; border:1px solid rgba(226,122,190,.45); }
+    .maqui-chat-identity strong,.maqui-chat-identity span { display:block; }
+    .maqui-chat-identity strong { font:800 12px var(--font-display); letter-spacing:.16em; color:#f1b2d8; }
+    .maqui-chat-identity span { margin-top:3px; color:#9e90ac; font-size:9px; }
+    .maqui-chat-close { width:31px; height:31px; border-radius:9px; color:#c6b8d1; background:rgba(255,255,255,.06); font-size:20px; }
+    .maqui-chat-welcome { padding:15px 17px 8px; }
+    .maqui-chat-welcome span { color:#d77db7; font-size:8px; font-weight:800; letter-spacing:.18em; }
+    .maqui-chat-welcome p { margin:6px 0 0; color:#ddd4e7; font-size:11px; line-height:1.55; }
+    .maqui-chat-messages { flex:1; min-height:95px; overflow:auto; display:flex; flex-direction:column; gap:10px; padding:12px 15px; scrollbar-width:thin; }
+    .maqui-message { max-width:88%; padding:10px 12px; border-radius:14px; font-size:11px; line-height:1.55; white-space:pre-wrap; overflow-wrap:anywhere; }
+    .maqui-message.assistant { align-self:flex-start; color:#e9e0f0; background:rgba(255,255,255,.07); border:1px solid rgba(255,255,255,.08); border-bottom-left-radius:4px; }
+    .maqui-message.user { align-self:flex-end; color:#fff; background:linear-gradient(130deg,#9c3e91,#6733a8); border-bottom-right-radius:4px; }
+    .maqui-message.pending { color:#bdaacb; font-style:italic; }
+    .maqui-chat-prompts { display:flex; flex-wrap:wrap; gap:6px; padding:9px 14px; }
+    .maqui-chat-prompts button { padding:7px 9px; border:1px solid rgba(220,128,190,.24); border-radius:99px; color:#ddbad4; background:rgba(208,95,171,.08); font-size:9px; }
+    .maqui-chat-prompts button:hover { background:rgba(208,95,171,.18); }
+    .maqui-chat-form { display:flex; gap:8px; padding:11px 13px; border-top:1px solid rgba(255,255,255,.09); }
+    .maqui-chat-form input { min-width:0; flex:1; height:42px; padding:0 13px; border:1px solid rgba(255,255,255,.13); border-radius:12px; background:rgba(0,0,0,.22); color:#fff; font-size:11px; }
+    .maqui-chat-form button { width:42px; height:42px; display:grid; place-items:center; border-radius:12px; background:linear-gradient(130deg,#dc69b6,#773fc0); color:white; }
+    .maqui-chat-form button:disabled { opacity:.5; }
+    .maqui-chat-form svg { width:18px; height:18px; fill:none; stroke:currentColor; stroke-width:1.7; stroke-linecap:round; stroke-linejoin:round; }
+    .maqui-chat-footnote { margin:0; padding:0 14px 10px; color:#887c97; font-size:8px; }
+    .preflight-size-fields { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin:15px 0 7px; }
+    .preflight-size-fields label { display:block; margin-bottom:6px; color:#d5c8e2; font-size:10px; }
+    .preflight-size-fields input { width:100%; padding:10px 12px; border:1px solid rgba(255,255,255,.15); border-radius:10px; background:rgba(255,255,255,.05); color:#fff; }
+    .preflight-hint { color:#a99bb6; font-size:10px; line-height:1.6; }
+    .customer-inputs label { color:#cfc1da; font-size:10px; font-weight:600; }
+    .customer-inputs small { color:#a99bb6; font-size:9px; line-height:1.5; }
+
+    @media (max-width:1050px) {
+      .service-scroll { grid-template-columns:repeat(3,minmax(0,1fr)); }
+      .process-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
+      .intro-hero { padding-top:75px; }
+    }
+    @media (max-width:820px) {
+      .nav-pills { display:none; }
+      #mobilePreflightBtn { display:inline-flex; }
+      .top-actions { margin-left:auto; }
+      .intro-hero { grid-template-columns:1fr minmax(190px,.65fr); padding:72px 28px 92px; min-height:600px; }
+      .intro-hero-art { min-height:300px; transform:scale(.82); }
+      .section-heading { align-items:flex-start; flex-direction:column; gap:12px; }
+      .service-scroll { grid-template-columns:repeat(2,minmax(0,1fr)); }
+      .service-detail-section .hero { grid-template-columns:1fr; }
+      .detail-side-note { display:none; }
+      .closing-cta { align-items:flex-start; flex-direction:column; }
+      .footer { flex-wrap:wrap; }
+    }
+    @media (max-width:560px) {
+      .topbar { min-height:66px; padding:10px 14px; }
+      .brand-mark { width:32px; height:32px; }
+      .brand-word { font-size:14px; }
+      .brand-caption { font-size:8px; }
+      .intro-hero { display:block; min-height:650px; padding:76px 22px 105px; }
+      .intro-hero h1 { font-size:clamp(43px,13vw,62px); }
+      .intro-hero-art { position:absolute; right:-82px; bottom:3px; width:280px; min-height:285px; opacity:.48; transform:scale(.68); transform-origin:bottom right; }
+      .intro-hero-copy { position:relative; z-index:2; }
+      .intro-proof { max-width:300px; line-height:1.8; }
+      .content-section { padding:66px 18px; }
+      .section-heading h2 { font-size:36px; }
+      .service-toolbar { align-items:stretch; flex-direction:column; }
+      .filter-group { overflow-x:auto; flex-wrap:nowrap; padding-bottom:4px; }
+      .filter-chip { white-space:nowrap; }
+      .service-search { width:100%; }
+      .service-results-line { flex-direction:column; gap:4px; }
+      .service-scroll { grid-template-columns:repeat(2,minmax(0,1fr)); gap:9px; }
+      .service-card { padding:7px; border-radius:13px; }
+      .service-card .mini-art,.service-card.active .mini-art,.service-card:hover .mini-art { height:112px; }
+      .service-card .mini-label { font-size:11px; }
+      .service-card .mini-spec { font-size:9px; }
+      .service-detail-section { padding:32px 20px 58px; }
+      .service-detail-section .hero { padding:15px 0; min-height:0; }
+      .service-detail-section .hero h2 { font-size:42px; }
+      .hero-actions { gap:8px; }
+      .hero-actions .btn-primary,.hero-actions .btn-secondary { width:100%; justify-content:center; }
+      .project-grid { grid-template-columns:1fr; }
+      .project-art { height:220px; }
+      .process-grid { grid-template-columns:1fr 1fr; gap:9px; }
+      .process-step { min-height:205px; padding:17px 14px; }
+      .process-step h3 { font-size:14px; }
+      .process-step p { font-size:10px; }
+      .closing-cta { padding:54px 22px; }
+      .footer { padding:22px; font-size:8px; }
+      .footer span { width:100%; order:3; line-height:1.7; }
+      .maqui-dock { right:13px; bottom:13px; gap:8px; }
+      .maqui-avatar-btn { width:61px; height:61px; border-radius:19px; }
+      .maqui-chat-panel { width:calc(100vw - 26px); height:min(570px,calc(100dvh - 95px)); }
+      .cart-main { grid-template-columns:1fr; padding:18px; }
+      .drawer,.preflight-modal,.pix-cart { inset:0; width:100%; border-radius:0; }
+      .preflight-size-fields { grid-template-columns:1fr 1fr; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior:auto; }
+      *,*::before,*::after { animation-duration:.01ms !important; transition-duration:.01ms !important; }
+    }
+
+  </style>
+</head>
+
+<body>
+  <div id="app" aria-label="PIXAVI, estudio creativo y producción gráfica">
+    <!-- Escena de Fondo Reactiva al Servicio -->
+    <div class="backing" aria-hidden="true">
+      <div class="service-art" id="sceneA"></div>
+      <div class="service-art" id="sceneB"></div>
+      <div class="scene-vignette"></div>
+    </div>
+
+    <main class="layout">
+      <header class="topbar">
+        <a class="brand" href="../avi.html#suite" id="homeLink" title="Volver a AVI CONNECTION">
+          <span class="brand-mark" aria-hidden="true">
+            <img src="./imagenes/pixavi.png" alt="PIXAVI"
+              onerror="this.onerror=null;this.src='../assets/imagenes/pixavilogo.png';" />
+          </span>
+          <span>
+            <span class="brand-word">PIXAVI</span>
+            <span class="brand-caption">BY AVI CONNECTION</span>
+          </span>
+        </a>
+
+        <nav class="nav-pills" aria-label="Navegación PIXAVI">
+          <a class="pill-action" href="#servicios">Servicios</a>
+          <a class="pill-action" href="#proyectos">Proyectos</a>
+          <a class="pill-action" href="#metodologia">Metodología</a>
+          <button type="button" class="pill-action" id="preflightBtn">
+            <span aria-hidden="true">✦</span><span>Validador Pre-Prensa</span>
+          </button>
+        </nav>
+
+        <div class="top-actions">
+          <button type="button" class="round-btn" id="mobilePreflightBtn" title="Validador Pre-Prensa" aria-label="Validador Pre-Prensa">
+            <svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4"/><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
+          </button>
+          <button type="button" class="round-btn" id="langBtn" title="Cambiar idioma ES / EN" aria-label="Cambiar idioma">ES</button>
+          <button type="button" class="round-btn cart-top-btn" id="cartBtn" title="Solicitar cotización" aria-label="Solicitar cotización">
+            <svg viewBox="0 0 24 24"><path d="M3 4h2l2 12h11l2-9H6"/><circle cx="9" cy="20" r="1"/><circle cx="18" cy="20" r="1"/></svg>
+            <span id="cartCount" class="cart-counter" hidden>0</span>
+          </button>
+        </div>
+      </header>
+
+      <section class="intro-hero" id="inicio" aria-labelledby="introTitle">
+        <div class="intro-hero-copy">
+          <span class="eyebrow"><span class="eyebrow-line"></span> ESTUDIO CREATIVO · CUSCO, PERÚ</span>
+          <h1 id="introTitle">Creamos ideas que <em>merecen destacar.</em></h1>
+          <p>Diseño, producción gráfica y soluciones digitales para marcas que quieren comunicar mejor y crecer con identidad propia.</p>
+          <div class="intro-hero-actions">
+            <a class="btn-primary" href="#servicios">Explorar servicios <span aria-hidden="true">↘</span></a>
+            <a class="btn-secondary" href="#proyectos">Ver proyectos</a>
+          </div>
+          <div class="intro-proof"><span>DISEÑO PERSONALIZADO</span><i></i><span>ASESORÍA CREATIVA</span><i></i><span>PRODUCCIÓN CON PROPÓSITO</span></div>
+        </div>
+        <div class="intro-hero-art" aria-hidden="true">
+          <div class="art-orbit art-orbit-one"></div><div class="art-orbit art-orbit-two"></div>
+          <div class="art-panel art-panel-back"><span>PIXAVI</span><small>CREATIVE STUDIO</small></div>
+          <div class="art-panel art-panel-front"><span class="art-symbol">P</span><span class="art-panel-title">Ideas con<br/>identidad.</span><small>DESIGN · PRINT · DIGITAL</small></div>
+          <div class="art-glow"></div>
+        </div>
+        <div class="hero-scroll-cue"><span></span> DESCUBRE PIXAVI</div>
+      </section>
+
+      <section class="content-section services-section" id="servicios" aria-labelledby="servicesTitle">
+        <div class="section-heading">
+          <div><span class="eyebrow">LO QUE PODEMOS CREAR</span><h2 id="servicesTitle">Servicios <em>creativos.</em></h2></div>
+          <p>Encuentra la solución que necesita tu proyecto. Explora por categoría o busca directamente un servicio.</p>
+        </div>
+        <div class="service-toolbar">
+          <div class="filter-group" role="group" aria-label="Filtrar servicios">
+            <button type="button" class="filter-chip is-active" data-filter="all" aria-pressed="true">Todos</button>
+            <button type="button" class="filter-chip" data-filter="print" aria-pressed="false">Producción gráfica</button>
+            <button type="button" class="filter-chip" data-filter="design" aria-pressed="false">Diseño e identidad</button>
+            <button type="button" class="filter-chip" data-filter="digital" aria-pressed="false">Soluciones digitales</button>
+          </div>
+          <label class="service-search"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m16 16 5 5"/></svg><input id="serviceSearch" type="search" placeholder="Buscar un servicio..." autocomplete="off"/><kbd>/</kbd></label>
+        </div>
+        <div class="service-results-line"><span id="serviceCount">11 servicios</span><span>Selecciona una opción para ver detalles y configurar tu solicitud.</span></div>
+        <div class="service-scroll" id="serviceScroll" role="list" aria-label="Catálogo de servicios PIXAVI"></div>
+        <div class="no-services" id="noServices" hidden>No encontramos servicios con ese criterio. Prueba otra búsqueda.</div>
+      </section>
+
+      <section class="service-detail-section" id="serviceDetail" aria-label="Detalle del servicio seleccionado">
+        <section class="hero" aria-live="polite">
+          <div class="hero-copy" id="heroCopy">
+            <div class="hero-kicker" id="heroKicker">IMPRESIÓN PREMIUM</div>
+            <h2 id="heroTitle">Tarjetas de presentación</h2>
+            <p id="heroDesc"></p>
+            <div class="hero-specs" id="heroSpecs"></div>
+            <div class="hero-price-tag"><small>DESDE</small><strong id="heroBasePrice">S/ 95.00</strong><small id="heroUnitLabel">/ millar</small></div>
+            <div class="hero-actions">
+              <a class="btn-primary" id="openServicePageBtn" href="./tarjetas.html"><span>VER FICHA DEL SERVICIO</span><span aria-hidden="true">↗</span></a>
+              <button type="button" class="btn-secondary" id="configureBtn">CONFIGURAR SERVICIO</button>
+              <button type="button" class="btn-secondary" id="quickAddBtn">+ AÑADIR A COTIZACIÓN</button>
+            </div>
+            <p class="price-note">Precios referenciales sujetos a especificaciones y confirmación de PIXAVI.</p>
+          </div>
+          <div class="detail-side-note"><span class="detail-side-kicker">PIXAVI · SELECCIÓN ACTUAL</span><strong>Una buena idea<br/><em>merece un gran acabado.</em></strong><span>Personaliza tu proyecto y solicita una cotización.</span></div>
+        </section>
+      </section>
+
+      <section class="content-section portfolio-section" id="proyectos" aria-labelledby="projectsTitle">
+        <div class="section-heading">
+          <div><span class="eyebrow">TRABAJO QUE HABLA POR NOSOTROS</span><h2 id="projectsTitle">Proyectos <em>destacados.</em></h2></div>
+          <p>Una muestra de experiencias digitales desarrolladas para organizaciones y negocios.</p>
+        </div>
+        <div class="project-grid">
+          <a class="project-card" href="https://www.exploreperutravel.com/" target="_blank" rel="noopener noreferrer">
+            <div class="project-art project-art-travel"><span class="project-art-label">DIGITAL EXPERIENCE</span><div class="travel-sun"></div><div class="travel-mountain mountain-one"></div><div class="travel-mountain mountain-two"></div><strong>EXPLORE<br/>PERU</strong><small>TRAVEL · CULTURE · DISCOVERY</small></div>
+            <div class="project-card-copy"><div><span class="project-type">DESARROLLO WEB</span><h3>Explore Peru Travel</h3><p>Experiencia digital para el sector turístico.</p></div><span class="project-arrow">↗</span></div>
+          </a>
+          <a class="project-card" href="https://www.asociacionpacaicusco.org/" target="_blank" rel="noopener noreferrer">
+            <div class="project-art project-art-pacay"><span class="project-art-label">CORPORATE WEBSITE</span><div class="pacay-orbit"></div><div class="pacay-mark">P</div><strong>ASOCIACIÓN<br/>PACAY</strong><small>CUSCO · PERÚ</small></div>
+            <div class="project-card-copy"><div><span class="project-type">DESARROLLO WEB</span><h3>Asociación Pacay Cusco</h3><p>Presencia digital para una organización local.</p></div><span class="project-arrow">↗</span></div>
+          </a>
+        </div>
+      </section>
+
+      <section class="content-section process-section" id="metodologia" aria-labelledby="processTitle">
+        <div class="section-heading">
+          <div><span class="eyebrow">DE LA IDEA A LA ENTREGA</span><h2 id="processTitle">Un proceso <em>claro.</em></h2></div>
+          <p>Trabajamos por etapas para que sepas qué ocurre con tu proyecto desde el primer contacto.</p>
+        </div>
+        <div class="process-grid">
+          <article class="process-step"><span class="process-number">01</span><div class="process-icon">⌕</div><h3>Descubrimiento</h3><p>Conocemos tus objetivos, necesidades, referencias y expectativas.</p></article>
+          <article class="process-step"><span class="process-number">02</span><div class="process-icon">✳</div><h3>Diseño y propuesta</h3><p>Definimos la solución, las especificaciones y la propuesta creativa.</p></article>
+          <article class="process-step"><span class="process-number">03</span><div class="process-icon">▤</div><h3>Producción</h3><p>Desarrollamos el proyecto y revisamos sus aspectos de calidad.</p></article>
+          <article class="process-step"><span class="process-number">04</span><div class="process-icon">↗</div><h3>Entrega</h3><p>Entregamos el producto o solución y coordinamos los siguientes pasos.</p></article>
+        </div>
+      </section>
+
+      <section class="closing-cta">
+        <div><span class="eyebrow">TU SIGUIENTE PROYECTO EMPIEZA AQUÍ</span><h2>Hagamos algo <em>que destaque.</em></h2><p>Cuéntanos tu idea. Te ayudaremos a convertirla en una propuesta concreta.</p></div>
+        <button type="button" class="btn-primary" id="openQuoteFromCTA">Solicitar cotización <span aria-hidden="true">↗</span></button>
+      </section>
+
+      <footer class="footer"><a href="../avi.html#suite">AVI CONNECTION</a><span>CREAMOS IMPRESIONES QUE HACEN DESTACAR TUS IDEAS · CUSCO & PERÚ</span><a href="#inicio">VOLVER ARRIBA ↑</a></footer>
+    </main>
+
+    <div class="maqui-dock" aria-label="Asistente creativo MAQUI">
+      <section class="maqui-chat-panel" id="maquiChatPanel" role="dialog" aria-modal="false" aria-labelledby="maquiChatTitle" hidden>
+        <header class="maqui-chat-header">
+          <div class="maqui-chat-identity"><img src="./imagenes/maqui.png" alt="" onerror="this.onerror=null;this.src='../assets/imagenes/maqui.png';"/><div><strong id="maquiChatTitle">MAQUI</strong><span id="maquiStatus">Asistente de orientación</span></div></div>
+          <button type="button" class="maqui-chat-close" id="maquiCloseChat" aria-label="Cerrar chat">×</button>
+        </header>
+        <div class="maqui-chat-welcome" id="maquiWelcome"><span>ASISTENTE PIXAVI</span><p>¡Hola! Soy MAQUI. Puedo orientarte sobre servicios, acabados y cotizaciones.</p></div>
+        <div class="maqui-chat-messages" id="maquiMessages" role="log" aria-live="polite" aria-relevant="additions text"></div>
+        <div class="maqui-chat-prompts" id="maquiPrompts">
+          <button type="button" data-maqui-prompt="Quiero conocer los servicios de PIXAVI">Ver servicios</button>
+          <button type="button" data-maqui-prompt="Quiero solicitar una cotización">Cotizar</button>
+          <button type="button" data-maqui-prompt="Quiero revisar un archivo para producción">Revisar un archivo</button>
+        </div>
+        <form class="maqui-chat-form" id="maquiChatForm">
+          <input id="maquiMessageInput" type="text" maxlength="1000" autocomplete="off" placeholder="Escribe tu consulta..." aria-label="Mensaje para MAQUI" required/>
+          <button type="submit" id="maquiSendBtn" aria-label="Enviar mensaje"><svg viewBox="0 0 24 24"><path d="m4 4 16 8-16 8 3-8-3-8Z"/><path d="M7 12h13"/></svg></button>
+        </form>
+        <p class="maqui-chat-footnote">No compartas datos personales sensibles en el chat.</p>
+      </section>
+      <button type="button" class="maqui-avatar-btn" id="maquiBtn" title="Conversar con MAQUI" aria-label="Abrir chat con MAQUI" aria-expanded="false" aria-controls="maquiChatPanel">
+        <img src="./imagenes/maqui.png" alt="MAQUI, asistente de PIXAVI" onerror="this.onerror=null;this.src='../assets/imagenes/maqui.png';"/>
+        <span class="maqui-status-ring"></span>
+      </button>
+      <span id="maquiTipText" class="sr-only" aria-live="polite"></span>
+    </div>
+
+  <!-- DRAWER: CONFIGURADOR & SIMULADOR DE ACABADOS EN VIVO -->
+  <div class="shade" id="configShade" hidden></div>
+  <aside class="drawer" id="configPanel" role="dialog" aria-modal="true" aria-labelledby="configTitle" hidden>
+    <div class="drawer-head">
+      <div>
+        <span class="tiny" id="configKicker">PIXAVI · COTIZADOR & LABORATORIO TÁCTIL</span>
+        <h2 id="configTitle">Configurar servicio</h2>
+      </div>
+      <button type="button" class="close-x" id="configClose" aria-label="Cerrar configurador">×</button>
+    </div>
+    <div class="drawer-body">
+      <!-- Simulador Interactivo de Acabados -->
+      <div class="finish-simulator" id="finishSim" data-finish="uv"
+        title="Mueve el cursor para probar el reflejo de luz sobre el material">
+        <img id="configVisualImg" src="" alt="Vista previa del servicio" />
+        <div class="finish-overlay"></div>
+        <div class="sim-badge">
+          <span id="simFinishLabel">✦ Simulador activo: Brillo UV Sectorizado</span>
+          <span>Mueve el cursor ↗</span>
+        </div>
+      </div>
+
+      <p id="configDesc" style="font-size:12.5px;color:var(--muted);margin:0 0 12px;"></p>
+
+      <div class="config-field full" style="margin-bottom:12px;">
+        <label data-es="1. Elige el acabado superficial (Pruébalo arriba)"
+          data-en="1. Choose surface finish (Test it above)">1. Elige el acabado superficial (Pruébalo arriba)</label>
+        <div class="finish-pills" id="finishPills">
+          <button type="button" class="finish-pill" data-finish-val="mate" data-mult="1.0">Laminado Mate</button>
+          <button type="button" class="finish-pill active" data-finish-val="uv" data-mult="1.22">UV Sectorizado</button>
+          <button type="button" class="finish-pill" data-finish-val="foil" data-mult="1.40">Foil / Alta Gama</button>
+        </div>
+      </div>
+
+      <div class="config-grid">
+        <div class="config-field">
+          <label for="cfgMaterial" data-es="2. Sustrato / Especificación" data-en="2. Substrate / Spec">2. Sustrato /
+            Especificación</label>
+          <select id="cfgMaterial"></select>
+        </div>
+
+        <div class="config-field">
+          <label for="cfgQty" data-es="3. Cantidad / Volumen" data-en="3. Quantity / Volume">3. Cantidad /
+            Volumen</label>
+          <select id="cfgQty"></select>
+        </div>
+
+        <div class="config-field full">
+          <label for="cfgUrgency" data-es="4. Tiempo de producción" data-en="4. Turnaround time">4. Tiempo de
+            producción</label>
+          <select id="cfgUrgency">
+            <option value="1" data-label="Estándar (3 - 4 días hábiles)">Estándar (3 - 4 días hábiles)</option>
+            <option value="1.25" data-label="Express 24h (+25%)">Prioridad Express 24h (+25%)</option>
+          </select>
+        </div>
+
+        <div class="config-field full">
+          <label for="cfgNotes" data-es="5. Notas de diseño o medidas especiales"
+            data-en="5. Design notes or custom dimensions">5. Notas de diseño o medidas especiales</label>
+          <textarea id="cfgNotes" rows="2" maxlength="350"
+            placeholder="Ej. Incluir código QR al reverso, bordes redondeados, enlace a Google Drive..."></textarea>
+        </div>
+      </div>
+
+      <div class="live-quote-box">
+        <div>
+          <span style="font-size:10px;letter-spacing:0.16em;color:var(--c1);font-weight:700;display:block;">INVERSIÓN
+            ESTIMADA</span>
+          <span class="live-quote-price" id="livePriceDisplay">S/ 105.00</span>
+          <small style="display:block;font-size:10.5px;color:var(--muted);">Incluye revisión de pre-prensa
+            digital</small>
+        </div>
+        <button type="button" class="btn-primary" id="addConfiguredBtn">
+          <span data-es="Agregar al pedido" data-en="Add to order">Agregar al pedido</span>
+          <span>+</span>
+        </button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- MODAL: VALIDADOR AUTOMÁTICO DE ARCHIVOS PRE-PRENSA (PRE-FLIGHT CHECK) -->
+  <div class="shade" id="preflightShade" hidden></div>
+  <section class="preflight-modal" id="preflightModal" role="dialog" aria-modal="true" aria-labelledby="preflightTitle"
+    hidden>
+    <header class="drawer-head">
+      <div>
+        <span class="tiny">PIXAVI PRE-FLIGHT ENGINE · CONTROL DE CALIDAD</span>
+        <h2 id="preflightTitle">Validador Pre-Prensa de Archivos</h2>
+      </div>
+      <button type="button" class="close-x" id="preflightClose" aria-label="Cerrar validador">×</button>
+    </header>
+    <div class="drawer-body">
+      <p style="font-size:13px;color:var(--muted);margin-top:0;">Revisa el formato y las dimensiones de tu archivo. Para imágenes rasterizadas, calcula la resolución efectiva según el tamaño físico de salida. Las propiedades de PDF y el sangrado solo se marcarán como verificados cuando exista un análisis compatible.</p>
+
+      <div class="dropzone" id="preDropzone" tabindex="0" role="button"
+        aria-label="Subir archivo para análisis de pre-prensa">
+        <div style="font-size:32px;margin-bottom:6px;color:var(--c1);">✦</div>
+        <strong style="font-size:14px;display:block;">Arrastra tu diseño aquí (PNG, JPG, WebP, SVG o PDF)</strong>
+        <span style="font-size:12px;color:var(--muted);">o haz clic para examinar en tu dispositivo</span>
+        <input type="file" id="preFileInput" accept="image/png,image/jpeg,image/webp,image/svg+xml,application/pdf,.png,.jpg,.jpeg,.webp,.svg,.pdf" hidden />
+      </div>
+
+      <div class="preflight-size-fields">
+        <div><label for="printWidthMm">Ancho de impresión (mm)</label><input id="printWidthMm" type="number" min="1" max="3000" step="0.1" placeholder="Ej. 90"/></div>
+        <div><label for="printHeightMm">Alto de impresión (mm)</label><input id="printHeightMm" type="number" min="1" max="3000" step="0.1" placeholder="Ej. 55"/></div>
+      </div>
+      <p class="preflight-hint">Para calcular la resolución efectiva de una imagen, indica el tamaño físico al que deseas imprimirla. El sangrado y otras propiedades de PDF solo se marcarán como verificados cuando puedan inspeccionarse realmente.</p>
+
+      <div id="preReportArea" hidden>
+        <div class="report-grid">
+          <div class="report-card">
+            <small>Archivo analizado</small>
+            <strong id="repName">—</strong>
+          </div>
+          <div class="report-card">
+            <small>Dimensiones / Peso</small>
+            <strong id="repDims">—</strong>
+          </div>
+          <div class="report-card">
+            <small>Densidad estimada (Impresión)</small>
+            <strong id="repDpi">—</strong>
+          </div>
+          <div class="report-card">
+            <small>Demasía / Sangrado (3mm)</small>
+            <strong id="repBleed" class="status-warn">No verificado</strong>
+          </div>
+        </div>
+        <div id="repVerdict"
+          style="margin-top:14px;padding:13px 16px;border-radius:12px;background:rgba(82,242,184,0.1);border-left:3px solid #52f2b8;font-size:12.5px;">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MODAL: RESUMEN Y ENVÍO DE SOLICITUD DE COTIZACIÓN -->
+  <div class="shade" id="cartShade" hidden></div>
+  <section class="pix-cart" id="cartPanel" role="dialog" aria-modal="true" aria-labelledby="cartTitle" hidden>
+    <header class="drawer-head">
+      <div>
+        <span class="tiny">PIXAVI · SOLICITUD COMERCIAL</span>
+        <h2 id="cartTitle">Tu cotización</h2>
+      </div>
+      <button type="button" class="close-x" id="cartClose" aria-label="Cerrar carrito">×</button>
+    </header>
+    <div class="cart-main">
+      <div>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">
+          <h3 style="margin:0;font-size:16px;">Proyectos configurados</h3>
+          <span id="cartUnits" style="font-size:12px;color:var(--muted);">0 servicios</span>
+        </div>
+        <div id="cartItems" class="cart-list"></div>
+      </div>
+
+      <aside class="cart-summary">
+        <span class="tiny">RESUMEN DE COTIZACIÓN</span>
+        <h3 style="margin:6px 0 14px;font-size:22px;">Total Estimado</h3>
+        <div class="summary-row">
+          <span>Ítems de producción</span>
+          <strong id="cartLineCount">0</strong>
+        </div>
+        <div class="summary-row">
+          <span>Revisión Pre-Prensa</span>
+          <strong style="color:#52f2b8;">BONIFICADA</strong>
+        </div>
+        <div class="summary-row" style="font-size:16px;border-bottom:0;padding-top:14px;">
+          <span>Subtotal estimado</span>
+          <strong id="cartTotalSoles" style="font-size:22px;color:var(--c1);">S/ 0.00</strong>
+        </div>
+
+        <div class="customer-inputs">
+          <label for="cartClientName">Nombre o empresa *</label>
+          <input id="cartClientName" placeholder="Tu nombre o empresa" maxlength="100" autocomplete="name" required />
+          <label for="cartClientEmail">Correo electrónico</label>
+          <input id="cartClientEmail" type="email" placeholder="correo@empresa.com" maxlength="140" autocomplete="email" />
+          <label for="cartClientPhone">WhatsApp o teléfono</label>
+          <input id="cartClientPhone" type="tel" placeholder="+51 999 999 999" maxlength="30" autocomplete="tel" />
+          <small>Indica al menos un medio de contacto: correo o teléfono.</small>
+        </div>
+
+        <button type="button" class="btn-primary" id="cartSubmitBtn"
+          style="width:100%;justify-content:center;margin-bottom:8px;">
+          <span>Enviar solicitud de cotización</span>
+          <span>↗</span>
+        </button>
+        <button type="button" class="btn-secondary" id="cartClearBtn"
+          style="width:100%;justify-content:center;padding:9px;">
+          Vaciar carrito
+        </button>
+      </aside>
+    </div>
+  </section>
+
+  <!-- NOTIFICACIÓN FLOTANTE (TOAST) -->
+  <div id="toast" role="status" aria-live="polite" hidden
+    style="position:fixed;bottom:24px;left:50%;transform:translateX(-50%);z-index:130;background:#1b1029;border:1px solid var(--c1);color:#fff;padding:12px 20px;border-radius:99px;box-shadow:0 16px 45px rgba(0,0,0,0.75);font-size:12.5px;font-weight:600;">
+  </div>
+
+  <script>
+    'use strict';
+    (() => {
+      const $ = id => document.getElementById(id);
+      const reduceSystem = matchMedia('(prefers-reduced-motion: reduce)');
+      const AVI_PREF_KEY = 'avi-connection-prefs-v10';
+      const CART_KEY = 'pixavi-cart-v2';
+      const API = Object.freeze({ chat: '/api/maqui/chat', quote: '/api/solicitudes', preflight: '/api/preprensa/analyze' });
+      const SERVICE_CATEGORY = { graphic: 'design', branding: 'design', cards: 'print', flyers: 'print', posters: 'print', large: 'print', calendar: 'print', invitations: 'print', web: 'digital', mobile: 'digital', video: 'digital' };
+
+      // Preferencias ligeras sincronizadas silenciosamente con AVI CONNECTION
+      const prefs = {
+        language: 'es',
+        reducedMotion: false,
+        contrast: false
+      };
+
+      function syncFromAviEcosystem() {
+        try {
+          const shared = JSON.parse(localStorage.getItem(AVI_PREF_KEY) || '{}');
+          if (shared && typeof shared === 'object') {
+            if (shared.locale || shared.lang) prefs.language = (shared.locale || shared.lang) === 'en' ? 'en' : 'es';
+            if (typeof shared.reduced === 'boolean') prefs.reducedMotion = shared.reduced;
+            if (typeof shared.highContrast === 'boolean') prefs.contrast = shared.highContrast;
+          }
+        } catch { }
+        document.body.classList.toggle('reduced-motion', !!prefs.reducedMotion);
+        document.body.classList.toggle('high-contrast', !!prefs.contrast);
+        if ($('langBtn')) $('langBtn').textContent = prefs.language.toUpperCase();
+      }
+
+      // Catálogo de los 11 servicios con precios reales estimados en Soles (S/), materiales, tirajes y consejos de MAQUI
+      const services = [
+        {
+          id: 'graphic',
+          name: 'Diseño gráfico',
+          en: 'Graphic design',
+          tag: 'CREATIVIDAD DIGITAL',
+          tagEn: 'DIGITAL CREATIVITY',
+          desc: 'Creamos conceptos visuales de alto impacto para que tus campañas, catálogos y piezas comuniquen con personalidad única.',
+          descEn: 'High-impact visual concepts to bring personality and clarity to your campaigns and brand pieces.',
+          spec: ['Diseño editorial', 'Piezas redes', 'Arte final CMYK'],
+          specEn: ['Editorial layout', 'Social media kit', 'CMYK press-ready'],
+          basePrice: 120,
+          unit: 'por paquete creativo',
+          materials: [['Arte Digital + Pre-prensa CMYK', 1], ['Pack Redes + Editable Abierto', 1.35], ['Sistema Editorial Multiformato', 1.8]],
+          quantities: [['1 Concepto Maestro', 1], ['Pack 3 Piezas Clave', 2.2], ['Campaña Completa (6 piezas)', 3.8]],
+          tip: 'Para proyectos de impresión, preparamos tus archivos en perfil CMYK FOGRA39 con textos convertidos a curvas.',
+          thumb: './imagenes/diseño grafico.png', href: './diseño grafico.html',
+          type: 'graphic', c1: '#f45aad', c2: '#7135df'
+        },
+        {
+          id: 'cards',
+          name: 'Tarjetas de presentación',
+          en: 'Business cards',
+          tag: 'IMPRESIÓN PREMIUM',
+          tagEn: 'PREMIUM PRINT',
+          desc: 'Tarjetas corporativas diseñadas para dejar una primera impresión táctil e inolvidable con acabados de lujo.',
+          descEn: 'Corporate business cards crafted to leave a tactile, unforgettable first impression.',
+          spec: ['Couché 350g', 'UV Sectorizado', 'Bordes boleados'],
+          specEn: ['350gsm Silk', 'Spot UV Glow', 'Rounded corners'],
+          basePrice: 95,
+          unit: 'por millar (1000 uds)',
+          materials: [['Couché 350g Importado', 1], ['Cartulina Opalina / Hilo 300g', 1.25], ['Polipropileno Translúcido / PVC', 1.75]],
+          quantities: [['500 unidades', 0.65], ['1,000 unidades (1 Millar)', 1], ['2,000 unidades (2 Millares)', 1.75]],
+          tip: 'En tarjetas ejecutivas, el Couché de 350g con Laminado Mate y Brillo UV Sectorizado en tu logotipo es el estándar de oro.',
+          thumb: './imagenes/tarjetas.png', href: './tarjetas.html',
+          type: 'cards', c1: '#f4b563', c2: '#eb518a'
+        },
+        {
+          id: 'branding',
+          name: 'Identidad de marca',
+          en: 'Brand identity',
+          tag: 'SISTEMA VISUAL',
+          tagEn: 'VISUAL IDENTITY',
+          desc: 'Sistemas gráficos coherentes, logotipos memorables y manuales de marca para negocios que buscan liderar su sector.',
+          descEn: 'Cohesive visual systems, memorable logos and brand guidelines built to lead your industry.',
+          spec: ['Logotipo vectorial', 'Manual corporativo', 'Papelería base'],
+          specEn: ['Vector logo', 'Brand book', 'Stationery kit'],
+          basePrice: 380,
+          unit: 'por proyecto de identidad',
+          materials: [['Identidad Esencial (Logo + Paleta)', 1], ['Branding Corporativo + Papelería', 1.55], ['Full Brandbook 360° + Empaques', 2.3]],
+          quantities: [['Startup / Emprendimiento', 1], ['Empresa Comercial', 1.4]],
+          tip: 'Un buen logotipo debe funcionar igual de bien bordado a un solo color que impreso en gigantografía o en el ícono de tu web.',
+          thumb: './imagenes/identidad visual.png', href: './identidad visual.html',
+          type: 'branding', c1: '#a487ff', c2: '#33bbe9'
+        },
+        {
+          id: 'flyers',
+          name: 'Volantes y folletos',
+          en: 'Flyers & brochures',
+          tag: 'COMUNICACIÓN IMPRESA',
+          tagEn: 'PRINT COMMUNICATION',
+          desc: 'Materiales promocionales, trípticos y catálogos plegables con reproducción cromática vibrante y corte de precisión.',
+          descEn: 'Promotional flyers and folded brochures with vibrant color reproduction and precision cutting.',
+          spec: ['Couché 150g / 200g', 'Trípticos', 'Corte guillotina láser'],
+          specEn: ['150gsm Gloss', 'Tri-fold', 'Laser precision cut'],
+          basePrice: 140,
+          unit: 'por millar (1000 uds)',
+          materials: [['Couché Brillante 115g', 0.85], ['Couché 150g Alta Blancura', 1], ['Couché 200g + Doblez (Tríptico)', 1.45]],
+          quantities: [['1,000 unidades (A5 / Medio oficio)', 1], ['2,000 unidades', 1.8], ['5,000 unidades Masivo', 3.9]],
+          tip: 'Si tu folleto va doblado (tríptico) en gramaje mayor a 170g, aplicamos ranurado previo para que la tinta nunca se quiebre en el pliegue.',
+          thumb: './imagenes/volantes folletos.png', href: './volantes y folletos.html',
+          type: 'flyers', c1: '#e85d88', c2: '#fbaf6b'
+        },
+        {
+          id: 'posters',
+          name: 'Afiches publicitarios',
+          en: 'Advertising posters',
+          tag: 'CAMPAÑAS VISUALES',
+          tagEn: 'VISUAL CAMPAIGNS',
+          desc: 'Afiches de alto impacto visual para lanzamientos, conciertos, ferias y puntos de venta que exigen miradas.',
+          descEn: 'High-impact posters for launches, concerts, retail displays and visual campaigns.',
+          spec: ['Formato A3 / 50×70 cm', 'Tintas resistentes UV', 'Alta definición'],
+          specEn: ['A3 / 50×70 cm', 'UV-resistant inks', 'High definition'],
+          basePrice: 210,
+          unit: 'por lote de 500 uds',
+          materials: [['Couché 150g Formato A3', 1], ['Couché 200g Formato 50×70 cm', 1.55], ['Papel Sintético Impermeable', 1.9]],
+          quantities: [['100 unidades (Impresión Digital)', 0.55], ['500 unidades (Offset)', 1], ['1,000 unidades (Offset)', 1.6]],
+          tip: 'Para afiches en vitrinas expuestas al sol de Cusco, te sugiero elegir barniz UV total para evitar que los tonos magenta se decoloren.',
+          thumb: './imagenes/afiches.png', href: './afiches.html',
+          type: 'poster', c1: '#fc5797', c2: '#8b5ffa'
+        },
+        {
+          id: 'large',
+          name: 'Gigantografías',
+          en: 'Large-format graphics',
+          tag: 'GRAN FORMATO',
+          tagEn: 'LARGE FORMAT',
+          desc: 'Banners, viniles adhesivos, lonas backlight y estructuras publicitarias a gran escala con resolución fotográfica.',
+          descEn: 'Large-scale banners, adhesive vinyls, backlit displays and outdoor signage.',
+          spec: ['Lona 13 oz / Vinil', 'Termosellado y ojales', 'Roll Screen'],
+          specEn: ['13oz Banner / Vinyl', 'Grommets & hems', 'Roll-up stands'],
+          basePrice: 45,
+          unit: 'por m² instalado / acabado',
+          materials: [['Lona Banner 13 oz con Ojales', 1], ['Vinil Adhesivo + Laminado UV', 1.4], ['Banner Roll Screen Aluminio 2×1m', 2.8]],
+          quantities: [['2 m² (Medida estándar)', 1], ['6 m² (Fachada comercial)', 2.7], ['12 m² (Gran formato)', 5.0]],
+          tip: 'En gigantografías que se verán a más de 3 metros de distancia, una resolución real de 120 a 150 DPI en tamaño 1:1 ofrece nitidez perfecta.',
+          thumb: './imagenes/gigantografias.png', href: './gigantografias.html',
+          type: 'large', c1: '#499eff', c2: '#7e4de5'
+        },
+        {
+          id: 'calendar',
+          name: 'Calendarios y almanaques',
+          en: 'Corporate calendars',
+          tag: 'PIEZAS CORPORATIVAS',
+          tagEn: 'CORPORATE PIECES',
+          desc: 'Mantén tu marca presente los 365 días del año en el escritorio o pared de tus clientes con almanaques personalizados.',
+          descEn: 'Keep your brand present 365 days a year with custom desktop and wall calendars.',
+          spec: ['Anillado metálico Ring', 'De escritorio o pared', 'Santoral peruano'],
+          specEn: ['Twin-loop wire-o', 'Desktop or wall', 'Custom holidays'],
+          basePrice: 320,
+          unit: 'por lote corporativo',
+          materials: [['Almanaque de Pared c/ Varilla', 1], ['Calendario Escritorio Base Rígida + Ring', 1.5], ['Almanaque Ejecutivo 6 Hojas Couché', 1.85]],
+          quantities: [['100 unidades', 0.6], ['300 unidades', 1], ['1,000 unidades', 2.5]],
+          tip: 'Los calendarios de escritorio con base triangular en Folkote calibre 16 y anillado Ring doble cero son el regalo corporativo más conservado.',
+          thumb: './imagenes/calendarios.png', href: './calendarios.html',
+          type: 'calendar', c1: '#64cad1', c2: '#5573f0'
+        },
+        {
+          id: 'invitations',
+          name: 'Invitaciones',
+          en: 'Custom invitations',
+          tag: 'DISEÑO PARA EVENTOS',
+          tagEn: 'EVENT DESIGN',
+          desc: 'Invitaciones físicas con troquelado láser, papeles texturizados y pases digitales interactivos para eventos inolvidables.',
+          descEn: 'Laser-cut textured print invitations and interactive digital passes for special events.',
+          spec: ['Papeles perlados / algodón', 'Foil dorado', 'Pase digital QR'],
+          specEn: ['Pearlescent paper', 'Gold foil', 'QR digital pass'],
+          basePrice: 180,
+          unit: 'por lote de 100 uds',
+          materials: [['Cartulina Perlada Italcard 300g', 1], ['Papel Algodón + Sobre Calado Láser', 1.65], ['Pack Híbrido (Impreso + Web RSVP)', 1.9]],
+          quantities: [['50 invitaciones', 0.65], ['100 invitaciones', 1], ['200 invitaciones', 1.75]],
+          tip: 'Prueba el botón "Foil / Alta Gama" arriba en el simulador para ver cómo luce el estampado metálico sobre cartulinas oscuras.',
+          thumb: './imagenes/invitaciones.png', href: './invitaciones.html',
+          type: 'invitations', c1: '#d881bc', c2: '#ffbf79'
+        },
+        {
+          id: 'web',
+          name: 'Páginas web',
+          en: 'Websites · PIXEL',
+          tag: 'CONNECTION PIXEL · WEB',
+          tagEn: 'CONNECTION PIXEL · WEB',
+          desc: 'Arquitectura y diseño de páginas web ultra rápidas, responsivas y orientadas a conversión bajo el sello CONNECTION PIXEL.',
+          descEn: 'Ultra-fast, responsive and conversion-driven web experiences powered by CONNECTION PIXEL.',
+          spec: ['CONNECTION PIXEL', 'Diseño UI/UX 60fps', 'Optimización SEO'],
+          specEn: ['CONNECTION PIXEL', '60fps UI/UX', 'SEO Ready'],
+          basePrice: 650,
+          unit: 'por despliegue web',
+          materials: [['Landing Page Comercial Ultra-Fluida', 1], ['Web Corporativa Multipágina + Catálogo', 1.8], ['E-Commerce / Showroom Interactivo', 2.6]],
+          quantities: [['Proyecto Llave en Mano', 1]],
+          tip: '¡Servicio oficial de CONNECTION PIXEL! Diseñamos tu web con la misma fluidez a 60 FPS y estética espacial que estás experimentando ahora.',
+          badge: 'PIXEL',
+          thumb: './imagenes/paginas-web.png', href: './paginas web.html',
+          type: 'web', c1: '#52bce8', c2: '#8d61e7'
+        },
+        {
+          id: 'mobile',
+          name: 'Aplicaciones móviles',
+          en: 'Mobile apps · PIXEL',
+          tag: 'PRODUCTOS DIGITALES',
+          tagEn: 'DIGITAL PRODUCTS',
+          desc: 'Diseño de interfaces UI/UX y prototipado interactivo de aplicaciones móviles iOS, Android y PWA.',
+          descEn: 'UI/UX interface design and interactive prototyping for iOS, Android and PWA mobile apps.',
+          spec: ['Sistema de diseño UI', 'Prototipo navegable', 'PWA / Nativo'],
+          specEn: ['UI Design System', 'Interactive prototype', 'PWA / Native'],
+          basePrice: 890,
+          unit: 'por módulo móvil',
+          materials: [['Prototipo UI/UX Alta Fidelidad (Figma)', 1], ['Web App Progresiva (PWA Instalable)', 1.75], ['App Completa + Panel Administrativo', 2.8]],
+          quantities: [['MVP Lanzamiento', 1]],
+          tip: 'Una PWA (Progressive Web App) permite que tus clientes instalen tu negocio en su celular directo desde el navegador sin intermediarios.',
+          badge: 'PIXEL',
+          thumb: './imagenes/apps-moviles.png', href: './apps moviles.html',
+          type: 'mobile', c1: '#57e0b7', c2: '#4379dc'
+        },
+        {
+          id: 'video',
+          name: 'Contenido audiovisual',
+          en: 'Audiovisual & Motion',
+          tag: 'CONTENIDO EN MOVIMIENTO',
+          tagEn: 'MOTION CONTENT',
+          desc: 'Reels comerciales, animación de logotipos (Motion Graphics) y spots visuales listos para cautivar en pantallas digitales.',
+          descEn: 'Commercial reels, logo motion graphics and dynamic visual spots built for digital screens.',
+          spec: ['Motion Graphics 4K', 'Reels verticales', 'Diseño sonoro'],
+          specEn: ['4K Motion Graphics', 'Vertical Reels', 'Sound design'],
+          basePrice: 240,
+          unit: 'por pieza audiovisual',
+          materials: [['Logo Reveal / Animación de Marca', 1], ['Reel Comercial Dinámico (30-45s)', 1.35], ['Pack 4 Reels Mensuales + Subtítulos', 3.6]],
+          quantities: [['1 Producción Master', 1], ['2 Versiones (Horizontal + Vertical)', 1.3]],
+          tip: 'Los primeros 2.5 segundos de un Reel definen el 80% de la retención. Usamos cortes rítmicos y tipografía cinética para atrapar la atención.',
+          thumb: './imagenes/audiovisual.png', href: './audiovisual.html',
+          type: 'video', c1: '#f174ad', c2: '#795aff'
+        }
+      ];
+
+      // Generador vectorial instantáneo de artes de alta precisión (0 imágenes rotas, carga inmediata)
+      function buildServiceArtSvg(s) {
+        const c = s.c1, d = s.c2;
+        let illustration = '';
+        switch (s.type) {
+          case 'graphic':
+            illustration = `<g transform="translate(940 340)"><circle r="240" fill="${c}" opacity=".15"/><path d="M-210 -50Q-90 -260 40 -120Q200 -200 220 -25Q310 85 120 175Q-40 290 -190 155Q-295 80 -210 -50Z" fill="url(#p)"/><path d="M-160 -75Q0 -240 170 -75Q-80 40 165 155Q-90 290 -185 60" fill="none" stroke="#fff" stroke-opacity=".65" stroke-width="5"/><circle cx="-65" cy="-18" r="12" fill="#fff"/><circle cx="115" cy="-110" r="14" fill="#fff"/></g>`;
+            break;
+          case 'cards':
+            illustration = `<g transform="translate(920 270) rotate(-12)"><rect x="-220" y="-125" width="440" height="250" rx="22" fill="${d}" stroke="#fff" stroke-opacity=".35" stroke-width="2"/><text x="-185" y="-35" fill="#fff" font-weight="800" font-size="32" font-family="Outfit,sans-serif">PIXAVI PRINT</text><path d="M-185 75H-60M-185 98H-100" stroke="#fff" stroke-width="7" stroke-linecap="round"/></g><g transform="translate(1010 420) rotate(11)"><rect x="-220" y="-125" width="440" height="250" rx="22" fill="url(#p)" stroke="#fff" stroke-opacity=".55" stroke-width="2.5"/><circle cx="135" cy="-30" r="65" fill="#fff" opacity=".14"/><text x="-185" y="-35" fill="#fff" font-weight="800" font-size="32" font-family="Outfit,sans-serif">UV SPOT 350G</text><path d="M-185 75H-45" stroke="#fff" stroke-width="8" stroke-linecap="round"/></g>`;
+            break;
+          case 'branding':
+            illustration = `<g transform="translate(970 355)"><circle r="225" fill="${d}" opacity=".22"/><path d="M-155 105L0 -185L155 105Z" fill="url(#p)" stroke="#fff" stroke-opacity=".5" stroke-width="4"/><circle cx="0" cy="-10" r="62" fill="#0f091d" stroke="${c}" stroke-width="4"/><path d="M-195 175H195" stroke="#fff" opacity=".65" stroke-width="3"/></g>`;
+            break;
+          case 'flyers':
+          case 'poster':
+            illustration = `<g transform="translate(955 340) rotate(-6)"><rect x="-150" y="-200" width="300" height="400" rx="18" fill="#0d0b22" stroke="#fff" stroke-opacity=".35" stroke-width="3"/><rect x="-132" y="-182" width="264" height="364" rx="12" fill="url(#p)"/><circle cx="55" cy="-85" r="78" fill="#fff" opacity=".16"/><text x="-105" y="105" fill="#fff" font-size="38" font-weight="800" font-family="Outfit,sans-serif">${s.type === 'poster' ? 'AFICHE' : 'FLYER'}</text><path d="M-105 130H85" stroke="#fff" stroke-opacity=".75" stroke-width="5"/></g>`;
+            break;
+          case 'large':
+            illustration = `<g transform="translate(810 175)"><rect x="0" y="0" width="380" height="290" rx="12" fill="#080716" stroke="#a6a1d8" stroke-width="10"/><rect x="16" y="16" width="348" height="258" rx="6" fill="url(#p)"/><text x="38" y="95" fill="#fff" font-size="40" font-weight="800">GRAN</text><text x="38" y="140" fill="#fff" font-size="40" font-weight="800">FORMATO</text><path d="M75 295v130M305 295v130" stroke="#b9b2d0" stroke-width="10"/></g>`;
+            break;
+          case 'calendar':
+            illustration = `<g transform="translate(960 360) rotate(-4)"><rect x="-200" y="-190" width="400" height="370" rx="20" fill="#18122b" stroke="#fff" stroke-opacity=".3" stroke-width="3"/><rect x="-200" y="-190" width="400" height="84" rx="20" fill="url(#p)"/><text x="-155" y="-136" font-size="28" font-weight="800" fill="#fff">2026 · PIXAVI</text>${Array.from({ length: 4 }, (_, i) => Array.from({ length: 6 }, (_, j) => `<rect x="${-162 + j * 55}" y="${-75 + i * 52}" width="38" height="32" rx="6" fill="${(i + j) % 3 === 0 ? c : '#392e5c'}"/>`).join('')).join('')}</g>`;
+            break;
+          case 'invitations':
+            illustration = `<g transform="translate(965 355) rotate(-7)"><rect x="-195" y="-135" width="390" height="270" rx="14" fill="url(#p)" stroke="#ffe5a3" stroke-width="3"/><path d="M-192 -132L0 42L192 -132" fill="none" stroke="#fff" stroke-opacity=".65" stroke-width="4"/><circle cy="45" r="36" fill="${d}" stroke="#ffe5a3" stroke-width="3"/><text text-anchor="middle" y="54" fill="#fff" font-size="24" font-weight="800">VIP</text></g>`;
+            break;
+          case 'web':
+            illustration = `<g transform="translate(955 350)"><rect x="-270" y="-180" width="540" height="325" rx="20" fill="#090b20" stroke="${c}" stroke-width="8"/><rect x="-252" y="-162" width="504" height="288" rx="10" fill="url(#p)"/><circle cx="-220" cy="-138" r="7" fill="#ff6b9d"/><circle cx="-198" cy="-138" r="7" fill="#ffd166"/><circle cx="-176" cy="-138" r="7" fill="#06d6a0"/><text x="-215" y="-15" fill="#fff" font-size="42" font-weight="800" font-family="Outfit,sans-serif">CONNECTION PIXEL</text><rect x="-215" y="12" width="260" height="12" rx="6" fill="#fff" opacity=".65"/></g>`;
+            break;
+          case 'mobile':
+            illustration = `<g transform="translate(965 355) rotate(8)"><rect x="-110" y="-215" width="220" height="430" rx="36" fill="#090c20" stroke="${c}" stroke-width="6"/><rect x="-94" y="-192" width="188" height="384" rx="24" fill="url(#p)"/><circle cy="-30" r="58" fill="#fff" opacity=".18"/><path d="M-55 85h110M-55 115h80" stroke="#fff" stroke-width="8" stroke-linecap="round"/></g>`;
+            break;
+          default:
+            illustration = `<g transform="translate(965 350) rotate(-4)"><rect x="-250" y="-155" width="500" height="310" rx="18" fill="#0b0b24" stroke="${c}" stroke-width="8"/><rect x="-234" y="-139" width="468" height="278" rx="10" fill="url(#p)"/><circle cy="0" r="64" fill="#fff" opacity=".2"/><path d="M-16 -36L40 0L-16 36Z" fill="#fff"/></g>`;
+        }
+        const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720"><defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="${d}" stop-opacity=".42"/><stop offset=".55" stop-color="#060512"/><stop offset="1" stop-color="${c}" stop-opacity=".28"/></linearGradient><linearGradient id="p" x1="0" y1="0" x2="1" y2="1"><stop stop-color="${c}"/><stop offset="1" stop-color="${d}"/></linearGradient><radialGradient id="h"><stop stop-color="${c}" stop-opacity=".55"/><stop offset="1" stop-color="${d}" stop-opacity="0"/></radialGradient></defs><rect width="1280" height="720" fill="#070510"/><rect width="1280" height="720" fill="url(#bg)"/><circle cx="960" cy="330" r="320" fill="url(#h)"/><g opacity=".16" stroke="#fff" stroke-width=".6">${Array.from({ length: 11 }, (_, i) => `<path d="M${i * 130} 0V720"/>`).join('')}${Array.from({ length: 6 }, (_, i) => `<path d="M0 ${i * 130}H1280"/>`).join('')}</g>${illustration}</svg>`;
+        return 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg);
+      }
+
+      const artCache = new Map(services.map(s => [s.id, buildServiceArtSvg(s)]));
+      let current = 0, shownScene = 0;
+      const T = (es, en) => prefs.language === 'en' ? en : es;
+
+      // Audio desactivado en PIXAVI 2.0; se conserva esta función para llamadas heredadas.
+      function playSpatialTone() { /* sin sonido: interfaz silenciosa por defecto */ }
+
+      function notify(msg) {
+        const node = $('toast');
+        node.textContent = msg;
+        node.hidden = false;
+        clearTimeout(notify.timer);
+        notify.timer = setTimeout(() => { node.hidden = true; }, 3600);
+      }
+
+      // Selección de Servicio con Dirección de Arte Reactiva (--c1, --c2)
+      function selectService(idx, scroll = false) {
+        idx = (idx + services.length) % services.length;
+        current = idx;
+        const s = services[idx];
+
+        // Actualizar variables de color del producto en toda la interfaz
+        document.documentElement.style.setProperty('--c1', s.c1);
+        document.documentElement.style.setProperty('--c2', s.c2);
+
+        // Transición suave de arte de fondo
+        const sceneA = $('sceneA'), sceneB = $('sceneB');
+        const nextScene = shownScene === 0 ? sceneB : sceneA;
+        const prevScene = shownScene === 0 ? sceneA : sceneB;
+        nextScene.style.backgroundImage = `url("${artCache.get(s.id)}")`;
+        nextScene.classList.add('active');
+        prevScene.classList.remove('active');
+        shownScene = 1 - shownScene;
+
+        // Actualizar estado de tarjetas en carrusel
+        document.querySelectorAll('.service-card').forEach((card, i) => {
+          card.classList.toggle('active', i === idx);
+          card.setAttribute('aria-pressed', String(i === idx));
+        });
+
+        // Actualizar Hero Comercial
+        const copy = $('heroCopy');
+        copy.classList.remove('in');
+        setTimeout(() => {
+          $('heroKicker').textContent = T(s.tag, s.tagEn);
+          $('heroTitle').textContent = T(s.name, s.en);
+          $('heroDesc').textContent = T(s.desc, s.descEn);
+          $('heroSpecs').innerHTML = (prefs.language === 'en' ? s.specEn : s.spec).map(sp => `<span>✦ ${sp}</span>`).join('');
+          $('heroBasePrice').textContent = `S/ ${s.basePrice.toFixed(2)}`;
+          $('heroUnitLabel').textContent = `/ ${s.unit}`;
+          if ($('openServicePageBtn') && s.href) {
+            $('openServicePageBtn').href = s.href;
+          }
+          copy.classList.add('in');
+        }, 70);
+
+        // Actualizar consejo de MAQUI según el servicio activo
+        $('maquiTipText').textContent = `💡 MAQUI sugiere para ${s.name}: "${s.tip}"`;
+
+        if (scroll) {
+          const cardEl = document.querySelectorAll('.service-card')[idx];
+          cardEl?.scrollIntoView({ behavior: prefs.reducedMotion || reduceSystem.matches ? 'auto' : 'smooth', block: 'nearest' });
+        }
+      }
+
+      // Catálogo visual: las tarjetas seleccionan el servicio y la ficha abre su página dedicada.
+      function applyServiceFilters() {
+        const filter = document.querySelector('.filter-chip.is-active')?.dataset.filter || 'all';
+        const query = ($('serviceSearch')?.value || '').trim().toLocaleLowerCase('es');
+        let visible = 0;
+        document.querySelectorAll('.service-card').forEach(card => {
+          const matchesCategory = filter === 'all' || card.dataset.category === filter;
+          const matchesQuery = !query || card.dataset.search.includes(query);
+          const show = matchesCategory && matchesQuery;
+          card.hidden = !show;
+          if (show) visible++;
+        });
+        $('serviceCount').textContent = `${visible} ${visible === 1 ? 'servicio' : 'servicios'}`;
+        $('noServices').hidden = visible !== 0;
+      }
+
+      function renderServiceCards() {
+        const container = $('serviceScroll');
+        container.replaceChildren();
+        services.forEach((s, i) => {
+          const btn = document.createElement('a');
+          btn.href = s.href;
+          btn.className = 'service-card';
+          btn.dataset.index = String(i);
+          btn.dataset.category = SERVICE_CATEGORY[s.id] || 'design';
+          btn.dataset.search = `${s.name} ${s.en} ${s.tag} ${s.desc}`.toLocaleLowerCase('es');
+          btn.title = `Seleccionar ${T(s.name, s.en)}`;
+          btn.setAttribute('role', 'listitem');
+          btn.setAttribute('aria-label', `${T(s.name, s.en)}. Seleccionar para ver detalles.`);
+
+          const art = document.createElement('div');
+          art.className = 'mini-art';
+          if (s.badge) {
+            const badge = document.createElement('span');
+            badge.className = 'pixel-badge';
+            badge.textContent = s.badge;
+            art.append(badge);
+          }
+          const img = document.createElement('img');
+          img.alt = '';
+          img.loading = 'lazy';
+          img.src = s.thumb || artCache.get(s.id);
+          img.onerror = () => { img.onerror = null; img.src = artCache.get(s.id); };
+          art.append(img);
+
+          const label = document.createElement('div');
+          label.className = 'mini-label';
+          label.textContent = T(s.name, s.en);
+          const spec = document.createElement('div');
+          spec.className = 'mini-spec';
+          spec.textContent = `${T(s.tag, s.tagEn)} · Ver detalles ↗`;
+          btn.append(art, label, spec);
+
+          btn.addEventListener('click', e => {
+            e.preventDefault();
+            selectService(i, false);
+            $('serviceDetail').scrollIntoView({ behavior: prefs.reducedMotion || reduceSystem.matches ? 'auto' : 'smooth', block: 'start' });
+          });
+          btn.addEventListener('focus', () => selectService(i, false));
+          container.append(btn);
+        });
+        applyServiceFilters();
+        selectService(current, false);
+      }
+
+      // ==========================================================================
+      // CONFIGURADOR Y COTIZADOR EN VIVO + SIMULADOR DE ACABADOS
+      // ==========================================================================
+      let selectedFinish = 'uv';
+      let finishMultiplier = 1.22;
+
+      function openConfigurator() {
+        const s = services[current];
+        $('configTitle').textContent = T(s.name, s.en);
+        $('configDesc').textContent = T(s.desc, s.descEn);
+        $('configVisualImg').src = artCache.get(s.id);
+
+        // Poblar materiales y cantidades reales del servicio
+        const matSel = $('cfgMaterial');
+        matSel.innerHTML = s.materials.map(([label, mult]) => `<option value="${mult}" data-label="${label}">${label}</option>`).join('');
+
+        const qtySel = $('cfgQty');
+        qtySel.innerHTML = s.quantities.map(([label, mult]) => `<option value="${mult}" data-label="${label}">${label}</option>`).join('');
+
+        $('cfgNotes').value = '';
+        updateLiveQuotePrice();
+
+        $('configShade').hidden = $('configPanel').hidden = false;
+        playSpatialTone(590, 0.16, 'triangle');
+      }
+
+      function closeConfigurator() {
+        $('configShade').hidden = $('configPanel').hidden = true;
+      }
+
+      function updateLiveQuotePrice() {
+        const s = services[current];
+        const matMult = Number($('cfgMaterial').value) || 1;
+        const qtyMult = Number($('cfgQty').value) || 1;
+        const urgMult = Number($('cfgUrgency').value) || 1;
+        const total = Math.round(s.basePrice * matMult * qtyMult * finishMultiplier * urgMult);
+        $('livePriceDisplay').textContent = `S/ ${total.toFixed(2)}`;
+        return total;
+      }
+
+      // Simulador táctil de reflejo sobre el acabado
+      const finishSim = $('finishSim');
+      finishSim.addEventListener('pointermove', e => {
+        const r = finishSim.getBoundingClientRect();
+        finishSim.style.setProperty('--fx', `${e.clientX - r.left}px`);
+        finishSim.style.setProperty('--fy', `${e.clientY - r.top}px`);
+      });
+
+      const finishNames = {
+        mate: '✦ Simulador activo: Laminado Mate Sedoso',
+        uv: '✦ Simulador activo: Brillo UV Sectorizado',
+        foil: '✦ Simulador activo: Estampado Foil Metálico'
+      };
+
+      $('finishPills').addEventListener('click', e => {
+        const btn = e.target.closest('.finish-pill');
+        if (!btn) return;
+        document.querySelectorAll('.finish-pill').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        selectedFinish = btn.dataset.finishVal;
+        finishMultiplier = Number(btn.dataset.mult) || 1;
+        finishSim.dataset.finish = selectedFinish;
+        $('simFinishLabel').textContent = finishNames[selectedFinish] || '';
+        updateLiveQuotePrice();
+        playSpatialTone(700, 0.1, 'sine');
+      });
+
+      ['cfgMaterial', 'cfgQty', 'cfgUrgency'].forEach(id => {
+        $(id).addEventListener('change', updateLiveQuotePrice);
+      });
+
+      // ==========================================================================
+      // CARRITO COMERCIAL Y EXPORTACIÓN DE ORDEN EN SOLES (S/)
+      // ==========================================================================
+      let cartEntries = [];
+      try {
+        const saved = JSON.parse(localStorage.getItem(CART_KEY) || '[]');
+        if (Array.isArray(saved)) cartEntries = saved;
+      } catch { }
+
+      function persistCart() {
+        try { localStorage.setItem(CART_KEY, JSON.stringify(cartEntries)); } catch { }
+        renderCart();
+      }
+
+      function addServiceToCart(customItem) {
+        cartEntries.push({
+          id: 'px-' + Date.now() + '-' + Math.random().toString(36).slice(2, 6),
+          ...customItem
+        });
+        persistCart();
+        playSpatialTone(780, 0.18, 'triangle');
+        notify(T('¡Proyecto agregado a tu orden de producción!', 'Project added to your production order!'));
+      }
+
+      function renderCart() {
+        const count = cartEntries.length;
+        const badge = $('cartCount');
+        badge.textContent = String(count);
+        badge.hidden = count === 0;
+        $('cartUnits').textContent = `${count} ${count === 1 ? 'proyecto' : 'proyectos'}`;
+        $('cartLineCount').textContent = String(count);
+        const list = $('cartItems');
+        list.replaceChildren();
+        if (!count) {
+          const empty = document.createElement('div');
+          empty.className = 'cart-empty-state';
+          empty.textContent = 'Tu cotización está vacía. Configura un servicio del catálogo para comenzar.';
+          list.append(empty);
+          $('cartTotalSoles').textContent = 'S/ 0.00';
+          return;
+        }
+        let sum = 0;
+        cartEntries.forEach(item => {
+          sum += Number(item.price) || 0;
+          const art = artCache.get(item.serviceId) || '';
+          const article = document.createElement('article'); article.className = 'cart-item';
+          const artWrap = document.createElement('div'); artWrap.className = 'cart-item-art';
+          const img = document.createElement('img'); img.src = art; img.alt = ''; artWrap.append(img);
+          const main = document.createElement('div'); main.className = 'cart-item-main';
+          const name = document.createElement('strong'); name.textContent = String(item.name || 'Servicio PIXAVI');
+          const specs = document.createElement('div'); specs.className = 'cart-item-specs'; specs.textContent = String(item.specs || 'Especificaciones por confirmar');
+          const notes = document.createElement('div'); notes.className = 'cart-item-notes'; notes.textContent = item.notes ? `Nota: ${String(item.notes)}` : 'Revisión de especificaciones pendiente';
+          main.append(name, specs, notes);
+          const action = document.createElement('div'); action.className = 'cart-item-action';
+          const price = document.createElement('strong'); price.textContent = `S/ ${(Number(item.price) || 0).toFixed(2)}`;
+          const remove = document.createElement('button'); remove.type = 'button'; remove.dataset.remove = String(item.id); remove.textContent = 'Eliminar ×';
+          action.append(price, remove); article.append(artWrap, main, action); list.append(article);
+        });
+        $('cartTotalSoles').textContent = `S/ ${sum.toFixed(2)}`;
+      }
+
+      // ==========================================================================
+      // VALIDADOR PRE-PRENSA (PRE-FLIGHT CHECK EN EL NAVEGADOR)
+      // ==========================================================================
+      let lastRasterInfo = null;
+
+      function updateRasterResolution() {
+        if (!lastRasterInfo) return;
+        const widthMm = Number($('printWidthMm').value);
+        const heightMm = Number($('printHeightMm').value);
+        const dpiEl = $('repDpi');
+        if (lastRasterInfo.isSvg) {
+          dpiEl.textContent = 'Vectorial · depende del tamaño de salida';
+          dpiEl.className = 'status-ok';
+          return;
+        }
+        if (!(widthMm > 0) || !(heightMm > 0)) {
+          dpiEl.textContent = 'Indica el tamaño físico de impresión';
+          dpiEl.className = 'status-warn';
+          return;
+        }
+        const dpiX = lastRasterInfo.width / (widthMm / 25.4);
+        const dpiY = lastRasterInfo.height / (heightMm / 25.4);
+        const effectiveDpi = Math.floor(Math.min(dpiX, dpiY));
+        dpiEl.textContent = `${effectiveDpi} DPI efectivos (${effectiveDpi >= 300 ? '300 DPI o más' : 'por debajo de 300 DPI'})`;
+        dpiEl.className = effectiveDpi >= 300 ? 'status-ok' : 'status-warn';
+        $('repVerdict').textContent = effectiveDpi >= 300
+          ? 'La resolución calculada cumple el umbral orientativo de 300 DPI para el tamaño indicado. El sangrado, perfil de color y otras condiciones siguen pendientes de verificación.'
+          : 'La resolución calculada puede ser insuficiente para el tamaño indicado. Considera utilizar un archivo de mayor resolución o reducir el tamaño de impresión.';
+      }
+
+      async function analyzePrepressFile(file) {
+        if (!file) return;
+        lastRasterInfo = null;
+        $('preReportArea').hidden = true;
+        $('repName').textContent = file.name.slice(0, 48);
+        const maxBytes = 20 * 1024 * 1024;
+        const extension = file.name.split('.').pop().toLowerCase();
+        const isPdf = file.type === 'application/pdf' || extension === 'pdf';
+        const isSvg = file.type === 'image/svg+xml' || extension === 'svg';
+        const isRaster = ['image/png','image/jpeg','image/webp','image/gif'].includes(file.type) || ['png','jpg','jpeg','webp','gif'].includes(extension);
+        $('repDims').textContent = `${(file.size / (1024 * 1024)).toFixed(2)} MB`;
+        $('repBleed').textContent = 'No verificado'; $('repBleed').className = 'status-warn';
+        if (file.size > maxBytes) {
+          $('repDpi').textContent = 'No analizado'; $('repDpi').className = 'status-warn';
+          $('repVerdict').textContent = 'El archivo supera el límite de 20 MB establecido para este análisis.';
+          $('preReportArea').hidden = false; return;
+        }
+        if (!isPdf && !isSvg && !isRaster) {
+          $('repDpi').textContent = 'Formato no admitido'; $('repDpi').className = 'status-warn';
+          $('repVerdict').textContent = 'Formato no admitido. Selecciona PNG, JPG, WebP, SVG o PDF.';
+          $('preReportArea').hidden = false; return;
+        }
+        if (isPdf) {
+          $('repDims').textContent = `PDF · ${(file.size / (1024 * 1024)).toFixed(2)} MB`;
+          $('repDpi').textContent = 'No verificado en el navegador'; $('repDpi').className = 'status-warn';
+          $('repVerdict').textContent = 'Se detectó un PDF, pero para verificar resolución de imágenes, cajas de página, fuentes, sangrado y perfiles de color se necesita un analizador PDF en el servidor. No se declara apto sin esa inspección.';
+          $('preReportArea').hidden = false;
+          // Optional server analysis; absence of this route never produces a false pass.
+          try {
+            const data = new FormData(); data.append('file', file);
+            const response = await fetch(API.preflight, { method: 'POST', body: data });
+            if (response.ok) {
+              const result = await response.json();
+              if (result.dimensions) $('repDims').textContent = String(result.dimensions);
+              if (result.dpi !== undefined && result.dpi !== null) {
+                $('repDpi').textContent = String(result.dpi);
+                $('repDpi').className = result.dpi >= 300 ? 'status-ok' : 'status-warn';
+              }
+              if (result.bleedVerified === true) {
+                $('repBleed').textContent = result.bleedOk ? 'Verificado · cumple' : 'Verificado · revisar';
+                $('repBleed').className = result.bleedOk ? 'status-ok' : 'status-warn';
+              }
+              $('repVerdict').textContent = String(result.summary || 'Análisis de PDF recibido. Revisa cada comprobación del reporte.');
+            }
+          } catch { /* PDF remains explicitly unverified without the server analyzer. */ }
+          return;
+        }
+        const objectUrl = URL.createObjectURL(file);
+        const img = new Image();
+        img.onload = () => {
+          URL.revokeObjectURL(objectUrl);
+          const width = img.naturalWidth, height = img.naturalHeight;
+          $('repDims').textContent = `${width} × ${height} px · ${(file.size / (1024 * 1024)).toFixed(2)} MB`;
+          lastRasterInfo = { width, height, isSvg };
+          $('repBleed').textContent = 'No verificable en imagen';
+          $('repBleed').className = 'status-warn';
+          updateRasterResolution();
+          $('preReportArea').hidden = false;
+          if (isSvg) $('repVerdict').textContent = 'Se detectó un archivo SVG vectorial. Su resolución efectiva depende del tamaño final de salida. El sangrado y el perfil de color no pueden confirmarse únicamente con esta vista previa.';
+          else $('repVerdict').textContent = 'Se detectó una imagen rasterizada. Indica el ancho y alto físicos de impresión para calcular sus DPI efectivos. El sangrado y el perfil de color no quedan verificados por esta comprobación.';
+        };
+        img.onerror = () => {
+          URL.revokeObjectURL(objectUrl);
+          $('repDpi').textContent = 'No se pudo leer'; $('repDpi').className = 'status-warn';
+          $('repVerdict').textContent = 'El archivo no pudo abrirse como imagen. Vuelve a exportarlo o utiliza un formato admitido.';
+          $('preReportArea').hidden = false;
+        };
+        img.src = objectUrl;
+      }
+
+      // MAQUI: conversation, safe DOM rendering and same-origin backend connection.
+      const maquiConversation = [];
+      let maquiBusy = false;
+      function addMaquiMessage(content, role = 'assistant', pending = false) {
+        const node = document.createElement('div');
+        node.className = `maqui-message ${role}${pending ? ' pending' : ''}`;
+        node.textContent = String(content);
+        $('maquiMessages').append(node);
+        $('maquiMessages').scrollTop = $('maquiMessages').scrollHeight;
+        return node;
+      }
+      function setMaquiOpen(open) {
+        $('maquiChatPanel').hidden = !open;
+        $('maquiBtn').setAttribute('aria-expanded', String(open));
+        if (open) $('maquiMessageInput').focus();
+      }
+      function localMaquiGuide(message) {
+        const q = message.toLocaleLowerCase('es');
+        if (/cotiz|precio|presupuesto|pedido/.test(q)) return 'Puedo ayudarte a preparar una cotización. Añade los servicios al resumen y completa tus datos de contacto. El envío requiere que el endpoint /api/solicitudes esté activo.';
+        if (/archivo|pdf|dpi|pre.?prensa|sangrado|impresi[oó]n/.test(q)) return 'Para revisar un archivo, abre el Validador Pre-Prensa desde la barra superior. Para imágenes puedes calcular los DPI indicando el tamaño físico; la revisión completa de PDF requiere el analizador del servidor.';
+        if (/tarjeta|volante|afiche|gigant|calendario|invitaci[oó]n/.test(q)) return 'En Producción gráfica encontrarás tarjetas, volantes, afiches, gigantografías, calendarios e invitaciones. Selecciona el servicio para revisar sus opciones y acabados.';
+        if (/web|aplicaci[oó]n|app|video|audiovisual|branding|identidad|diseñ/.test(q)) return 'PIXAVI también desarrolla diseño gráfico, identidad de marca, páginas web, aplicaciones móviles y contenido audiovisual. Explora Soluciones digitales o Diseño e identidad en el catálogo.';
+        return `Puedo orientarte sobre los 11 servicios, sus especificaciones y el proceso de cotización. Ahora mismo estoy en modo de orientación local: la conexión de IA se activa cuando el servidor responda en ${API.chat}.`;
+      }
+      async function sendMaquiMessage(rawMessage) {
+        const message = String(rawMessage || '').trim();
+        if (!message || maquiBusy) return;
+        $('maquiWelcome').hidden = true;
+        $('maquiPrompts').hidden = true;
+        addMaquiMessage(message, 'user');
+        maquiConversation.push({ role: 'user', content: message });
+        $('maquiMessageInput').value = '';
+        maquiBusy = true; $('maquiSendBtn').disabled = true;
+        const pending = addMaquiMessage('MAQUI está preparando una respuesta…', 'assistant', true);
+        try {
+          const response = await fetch(API.chat, {
+            method: 'POST', headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ message, history: maquiConversation.slice(-10), context: { service: services[current]?.name || null, language: prefs.language } })
+          });
+          if (!response.ok) throw new Error(`HTTP ${response.status}`);
+          const data = await response.json();
+          const reply = data.reply || data.response || data.message;
+          if (typeof reply !== 'string' || !reply.trim()) throw new Error('Respuesta vacía del servicio de MAQUI');
+          pending.textContent = reply; pending.classList.remove('pending');
+          $('maquiStatus').textContent = 'MAQUI AI · Conectada';
+          maquiConversation.push({ role: 'assistant', content: reply });
+        } catch {
+          pending.textContent = localMaquiGuide(message);
+          pending.classList.remove('pending');
+          $('maquiStatus').textContent = 'Modo de orientación · IA pendiente';
+          maquiConversation.push({ role: 'assistant', content: pending.textContent });
+        } finally {
+          maquiBusy = false; $('maquiSendBtn').disabled = false; $('maquiMessages').scrollTop = $('maquiMessages').scrollHeight;
+        }
+      }
+
+      // ==========================================================================
+      // EVENTOS E INICIALIZACIÓN GENERAL
+      // ==========================================================================
+      function init() {
+        syncFromAviEcosystem();
+        renderServiceCards();
+        renderCart();
+
+        // Catalog filtering and search.
+        document.querySelectorAll('.filter-chip').forEach(button => {
+          button.addEventListener('click', () => {
+            document.querySelectorAll('.filter-chip').forEach(item => {
+              const active = item === button;
+              item.classList.toggle('is-active', active);
+              item.setAttribute('aria-pressed', String(active));
+            });
+            applyServiceFilters();
+          });
+        });
+        $('serviceSearch').addEventListener('input', applyServiceFilters);
+        $('serviceSearch').addEventListener('keydown', e => { if (e.key === 'Escape') { e.currentTarget.value = ''; applyServiceFilters(); } });
+        document.addEventListener('keydown', e => {
+          if (e.key === '/' && !['INPUT','TEXTAREA'].includes(document.activeElement?.tagName)) { e.preventDefault(); $('serviceSearch').focus(); }
+          if (e.key === 'Escape') {
+            closeConfigurator(); closePreflight(); closeCart(); setMaquiOpen(false);
+          }
+        });
+
+        // Service configuration and quote basket.
+        $('configureBtn').addEventListener('click', openConfigurator);
+        $('configClose').addEventListener('click', closeConfigurator);
+        $('configShade').addEventListener('click', closeConfigurator);
+        $('quickAddBtn').addEventListener('click', () => {
+          const service = services[current];
+          addServiceToCart({ serviceId: service.id, name: T(service.name, service.en), specs: `${service.materials[0][0]} · ${service.quantities[0][0]} · Acabado por definir`, notes: '', price: service.basePrice });
+        });
+        $('addConfiguredBtn').addEventListener('click', () => {
+          const service = services[current];
+          const material = $('cfgMaterial').selectedOptions[0]?.dataset.label || '';
+          const quantity = $('cfgQty').selectedOptions[0]?.dataset.label || '';
+          const urgency = $('cfgUrgency').selectedOptions[0]?.dataset.label || '';
+          const finish = selectedFinish === 'uv' ? 'UV Sectorizado' : selectedFinish === 'foil' ? 'Foil Metálico' : 'Laminado Mate';
+          const price = updateLiveQuotePrice();
+          addServiceToCart({ serviceId: service.id, name: T(service.name, service.en), specs: `${material} · ${quantity} · ${finish} (${urgency})`, notes: $('cfgNotes').value.trim(), price });
+          closeConfigurator(); openCart();
+        });
+        $('cartBtn').addEventListener('click', openCart);
+        $('cartClose').addEventListener('click', closeCart);
+        $('cartShade').addEventListener('click', closeCart);
+        $('cartItems').addEventListener('click', e => {
+          const button = e.target.closest('[data-remove]');
+          if (!button) return;
+          cartEntries = cartEntries.filter(item => String(item.id) !== button.dataset.remove);
+          persistCart();
+        });
+        $('cartClearBtn').addEventListener('click', () => { cartEntries = []; persistCart(); notify('Cotización vaciada.'); });
+        $('cartSubmitBtn').addEventListener('click', submitQuote);
+        $('openQuoteFromCTA').addEventListener('click', openCart);
+
+        // Language toggle retained from AVI CONNECTION preferences.
+        $('langBtn').addEventListener('click', () => {
+          prefs.language = prefs.language === 'es' ? 'en' : 'es';
+          $('langBtn').textContent = prefs.language.toUpperCase();
+          document.querySelectorAll('[data-es][data-en]').forEach(el => {
+            el.textContent = prefs.language === 'en' ? el.dataset.en : el.dataset.es;
+          });
+          renderServiceCards();
+        });
+
+        // Pre-press validator.
+        const openPreflight = () => { $('preflightShade').hidden = $('preflightModal').hidden = false; };
+        const closePreflight = () => { $('preflightShade').hidden = $('preflightModal').hidden = true; };
+        $('preflightBtn').addEventListener('click', openPreflight);
+        $('mobilePreflightBtn').addEventListener('click', openPreflight);
+        $('preflightClose').addEventListener('click', closePreflight);
+        $('preflightShade').addEventListener('click', closePreflight);
+        const dropzone = $('preDropzone');
+        dropzone.addEventListener('click', () => $('preFileInput').click());
+        dropzone.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); $('preFileInput').click(); } });
+        dropzone.addEventListener('dragover', e => { e.preventDefault(); dropzone.classList.add('dragover'); });
+        dropzone.addEventListener('dragleave', () => dropzone.classList.remove('dragover'));
+        dropzone.addEventListener('drop', e => { e.preventDefault(); dropzone.classList.remove('dragover'); analyzePrepressFile(e.dataTransfer.files?.[0]); });
+        $('preFileInput').addEventListener('change', e => analyzePrepressFile(e.target.files?.[0]));
+        $('printWidthMm').addEventListener('input', updateRasterResolution);
+        $('printHeightMm').addEventListener('input', updateRasterResolution);
+
+        // MAQUI chat.
+        $('maquiBtn').addEventListener('click', () => setMaquiOpen($('maquiChatPanel').hidden));
+        $('maquiCloseChat').addEventListener('click', () => setMaquiOpen(false));
+        $('maquiChatForm').addEventListener('submit', e => { e.preventDefault(); sendMaquiMessage($('maquiMessageInput').value); });
+        document.querySelectorAll('[data-maqui-prompt]').forEach(button => button.addEventListener('click', () => sendMaquiMessage(button.dataset.maquiPrompt)));
+
+        // Start with the first service selected and a visible initial CTA.
+        selectService(current, false);
+      }
+
+      function openCart() { $('cartShade').hidden = $('cartPanel').hidden = false; renderCart(); }
+      function closeCart() { $('cartShade').hidden = $('cartPanel').hidden = true; }
+      async function submitQuote() {
+        if (!cartEntries.length) { notify('Añade al menos un servicio antes de enviar la solicitud.'); return; }
+        const name = $('cartClientName').value.trim();
+        const email = $('cartClientEmail').value.trim();
+        const phone = $('cartClientPhone').value.trim();
+        if (!name) { $('cartClientName').focus(); notify('Escribe tu nombre o empresa.'); return; }
+        if (!email && !phone) { $('cartClientEmail').focus(); notify('Indica un correo o teléfono de contacto.'); return; }
+        if (email && !$('cartClientEmail').checkValidity()) { $('cartClientEmail').focus(); notify('Revisa el formato del correo electrónico.'); return; }
+        const payload = {
+          source: 'PIXAVI', customer: { name, email, phone },
+          currency: 'PEN', estimatedTotal: cartEntries.reduce((total, item) => total + (Number(item.price) || 0), 0),
+          items: cartEntries.map(item => ({ serviceId: item.serviceId, name: item.name, specifications: item.specs, notes: item.notes || '', estimatedPrice: Number(item.price) || 0 }))
+        };
+        const button = $('cartSubmitBtn'); button.disabled = true; button.querySelector('span').textContent = 'Enviando solicitud…';
+        try {
+          const response = await fetch(API.quote, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+          const data = await response.json().catch(() => ({}));
+          if (!response.ok) throw new Error(data.message || `HTTP ${response.status}`);
+          const reference = data.reference || data.requestId || data.id || data.numero || 'registrada';
+          cartEntries = []; persistCart();
+          $('cartClientName').value = ''; $('cartClientEmail').value = ''; $('cartClientPhone').value = '';
+          closeCart(); notify(`Solicitud enviada correctamente. Referencia: ${reference}`);
+        } catch (error) {
+          notify('No se pudo registrar la solicitud. Verifica que el servidor tenga activo el endpoint /api/solicitudes.');
+        } finally {
+          button.disabled = false; button.querySelector('span').textContent = 'Enviar solicitud de cotización';
+        }
+      }
+
+      init();
+    })();
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,3161 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="pixavi-daylight" data-color-mode="vivid">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+    <meta name="theme-color" content="#fff8f4" />
+    <meta name="description"
+        content="PIXAVI — Estudio de Diseño Gráfico, Composición Editorial y Pre-Prensa Digital Certificado. Conectado en tiempo real con AVI CONNECTION." />
+    <title>PIXAVI — Diseño Gráfico & Mesa de Arte Interactiva</title>
+    <link rel="icon" type="image/png" href="../assets/imagenes/pixavilogo.png" />
+    <link rel="apple-touch-icon" href="../assets/imagenes/pixavilogo.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link id="avi-dynamic-font"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@500;600;700;800&family=Montserrat:wght@500;700;800&family=Poppins:wght@400;600;700&family=Playfair+Display:ital,wght@0,700;1,600&family=Orbitron:wght@600;800&display=swap"
+        rel="stylesheet" />
+
+    <style>
+        /* ==========================================================================
+       1. PALETA LUMINOSA, VIVA Y COLORIDA (CERO NEÓN OSCURO) + SYNC AVI.HTML
+       ========================================================================== */
+        :root {
+            color-scheme: light;
+            /* Fondos claros luminosos y alegres */
+            --bg-a: #fff9f5;
+            --bg-b: #f2f8ff;
+            --bg-c: #fdf4ff;
+            --avi-accent: #ff2e7e;
+            --avi-particle: #00b4d8;
+
+            /* Colores vivos de estudio creativo */
+            --c1: #ff2e7e;
+            /* Coral / Rosa Vibrante */
+            --c2: #00b4d8;
+            /* Cian Cielo Vivo */
+            --c3: #ff9f1c;
+            /* Ámbar / Sol Tropical */
+            --c4: #7209b7;
+            /* Violeta Creativo */
+            --c5: #06d6a0;
+            /* Esmeralda Menta */
+
+            --panel-alpha: 0.88;
+            --panel: rgba(255, 255, 255, var(--panel-alpha));
+            --panel-soft: rgba(255, 255, 255, 0.72);
+            --stroke: rgba(24, 18, 43, 0.10);
+            --stroke-vivid: rgba(255, 46, 126, 0.28);
+            --ink: #18122b;
+            --muted: #5a5273;
+            --ok: #059669;
+            --warn: #d97706;
+
+            --ui-font: 'Inter', system-ui, -apple-system, sans-serif;
+            --font-display: 'Outfit', var(--ui-font);
+            --sz: 1;
+            --ui-radius: 24px;
+            --btn-radius: 999px;
+            --dim: 0.12;
+            --blur: 0px;
+            --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        /* Formas dinámicas sincronizadas desde avi.html */
+        body[data-shape="square"] {
+            --ui-radius: 10px;
+            --btn-radius: 10px;
+        }
+
+        body[data-shape="rounded"] {
+            --ui-radius: 20px;
+            --btn-radius: 14px;
+        }
+
+        body[data-shape="pill"] {
+            --ui-radius: 26px;
+            --btn-radius: 999px;
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            min-height: 100%;
+            background: var(--bg-a);
+            color: var(--ink);
+            font-family: var(--ui-font);
+            font-size: calc(15px * var(--sz));
+            line-height: 1.55;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body.high-contrast {
+            --ink: #000000;
+            --muted: #1f1935;
+            --stroke: rgba(0, 0, 0, 0.45);
+            --panel-alpha: 0.98;
+        }
+
+        body.reduced-motion *,
+        body.reduced-motion *::before,
+        body.reduced-motion *::after {
+            animation-duration: 0.01ms !important;
+            transition-duration: 0.01ms !important;
+            scroll-behavior: auto !important;
+        }
+
+        button,
+        input,
+        select,
+        textarea {
+            font: inherit;
+            color: inherit;
+        }
+
+        button {
+            cursor: pointer;
+            background: none;
+            border: 0;
+            transition: transform 0.24s var(--ease-out), background 0.24s, border-color 0.24s, box-shadow 0.24s;
+        }
+
+        button:disabled {
+            opacity: 0.45;
+            cursor: not-allowed;
+        }
+
+        button:focus-visible,
+        a:focus-visible,
+        input:focus-visible,
+        select:focus-visible,
+        textarea:focus-visible {
+            outline: 2px solid var(--c1);
+            outline-offset: 3px;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        [hidden] {
+            display: none !important;
+        }
+
+        /* ==========================================================================
+       2. ESCENA CLARA MULTICROMÁTICA VIVA + FONDO HEREDADO DE AVI.HTML
+       ========================================================================== */
+        .scene-backing {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+            overflow: hidden;
+            background:
+                radial-gradient(circle at 12% 16%, rgba(255, 46, 126, 0.18), transparent 42%),
+                radial-gradient(circle at 88% 18%, rgba(0, 180, 216, 0.20), transparent 45%),
+                radial-gradient(circle at 80% 82%, rgba(255, 159, 28, 0.22), transparent 46%),
+                radial-gradient(circle at 20% 85%, rgba(6, 214, 160, 0.18), transparent 46%),
+                linear-gradient(135deg, var(--bg-a) 0%, var(--bg-b) 52%, var(--bg-c) 100%);
+            transition: background 0.8s ease;
+        }
+
+        .aurora-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(75px);
+            opacity: 0.45;
+            will-change: transform;
+        }
+
+        .aurora-orb--1 {
+            width: 44vw;
+            height: 44vw;
+            max-width: 580px;
+            max-height: 580px;
+            top: -10%;
+            left: -6%;
+            background: radial-gradient(circle, #ff7eb3, transparent 70%);
+            animation: floatOrb1 18s ease-in-out infinite alternate;
+        }
+
+        .aurora-orb--2 {
+            width: 42vw;
+            height: 42vw;
+            max-width: 540px;
+            max-height: 540px;
+            bottom: -12%;
+            right: -5%;
+            background: radial-gradient(circle, #64dfdf, transparent 70%);
+            animation: floatOrb2 22s ease-in-out infinite alternate;
+        }
+
+        .aurora-orb--3 {
+            width: 35vw;
+            height: 35vw;
+            max-width: 450px;
+            max-height: 450px;
+            top: 36%;
+            left: 42%;
+            background: radial-gradient(circle, #ffd166, transparent 72%);
+            opacity: 0.38;
+            animation: floatOrb3 15s ease-in-out infinite alternate;
+        }
+
+        @keyframes floatOrb1 {
+            to {
+                transform: translate(12%, 10%) scale(1.12);
+            }
+        }
+
+        @keyframes floatOrb2 {
+            to {
+                transform: translate(-12%, -8%) scale(1.15);
+            }
+        }
+
+        @keyframes floatOrb3 {
+            to {
+                transform: translate(-10%, 12%) scale(0.92);
+            }
+        }
+
+        .avi-shared-bg {
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+            opacity: 0;
+            transition: opacity 0.8s ease;
+        }
+
+        .avi-shared-bg.is-visible {
+            opacity: 0.22;
+        }
+
+        .avi-shared-bg img,
+        .avi-shared-bg video {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: blur(var(--blur));
+        }
+
+        .scene-grid-overlay {
+            position: absolute;
+            inset: 0;
+            z-index: 2;
+            background-image:
+                linear-gradient(rgba(24, 18, 43, 0.035) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(24, 18, 43, 0.035) 1px, transparent 1px);
+            background-size: 48px 48px;
+            mask-image: radial-gradient(circle at 50% 45%, black 30%, transparent 85%);
+        }
+
+        #ambientCanvas {
+            position: absolute;
+            inset: 0;
+            z-index: 3;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* ==========================================================================
+       3. NUEVO DISEÑO DE BARRA DE NAVEGACIÓN CÁPSULA FLOTANTE Y LUMINOSA
+       ========================================================================== */
+        .page-shell {
+            position: relative;
+            z-index: 5;
+            display: flex;
+            flex-direction: column;
+            min-height: 100dvh;
+        }
+
+        .nav-wrapper {
+            position: sticky;
+            top: 14px;
+            z-index: 55;
+            padding: 0 clamp(14px, 3.5vw, 48px);
+            margin-top: 14px;
+        }
+
+        .topbar-capsule {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            padding: 10px 18px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.88);
+            border: 1.5px solid rgba(255, 255, 255, 0.95);
+            box-shadow:
+                0 14px 36px rgba(24, 18, 43, 0.08),
+                0 4px 12px rgba(255, 46, 126, 0.08),
+                inset 0 1px 0 #ffffff;
+            backdrop-filter: blur(20px) saturate(160%);
+            -webkit-backdrop-filter: blur(20px) saturate(160%);
+        }
+
+        .brand-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding-right: 10px;
+        }
+
+        .brand-logo-img {
+            width: 44px;
+            height: 44px;
+            border-radius: 14px;
+            object-fit: cover;
+            border: 2px solid var(--c1);
+            box-shadow: 0 6px 16px rgba(255, 46, 126, 0.25);
+            background: linear-gradient(135deg, var(--c1), var(--c3));
+            flex-shrink: 0;
+        }
+
+        .brand-word {
+            font-family: var(--font-display);
+            font-weight: 800;
+            font-size: 18px;
+            letter-spacing: 0.18em;
+            display: block;
+            background: linear-gradient(90deg, var(--c1), var(--c4), var(--c2));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .brand-sub {
+            font-size: 9.5px;
+            letter-spacing: 0.22em;
+            color: var(--c3);
+            display: block;
+            font-weight: 800;
+        }
+
+        /* Enlaces centrales estilo isla moderna */
+        .nav-center-links {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 5px;
+            border-radius: 999px;
+            background: rgba(24, 18, 43, 0.04);
+            border: 1px solid rgba(24, 18, 43, 0.06);
+        }
+
+        .nav-pill-link {
+            padding: 8px 15px;
+            border-radius: 999px;
+            font-size: 12.5px;
+            font-weight: 700;
+            color: var(--muted);
+            transition: all 0.22s var(--ease-out);
+            white-space: nowrap;
+        }
+
+        .nav-pill-link:hover {
+            color: var(--ink);
+            background: rgba(255, 255, 255, 0.85);
+            box-shadow: 0 4px 12px rgba(24, 18, 43, 0.06);
+        }
+
+        .nav-pill-link.active {
+            color: #ffffff;
+            background: linear-gradient(120deg, var(--c1), var(--c3));
+            box-shadow: 0 6px 16px rgba(255, 46, 126, 0.30);
+        }
+
+        .top-actions {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .avi-sync-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 14px;
+            border-radius: var(--btn-radius);
+            background: linear-gradient(120deg, rgba(255, 46, 126, 0.12), rgba(0, 180, 216, 0.14));
+            border: 1.5px solid rgba(0, 180, 216, 0.35);
+            font-size: 11.5px;
+            font-weight: 800;
+            color: var(--ink);
+        }
+
+        .avi-sync-pill:hover {
+            transform: translateY(-2px);
+            border-color: var(--c1);
+            box-shadow: 0 8px 20px rgba(255, 46, 126, 0.18);
+        }
+
+        .sync-live-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--ok);
+            box-shadow: 0 0 8px var(--ok);
+            animation: pulseDot 2s infinite;
+        }
+
+        @keyframes pulseDot {
+
+            0%,
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+
+            50% {
+                transform: scale(1.35);
+                opacity: 0.65;
+            }
+        }
+
+        .icon-btn {
+            position: relative;
+            height: 40px;
+            min-width: 40px;
+            padding: 0 13px;
+            border-radius: var(--btn-radius);
+            background: #ffffff;
+            border: 1.5px solid rgba(24, 18, 43, 0.10);
+            color: var(--ink);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            font-size: 12px;
+            font-weight: 800;
+            box-shadow: 0 4px 12px rgba(24, 18, 43, 0.05);
+        }
+
+        .icon-btn:hover {
+            background: linear-gradient(120deg, #fff, #fff0f6);
+            border-color: var(--c1);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 18px rgba(255, 46, 126, 0.16);
+        }
+
+        .icon-btn.is-active {
+            border-color: var(--c1);
+            color: var(--c1);
+        }
+
+        .icon-btn svg {
+            width: 18px;
+            height: 18px;
+            stroke: currentColor;
+            fill: none;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .cart-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            min-width: 20px;
+            height: 20px;
+            padding: 0 5px;
+            border-radius: 99px;
+            background: linear-gradient(135deg, var(--c1), var(--c3));
+            color: #ffffff;
+            font-size: 10.5px;
+            font-weight: 900;
+            line-height: 20px;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(255, 46, 126, 0.4);
+        }
+
+        /* ==========================================================================
+       4. TARJETAS LUMINOSAS MULTICOLOR Y HERO CREATIVO
+       ========================================================================== */
+        .main-container {
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 28px clamp(16px, 3.6vw, 52px) 120px;
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+        }
+
+        .glass-card {
+            position: relative;
+            background: var(--panel);
+            border: 1.5px solid rgba(255, 255, 255, 0.95);
+            border-radius: var(--ui-radius);
+            padding: clamp(22px, 2.8vw, 36px);
+            backdrop-filter: blur(22px);
+            -webkit-backdrop-filter: blur(22px);
+            box-shadow:
+                0 20px 50px rgba(24, 18, 43, 0.07),
+                0 4px 16px rgba(0, 180, 216, 0.06);
+            overflow: hidden;
+        }
+
+        .kicker {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 5px 14px;
+            border-radius: 99px;
+            background: linear-gradient(90deg, rgba(255, 46, 126, 0.12), rgba(255, 159, 28, 0.16));
+            border: 1px solid rgba(255, 46, 126, 0.28);
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: var(--c1);
+        }
+
+        .hero-banner {
+            display: grid;
+            grid-template-columns: 1.15fr 0.85fr;
+            gap: 30px;
+            align-items: center;
+            background:
+                radial-gradient(circle at 90% 18%, rgba(255, 159, 28, 0.22), transparent 48%),
+                radial-gradient(circle at 12% 88%, rgba(0, 180, 216, 0.18), transparent 52%),
+                radial-gradient(circle at 55% 15%, rgba(255, 46, 126, 0.14), transparent 50%),
+                var(--panel);
+        }
+
+        .hero-banner h1 {
+            font-family: var(--font-display);
+            font-size: clamp(34px, 4.4vw, 58px);
+            line-height: 1.05;
+            margin: 14px 0;
+            letter-spacing: -0.03em;
+            font-weight: 800;
+            color: var(--ink);
+        }
+
+        .hero-banner h1 em {
+            font-style: normal;
+            background: linear-gradient(95deg, var(--c1) 0%, var(--c3) 48%, var(--c2) 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .hero-banner p {
+            color: var(--muted);
+            font-size: 15.5px;
+            max-width: 600px;
+            margin: 0 0 20px;
+            font-weight: 500;
+        }
+
+        .hero-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 9px;
+            margin-bottom: 24px;
+        }
+
+        .hero-badges span {
+            padding: 7px 14px;
+            border-radius: var(--btn-radius);
+            font-size: 11.5px;
+            font-weight: 700;
+            background: #ffffff;
+            border: 1px solid rgba(24, 18, 43, 0.10);
+            color: var(--ink);
+            box-shadow: 0 4px 10px rgba(24, 18, 43, 0.04);
+        }
+
+        .btn-primary,
+        .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 9px;
+            padding: 13px 25px;
+            border-radius: var(--btn-radius);
+            font-size: 12.5px;
+            font-weight: 800;
+            letter-spacing: 0.03em;
+        }
+
+        .btn-primary {
+            background: linear-gradient(120deg, var(--c1), var(--c3), var(--c2));
+            background-size: 200% 200%;
+            animation: gradientShift 5s ease infinite;
+            color: #ffffff;
+            box-shadow: 0 10px 26px rgba(255, 46, 126, 0.32);
+        }
+
+        @keyframes gradientShift {
+
+            0%,
+            100% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 14px 32px rgba(255, 46, 126, 0.45);
+        }
+
+        .btn-secondary {
+            background: #ffffff;
+            border: 1.5px solid var(--c2);
+            color: var(--ink);
+            box-shadow: 0 6px 16px rgba(0, 180, 216, 0.12);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(0, 180, 216, 0.10);
+            transform: translateY(-2px);
+        }
+
+        .hero-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 14px;
+        }
+
+        .stat-tile {
+            padding: 18px;
+            border-radius: 20px;
+            background: #ffffff;
+            border: 1.5px solid rgba(24, 18, 43, 0.08);
+            box-shadow: 0 10px 24px rgba(24, 18, 43, 0.05);
+            transition: transform 0.25s, border-color 0.25s;
+        }
+
+        .stat-tile:hover {
+            transform: translateY(-4px);
+            border-color: var(--c1);
+        }
+
+        .stat-tile strong {
+            font-family: var(--font-display);
+            font-size: 26px;
+            display: block;
+            background: linear-gradient(90deg, var(--c1), var(--c4), var(--c2));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .stat-tile span {
+            font-size: 12px;
+            color: var(--muted);
+        }
+
+        /* ==========================================================================
+       5. MESA DE ARTE INTERACTIVA CON OPCIONES DE EDICIÓN AMPLIADAS
+       ========================================================================== */
+        .studio-grid {
+            display: grid;
+            grid-template-columns: 420px minmax(0, 1fr);
+            gap: 26px;
+            align-items: start;
+        }
+
+        .studio-controls {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            max-height: 760px;
+            overflow-y: auto;
+            padding-right: 6px;
+            scrollbar-width: thin;
+            scrollbar-color: var(--c1) transparent;
+        }
+
+        .control-block {
+            padding: 16px;
+            border-radius: 18px;
+            background: #ffffff;
+            border: 1.5px solid rgba(24, 18, 43, 0.08);
+            box-shadow: 0 6px 18px rgba(24, 18, 43, 0.04);
+        }
+
+        .control-block h3 {
+            margin: 0 0 10px;
+            font-size: 11.5px;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: var(--c4);
+            font-weight: 800;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .option-grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+        }
+
+        .option-grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 7px;
+        }
+
+        .option-list {
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+        }
+
+        .ctrl-btn {
+            padding: 9px 12px;
+            border-radius: 12px;
+            background: #f8f6fc;
+            border: 1.5px solid rgba(24, 18, 43, 0.08);
+            font-size: 11.5px;
+            font-weight: 700;
+            color: var(--ink);
+            text-align: left;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 6px;
+        }
+
+        .ctrl-btn:hover {
+            background: #fff0f6;
+            border-color: var(--c1);
+        }
+
+        .ctrl-btn.active {
+            background: linear-gradient(120deg, var(--c1), var(--c3));
+            border-color: transparent;
+            color: #ffffff;
+            font-weight: 800;
+            box-shadow: 0 6px 16px rgba(255, 46, 126, 0.28);
+        }
+
+        .input-mini {
+            width: 100%;
+            padding: 8px 11px;
+            border-radius: 10px;
+            background: #f8f6fc;
+            border: 1.5px solid rgba(24, 18, 43, 0.12);
+            color: var(--ink);
+            font-size: 12.5px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .color-pickers-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            margin-top: 8px;
+        }
+
+        .color-picker-item {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            font-size: 10.5px;
+            font-weight: 700;
+            color: var(--muted);
+        }
+
+        .color-picker-item input[type="color"] {
+            width: 100%;
+            height: 34px;
+            border: 1.5px solid rgba(24, 18, 43, 0.15);
+            border-radius: 9px;
+            padding: 2px;
+            background: #fff;
+            cursor: pointer;
+        }
+
+        .slider-row {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            margin-top: 8px;
+            font-size: 11.5px;
+            font-weight: 700;
+            color: var(--ink);
+        }
+
+        .slider-row input[type="range"] {
+            width: 100%;
+            accent-color: var(--c1);
+            cursor: pointer;
+        }
+
+        .toggle-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 6px 0;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--ink);
+            cursor: pointer;
+        }
+
+        .toggle-row input {
+            accent-color: var(--c1);
+            width: 17px;
+            height: 17px;
+            cursor: pointer;
+        }
+
+        .canvas-stage-wrap {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .canvas-toolbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            padding: 12px 18px;
+            border-radius: 16px;
+            background: #ffffff;
+            border: 1.5px solid rgba(24, 18, 43, 0.10);
+            box-shadow: 0 6px 18px rgba(24, 18, 43, 0.04);
+            font-size: 12px;
+        }
+
+        .artboard-viewport {
+            position: relative;
+            min-height: 510px;
+            border-radius: 24px;
+            background:
+                radial-gradient(circle at 25% 20%, rgba(255, 46, 126, 0.16), transparent 55%),
+                radial-gradient(circle at 80% 80%, rgba(0, 180, 216, 0.18), transparent 55%),
+                repeating-linear-gradient(0deg, rgba(24, 18, 43, 0.04) 0 1px, transparent 1px 24px),
+                repeating-linear-gradient(90deg, rgba(24, 18, 43, 0.04) 0 1px, transparent 1px 24px),
+                #f6f4fb;
+            border: 2px solid rgba(255, 255, 255, 0.95);
+            box-shadow: inset 0 4px 20px rgba(24, 18, 43, 0.06);
+            display: grid;
+            place-items: center;
+            padding: 36px;
+            perspective: 1100px;
+            overflow: hidden;
+        }
+
+        /* Lienzo Mockup Vibrante con Nuevas Propiedades Editables */
+        .artboard-mockup {
+            --mx: 50%;
+            --my: 50%;
+            --rx: 0deg;
+            --ry: 0deg;
+            --art-a: #ff2e7e;
+            --art-b: #ff9f1c;
+            --art-c: #00b4d8;
+            --art-bg: #fff5f8;
+            --art-text: #18122b;
+            --art-font: 'Outfit', sans-serif;
+            --art-title-size: 30px;
+            --art-radius: 18px;
+            --art-scale: 1;
+            position: relative;
+            width: 360px;
+            height: 360px;
+            border-radius: var(--art-radius);
+            background: var(--art-bg);
+            color: var(--art-text);
+            box-shadow:
+                0 28px 65px rgba(24, 18, 43, 0.22),
+                0 0 0 1.5px rgba(255, 255, 255, 0.9);
+            transform: scale(var(--art-scale)) rotateX(var(--rx)) rotateY(var(--ry));
+            transition: width 0.35s var(--ease-out), height 0.35s var(--ease-out), border-radius 0.25s, filter 0.35s ease;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 28px;
+            user-select: none;
+        }
+
+        .artboard-mockup[data-format="social"] {
+            width: 360px;
+            height: 360px;
+        }
+
+        .artboard-mockup[data-format="editorial"] {
+            width: 305px;
+            height: 420px;
+        }
+
+        .artboard-mockup[data-format="keyvisual"] {
+            width: 470px;
+            height: 280px;
+        }
+
+        .artboard-mockup[data-format="packaging"] {
+            width: 320px;
+            height: 385px;
+        }
+
+        .artboard-mockup[data-colormode="rgb"] {
+            filter: saturate(1.18) contrast(1.04);
+        }
+
+        .artboard-mockup[data-colormode="cmyk"] {
+            filter: saturate(0.86) contrast(0.95) brightness(0.97) sepia(0.05);
+        }
+
+        .artboard-mockup[data-colormode="uv"] {
+            filter: saturate(1.15) contrast(1.12);
+        }
+
+        .artboard-mockup[data-colormode="foil"] {
+            filter: saturate(1.22) contrast(1.10);
+        }
+
+        .artboard-bg-shape {
+            position: absolute;
+            inset: -15%;
+            z-index: 0;
+            background:
+                radial-gradient(circle at 82% 18%, var(--art-a), transparent 52%),
+                radial-gradient(circle at 18% 82%, var(--art-b), transparent 54%),
+                radial-gradient(circle at 60% 72%, var(--art-c), transparent 50%);
+            opacity: 0.85;
+            transition: background 0.4s ease;
+        }
+
+        /* Texturas Superficiales Seleccionables */
+        .artboard-pattern {
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+            pointer-events: none;
+            opacity: 0.22;
+        }
+
+        .artboard-mockup[data-pattern="dots"] .artboard-pattern {
+            background-image: radial-gradient(currentColor 1.25px, transparent 1.25px);
+            background-size: 14px 14px;
+        }
+
+        .artboard-mockup[data-pattern="lines"] .artboard-pattern {
+            background-image: repeating-linear-gradient(-45deg, currentColor 0 1px, transparent 1px 10px);
+        }
+
+        .artboard-mockup[data-pattern="waves"] .artboard-pattern {
+            background-image: radial-gradient(circle at 100% 50%, transparent 20%, currentColor 21%, currentColor 34%, transparent 35%, transparent);
+            background-size: 28px 28px;
+        }
+
+        .artboard-glare {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            z-index: 6;
+            background: radial-gradient(190px circle at var(--mx) var(--my), rgba(255, 255, 255, 0.55), transparent 65%);
+            mix-blend-mode: overlay;
+        }
+
+        .artboard-mockup[data-colormode="uv"] .artboard-glare {
+            background:
+                radial-gradient(150px circle at var(--mx) var(--my), rgba(255, 255, 255, 0.92), rgba(0, 180, 216, 0.45) 40%, transparent 70%),
+                repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.08) 0 6px, transparent 6px 12px);
+        }
+
+        .artboard-mockup[data-colormode="foil"] .artboard-glare {
+            background: radial-gradient(170px circle at var(--mx) var(--my), rgba(255, 215, 70, 0.92), rgba(255, 140, 0, 0.45) 45%, transparent 72%);
+            mix-blend-mode: color-dodge;
+        }
+
+        .artboard-content {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            justify-content: space-between;
+        }
+
+        .artboard-top-tag {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 9.5px;
+            letter-spacing: 0.20em;
+            font-weight: 800;
+            text-transform: uppercase;
+        }
+
+        .artboard-uploaded-logo {
+            max-width: 72px;
+            max-height: 44px;
+            object-fit: contain;
+            border-radius: 6px;
+        }
+
+        .artboard-headline {
+            font-family: var(--art-font);
+            font-size: var(--art-title-size);
+            font-weight: 800;
+            line-height: 1.06;
+            margin: 0 0 8px;
+            color: var(--art-text);
+            word-break: break-word;
+        }
+
+        .artboard-subline {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--art-text);
+            opacity: 0.88;
+            margin: 0 0 12px;
+        }
+
+        .artboard-cta-pill {
+            display: inline-block;
+            padding: 6px 14px;
+            border-radius: 99px;
+            background: var(--art-text);
+            color: var(--art-bg);
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+        }
+
+        .artboard-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            font-size: 9px;
+            font-weight: 800;
+            letter-spacing: 0.14em;
+            border-top: 1.5px solid currentColor;
+            padding-top: 10px;
+            opacity: 0.85;
+        }
+
+        /* Guías Técnicas de Imprenta */
+        .guide-bleed {
+            position: absolute;
+            inset: 8px;
+            border: 1.5px dashed #ff0055;
+            pointer-events: none;
+            z-index: 8;
+        }
+
+        .guide-bleed::after {
+            content: 'SANGRADO / BLEED 3MM';
+            position: absolute;
+            top: -1px;
+            right: 6px;
+            background: #ff0055;
+            color: #fff;
+            font-size: 7px;
+            font-weight: 800;
+            padding: 1px 5px;
+        }
+
+        .guide-safe {
+            position: absolute;
+            inset: 22px;
+            border: 1.5px dotted #0077b6;
+            pointer-events: none;
+            z-index: 8;
+        }
+
+        .guide-safe::after {
+            content: 'ZONA SEGURA';
+            position: absolute;
+            bottom: -1px;
+            left: 6px;
+            background: #0077b6;
+            color: #fff;
+            font-size: 7px;
+            font-weight: 800;
+            padding: 1px 5px;
+        }
+
+        .guide-grid {
+            position: absolute;
+            inset: 0;
+            z-index: 7;
+            pointer-events: none;
+            background-image:
+                linear-gradient(rgba(24, 18, 43, 0.22) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(24, 18, 43, 0.22) 1px, transparent 1px);
+            background-size: 33.33% 33.33%;
+        }
+
+        /* ==========================================================================
+       6. COTIZADOR DE PAQUETES EN SOLES (S/) Y VALIDADOR PRE-PRENSA
+       ========================================================================== */
+        .packages-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+            margin: 20px 0 24px;
+        }
+
+        .pkg-card {
+            position: relative;
+            padding: 24px;
+            border-radius: 22px;
+            background: #ffffff;
+            border: 2px solid rgba(24, 18, 43, 0.08);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            cursor: pointer;
+            box-shadow: 0 10px 26px rgba(24, 18, 43, 0.05);
+            transition: transform 0.25s var(--ease-out), border-color 0.25s, box-shadow 0.25s;
+        }
+
+        .pkg-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--c2);
+        }
+
+        .pkg-card.selected {
+            background: linear-gradient(145deg, #ffffff, #fff2f7);
+            border-color: var(--c1);
+            box-shadow: 0 18px 40px rgba(255, 46, 126, 0.18);
+        }
+
+        .pkg-badge {
+            align-self: flex-start;
+            padding: 4px 12px;
+            border-radius: 99px;
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            background: linear-gradient(90deg, var(--c1), var(--c3));
+            color: #fff;
+        }
+
+        .pkg-card h3 {
+            font-family: var(--font-display);
+            font-size: 21px;
+            margin: 2px 0;
+            color: var(--ink);
+        }
+
+        .pkg-price {
+            font-family: var(--font-display);
+            font-size: 32px;
+            font-weight: 800;
+            color: var(--c1);
+        }
+
+        .pkg-price small {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--muted);
+        }
+
+        .pkg-features {
+            margin: 6px 0 0;
+            padding: 0;
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+            font-size: 12.5px;
+            color: var(--ink);
+        }
+
+        .pkg-features li::before {
+            content: '✦ ';
+            color: var(--c1);
+            font-weight: 800;
+        }
+
+        .customizer-bottom {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            padding-top: 20px;
+            border-top: 1px solid var(--stroke);
+        }
+
+        .addon-chip {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 15px;
+            border-radius: 14px;
+            background: #ffffff;
+            border: 1.5px solid rgba(24, 18, 43, 0.10);
+            margin-bottom: 9px;
+            cursor: pointer;
+            font-size: 12.5px;
+            transition: all 0.2s;
+        }
+
+        .addon-chip:hover {
+            border-color: var(--c2);
+        }
+
+        .addon-chip.active {
+            border-color: var(--c1);
+            background: #fff2f7;
+        }
+
+        .form-field {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            margin-bottom: 12px;
+        }
+
+        .form-field label {
+            font-size: 11.5px;
+            font-weight: 800;
+            color: var(--c4);
+        }
+
+        .form-field input,
+        .form-field textarea,
+        .form-field select {
+            width: 100%;
+            padding: 10px 14px;
+            border-radius: 12px;
+            background: #ffffff;
+            border: 1.5px solid rgba(24, 18, 43, 0.14);
+            color: var(--ink);
+            font-size: 13px;
+        }
+
+        .quote-summary-bar {
+            margin-top: 18px;
+            padding: 20px 24px;
+            border-radius: 20px;
+            background: linear-gradient(120deg, #fff5f9, #f0faff, #fff9ec);
+            border: 2px solid rgba(255, 46, 126, 0.30);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        /* Inspector Pre-Prensa */
+        .inspector-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.1fr;
+            gap: 24px;
+            align-items: center;
+        }
+
+        .dropzone-box {
+            border: 2px dashed var(--c2);
+            border-radius: 22px;
+            padding: 32px 20px;
+            text-align: center;
+            background: linear-gradient(135deg, rgba(255, 46, 126, 0.06), rgba(0, 180, 216, 0.08));
+            cursor: pointer;
+            transition: all 0.25s;
+        }
+
+        .dropzone-box:hover,
+        .dropzone-box.dragover {
+            border-color: var(--c1);
+            background: linear-gradient(135deg, rgba(255, 46, 126, 0.14), rgba(0, 180, 216, 0.14));
+            transform: scale(1.01);
+        }
+
+        .inspector-results {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        .insp-tile {
+            padding: 14px;
+            border-radius: 14px;
+            background: #ffffff;
+            border: 1.5px solid rgba(24, 18, 43, 0.08);
+        }
+
+        .insp-tile small {
+            display: block;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: var(--c4);
+            font-weight: 800;
+        }
+
+        .insp-tile strong {
+            display: block;
+            font-size: 14px;
+            margin-top: 4px;
+            color: var(--ink);
+        }
+
+        /* ==========================================================================
+       7. DRAWERS LUMINOSOS: CARRITO COMPARTIDO & SINCRONIZADOR AVI.HTML
+       ========================================================================== */
+        .shade {
+            position: fixed;
+            inset: 0;
+            z-index: 90;
+            background: rgba(24, 18, 43, 0.35);
+            backdrop-filter: blur(6px);
+        }
+
+        .side-drawer {
+            position: fixed;
+            top: 14px;
+            right: 14px;
+            bottom: 14px;
+            width: min(520px, calc(100vw - 28px));
+            z-index: 95;
+            background: #ffffff;
+            border: 2px solid rgba(255, 46, 126, 0.25);
+            border-radius: 26px;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 30px 90px rgba(24, 18, 43, 0.22);
+            overflow: hidden;
+        }
+
+        .drawer-header {
+            padding: 20px 24px;
+            border-bottom: 1px solid var(--stroke);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: linear-gradient(90deg, #fff5f9, #f2faff);
+        }
+
+        .drawer-body {
+            padding: 20px 24px;
+            overflow-y: auto;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .theme-sync-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 9px;
+        }
+
+        .theme-sync-btn {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 9px 12px;
+            border-radius: 12px;
+            background: #f8f6fc;
+            border: 1.5px solid rgba(24, 18, 43, 0.08);
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--ink);
+            text-align: left;
+        }
+
+        .theme-sync-btn:hover {
+            border-color: var(--c2);
+            background: #fff;
+        }
+
+        .theme-sync-btn.active {
+            border-color: var(--c1);
+            background: #fff0f6;
+            box-shadow: 0 4px 12px rgba(255, 46, 126, 0.18);
+        }
+
+        .swatch-dot {
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            flex-shrink: 0;
+            border: 1.5px solid rgba(24, 18, 43, 0.2);
+        }
+
+        .cart-item-card {
+            padding: 15px;
+            border-radius: 16px;
+            background: #f8f6fc;
+            border: 1.5px solid rgba(24, 18, 43, 0.08);
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+        }
+
+        .drawer-footer {
+            padding: 18px 24px;
+            border-top: 1px solid var(--stroke);
+            background: #faf8ff;
+        }
+
+        /* ==========================================================================
+       8. CHATBOT MAQUI CON ./imagenes/maqui.jpg + GOOGLE GEMINI API
+       ========================================================================== */
+        .maqui-dock {
+            position: fixed;
+            right: 22px;
+            bottom: 22px;
+            z-index: 80;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 12px;
+        }
+
+        .maqui-chat-window {
+            width: min(380px, calc(100vw - 36px));
+            height: 470px;
+            border-radius: 24px;
+            background: #ffffff;
+            border: 2px solid rgba(255, 46, 126, 0.32);
+            box-shadow: 0 24px 65px rgba(24, 18, 43, 0.22);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            animation: popIn 0.28s var(--ease-out);
+        }
+
+        @keyframes popIn {
+            from {
+                opacity: 0;
+                transform: translateY(14px) scale(0.95);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .maqui-chat-head {
+            padding: 14px 16px;
+            background: linear-gradient(120deg, var(--c1), var(--c3), var(--c2));
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .maqui-head-avatar {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #ffffff;
+            background: #fff;
+            flex-shrink: 0;
+        }
+
+        .maqui-chat-messages {
+            flex: 1;
+            padding: 14px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            background: #faf8ff;
+            font-size: 12.5px;
+        }
+
+        .chat-msg {
+            max-width: 85%;
+            padding: 10px 13px;
+            border-radius: 16px;
+            line-height: 1.48;
+            word-wrap: break-word;
+        }
+
+        .chat-msg.bot {
+            align-self: flex-start;
+            background: #ffffff;
+            color: var(--ink);
+            border: 1px solid rgba(24, 18, 43, 0.10);
+            border-bottom-left-radius: 4px;
+            box-shadow: 0 4px 10px rgba(24, 18, 43, 0.04);
+        }
+
+        .chat-msg.user {
+            align-self: flex-end;
+            background: linear-gradient(120deg, var(--c1), var(--c4));
+            color: #ffffff;
+            font-weight: 600;
+            border-bottom-right-radius: 4px;
+        }
+
+        .maqui-quick-chips {
+            display: flex;
+            gap: 6px;
+            padding: 8px 12px;
+            overflow-x: auto;
+            background: #f3effb;
+            scrollbar-width: none;
+        }
+
+        .maqui-quick-chips::-webkit-scrollbar {
+            display: none;
+        }
+
+        .maqui-chip {
+            flex-shrink: 0;
+            padding: 5px 10px;
+            border-radius: 99px;
+            background: #ffffff;
+            border: 1px solid rgba(255, 46, 126, 0.25);
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--c4);
+        }
+
+        .maqui-chip:hover {
+            background: var(--c1);
+            color: #fff;
+        }
+
+        .maqui-chat-form {
+            display: flex;
+            gap: 8px;
+            padding: 10px 12px;
+            background: #ffffff;
+            border-top: 1px solid rgba(24, 18, 43, 0.08);
+        }
+
+        .maqui-chat-form input {
+            flex: 1;
+            padding: 9px 12px;
+            border-radius: 99px;
+            border: 1.5px solid rgba(24, 18, 43, 0.14);
+            background: #f8f6fc;
+            font-size: 12.5px;
+            color: var(--ink);
+        }
+
+        .maqui-send-btn {
+            padding: 0 16px;
+            border-radius: 99px;
+            background: linear-gradient(120deg, var(--c1), var(--c3));
+            color: #ffffff;
+            font-weight: 800;
+            font-size: 12px;
+        }
+
+        .maqui-btn {
+            position: relative;
+            width: 72px;
+            height: 72px;
+            border-radius: 24px;
+            background: #ffffff;
+            border: 3px solid var(--c1);
+            box-shadow: 0 12px 30px rgba(255, 46, 126, 0.32);
+            padding: 0;
+            overflow: hidden;
+            display: grid;
+            place-items: center;
+        }
+
+        .maqui-btn:hover {
+            transform: scale(1.06) translateY(-2px);
+            border-color: var(--c2);
+        }
+
+        .maqui-btn img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        @media (max-width: 1024px) {
+
+            .hero-banner,
+            .studio-grid,
+            .packages-grid,
+            .customizer-bottom,
+            .inspector-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-center-links {
+                display: none;
+            }
+        }
+
+        @media (max-width: 720px) {
+            .artboard-viewport {
+                padding: 18px;
+                min-height: 360px;
+            }
+
+            .artboard-mockup[data-format="keyvisual"] {
+                width: 100%;
+                height: 220px;
+            }
+        }
+    </style>
+</head>
+
+<body data-shape="pill">
+    <!-- 1. MOTOR AMBIENTAL CLARO MULTICROMÁTICO + FONDO HEREDADO DE AVI.HTML -->
+    <div class="scene-backing" aria-hidden="true">
+        <div class="aurora-orb aurora-orb--1"></div>
+        <div class="aurora-orb aurora-orb--2"></div>
+        <div class="aurora-orb aurora-orb--3"></div>
+
+        <!-- Capa sincronizada con el fondo personalizado de avi.html -->
+        <div class="avi-shared-bg" id="aviSharedBg">
+            <img id="aviSharedImg" alt="" hidden />
+            <video id="aviSharedVideo" loop muted playsinline hidden></video>
+        </div>
+
+        <div class="scene-grid-overlay"></div>
+        <canvas id="ambientCanvas"></canvas>
+    </div>
+
+    <!-- 2. CONTENEDOR PRINCIPAL -->
+    <div class="page-shell">
+        <!-- Barra de Navegación Flotante Rediseñada con pixavi.png y Pantalla Completa -->
+        <div class="nav-wrapper">
+            <header class="topbar-capsule">
+                <a class="brand-link" href="./pixavi.html" title="Volver al Showroom PIXAVI">
+                    <img class="brand-logo-img" src="./imagenes/pixavi.png" alt="Logo PIXAVI"
+                        onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 80 80%22><defs><linearGradient id=%22g%22 x1=%220%22 y1=%220%22 x2=%221%22 y2=%221%22><stop stop-color=%22%23ff2e7e%22/><stop offset=%221%22 stop-color=%22%23ff9f1c%22/></linearGradient></defs><rect width=%2280%22 height=%2280%22 rx=%2220%22 fill=%22url(%23g)%22/><text x=%2250%25%22 y=%2256%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 fill=%22%23fff%22 font-family=%22sans-serif%22 font-weight=%22900%22 font-size=%2242%22>P</text></svg>';" />
+                    <span>
+                        <span class="brand-word">PIXAVI</span>
+                        <span class="brand-sub">ESTUDIO CREATIVO</span>
+                    </span>
+                </a>
+
+                <nav class="nav-center-links" aria-label="Navegación rápida">
+                    <a class="nav-pill-link active" href="#mesaDeArte">Mesa de Arte</a>
+                    <a class="nav-pill-link" href="#cotizador">Paquetes S/</a>
+                    <a class="nav-pill-link" href="#validadorPrePrensa">Pre-Prensa</a>
+                    <a class="nav-pill-link" href="./pixavi.html">Catálogo PIXAVI</a>
+                    <a class="nav-pill-link" href="../avi.html#suite">AVI Suite ↗</a>
+                </nav>
+
+                <div class="top-actions">
+                    <!-- Botón de Sincronización en Vivo con avi.html -->
+                    <button type="button" class="avi-sync-pill" id="openSyncDrawerBtn"
+                        title="Configuración sincronizada en tiempo real con avi.html">
+                        <span class="sync-live-dot"></span>
+                        <span id="activeThemeBadge">Sync AVI: Día Vivo</span>
+                    </button>
+
+                    <button type="button" class="icon-btn" id="soundToggleBtn" title="Audio interactivo"
+                        aria-label="Sonido">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M11 5L6 9H2v6h4l5 4V5z" />
+                            <path d="M15.54 8.46a5 5 0 010 7.07" />
+                        </svg>
+                    </button>
+
+                    <!-- Botón de Experiencia Pantalla Completa -->
+                    <button type="button" class="icon-btn" id="fullscreenBtn" title="Activar pantalla completa"
+                        aria-label="Pantalla completa">
+                        <svg viewBox="0 0 24 24" id="fullscreenIcon">
+                            <path
+                                d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3" />
+                        </svg>
+                    </button>
+
+                    <button type="button" class="icon-btn" id="openCartBtn" title="Abrir carrito compartido PIXAVI"
+                        aria-label="Carrito">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M3 4h2l2 12h11l2-9H6" />
+                            <circle cx="9" cy="20" r="1" />
+                            <circle cx="18" cy="20" r="1" />
+                        </svg>
+                        <span>Carrito</span>
+                        <span class="cart-badge" id="cartBadge" hidden>0</span>
+                    </button>
+                </div>
+            </header>
+        </div>
+
+        <!-- CONTENIDO PRINCIPAL -->
+        <main class="main-container">
+
+            <!-- SECCIÓN 1: HERO LUMINOSO Y COLORIDO -->
+            <section class="glass-card hero-banner">
+                <div>
+                    <span class="kicker">MÓDULO 01 · CREATIVIDAD LUMINOSA & PRE-PRENSA</span>
+                    <h1>Diseño Gráfico <em>lleno de vida y color.</em></h1>
+                    <p>Creamos identidades, piezas publicitarias y composiciones editoriales vibrantes que atrapan
+                        miradas al instante, calibradas tanto para pantallas digitales como para impresión Offset y
+                        Digital impecable.</p>
+                    <div class="hero-badges">
+                        <span>🎨 Paletas Vivas RGB + CMYK</span>
+                        <span>✦ Sangrado 3mm & Vectores Puros</span>
+                        <span>★ Simulación Barniz UV y Foil</span>
+                        <span>🔗 Conectado con avi.html</span>
+                    </div>
+                    <div style="display:flex;gap:12px;flex-wrap:wrap;">
+                        <a href="#mesaDeArte" class="btn-primary">Personalizar en Mesa de Arte ↓</a>
+                        <a href="#cotizador" class="btn-secondary">Cotizar Proyecto en Soles (S/)</a>
+                    </div>
+                </div>
+
+                <div class="hero-stats">
+                    <div class="stat-tile">
+                        <strong>300 DPI</strong>
+                        <span>Nitidez certificada para que ningún texto o imagen salga borroso en prensa.</span>
+                    </div>
+                    <div class="stat-tile">
+                        <strong>Dual Color</strong>
+                        <span>Entregamos perfil sRGB vibrante para redes y FOGRA39 calibrado para imprenta.</span>
+                    </div>
+                    <div class="stat-tile">
+                        <strong>Sync AVI</strong>
+                        <span>Sincroniza tipografía, escala, sonido y preferencias desde <code>avi.html</code>.</span>
+                    </div>
+                    <div class="stat-tile">
+                        <strong>100% Editable</strong>
+                        <span>Opción de entrega de archivos abiertos (AI, PSD, INDD) y curvas trazadas.</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECCIÓN 2: MESA DE ARTE INTERACTIVA CON MÁS OPCIONES DE EDICIÓN -->
+            <section class="glass-card" id="mesaDeArte" aria-labelledby="studioTitle">
+                <div style="margin-bottom:20px;">
+                    <span class="kicker">LABORATORIO INTERACTIVO PIXAVI</span>
+                    <h2 id="studioTitle"
+                        style="font-family:var(--font-display);font-size:clamp(24px,3vw,36px);margin:8px 0 4px;">Mesa de
+                        Arte & Simulador Pre-Prensa en Vivo</h2>
+                    <p style="color:var(--muted);margin:0;font-size:14px;">Edita textos, tipografías, tamaños,
+                        alineación, colores libres, texturas de papel, sube tu propio logo y descarga tu boceto en PNG.
+                    </p>
+                </div>
+
+                <div class="studio-grid">
+                    <!-- Panel de Controles de Edición Ampliado -->
+                    <div class="studio-controls">
+                        <!-- 1. Formato -->
+                        <div class="control-block">
+                            <h3><span>1. Formato del Lienzo</span><small style="color:var(--c1)">Escala real</small>
+                            </h3>
+                            <div class="option-grid-2" id="formatSelector">
+                                <button type="button" class="ctrl-btn active" data-format="social"
+                                    data-dims="1080 × 1080 px (1:1)">Post Social 1:1</button>
+                                <button type="button" class="ctrl-btn" data-format="editorial"
+                                    data-dims="210 × 297 mm (A4)">Catálogo A4</button>
+                                <button type="button" class="ctrl-btn" data-format="keyvisual"
+                                    data-dims="1920 × 1080 px (16:9)">Banner 16:9</button>
+                                <button type="button" class="ctrl-btn" data-format="packaging"
+                                    data-dims="120 × 160 mm (Troquel)">Etiqueta / Pack</button>
+                            </div>
+                        </div>
+
+                        <!-- 2. Edición de Textos y Tipografía -->
+                        <div class="control-block">
+                            <h3><span>2. Textos y Tipografía en Vivo</span></h3>
+                            <input type="text" class="input-mini" id="liveHeadlineInput" maxlength="42"
+                                value="DISEÑO QUE INSPIRA" placeholder="Titular principal..." />
+                            <input type="text" class="input-mini" id="liveSublineInput" maxlength="90"
+                                value="Colores vibrantes, composición limpia y calidad de imprenta 300 DPI."
+                                placeholder="Subtítulo descriptivo..." />
+                            <input type="text" class="input-mini" id="liveBadgeInput" maxlength="24"
+                                value="NUEVA CAMPAÑA" placeholder="Etiqueta o botón..." />
+
+                            <div class="option-grid-2" style="margin-top:6px;">
+                                <select class="input-mini" id="artFontSelect" style="margin:0;">
+                                    <option value="'Outfit', sans-serif">Fuente: Outfit</option>
+                                    <option value="'Montserrat', sans-serif">Fuente: Montserrat</option>
+                                    <option value="'Poppins', sans-serif">Fuente: Poppins</option>
+                                    <option value="'Playfair Display', serif">Fuente: Playfair Serif</option>
+                                    <option value="'Orbitron', sans-serif">Fuente: Orbitron</option>
+                                    <option value="'Inter', sans-serif">Fuente: Inter</option>
+                                </select>
+                                <select class="input-mini" id="artAlignSelect" style="margin:0;">
+                                    <option value="left">Alinear: Izquierda</option>
+                                    <option value="center">Alinear: Centro</option>
+                                    <option value="right">Alinear: Derecha</option>
+                                </select>
+                            </div>
+
+                            <div class="slider-row">
+                                <div style="display:flex;justify-content:space-between;">
+                                    <span>Tamaño de Titular</span>
+                                    <strong id="titleSizeLabel" style="color:var(--c1)">30 px</strong>
+                                </div>
+                                <input type="range" id="titleSizeRange" min="20" max="48" value="30" />
+                            </div>
+                        </div>
+
+                        <!-- 3. Paletas Vivas + Selectores de Color Libres -->
+                        <div class="control-block">
+                            <h3><span>3. Paleta y Colores Personalizados</span></h3>
+                            <div class="option-list" id="vibeSelector">
+                                <button type="button" class="ctrl-btn active" data-vibe="tropico" data-c1="#ff2e7e"
+                                    data-c2="#ff9f1c" data-c3="#00b4d8" data-bg="#fff5f8" data-text="#18122b">
+                                    <span>🌺 Tropical Fiesta (Coral + Ámbar + Cielo)</span><span>✦</span>
+                                </button>
+                                <button type="button" class="ctrl-btn" data-vibe="citrus" data-c1="#06d6a0"
+                                    data-c2="#ffd166" data-c3="#118ab2" data-bg="#f2fff9" data-text="#073b4c">
+                                    <span>🍋 Citrus Mint (Esmeralda + Limón)</span><span>☀</span>
+                                </button>
+                                <button type="button" class="ctrl-btn" data-vibe="sky" data-c1="#00b4d8"
+                                    data-c2="#7209b7" data-c3="#ff2e7e" data-bg="#f0f9ff" data-text="#18122b">
+                                    <span>💎 Cielo Creativo (Azul + Violeta Vivo)</span><span>◈</span>
+                                </button>
+                                <button type="button" class="ctrl-btn" data-vibe="editorial" data-c1="#ff9f1c"
+                                    data-c2="#e71d36" data-c3="#2ec4b6" data-bg="#fffcf2" data-text="#1d1829">
+                                    <span>👑 Sol de Cusco (Oro + Carmesí + Turquesa)</span><span>★</span>
+                                </button>
+                                <button type="button" class="ctrl-btn" data-vibe="avisync" id="vibeAviSyncBtn"
+                                    data-c1="#ff2e7e" data-c2="#00b4d8" data-c3="#ff9f1c" data-bg="#fff8fb"
+                                    data-text="#18122b">
+                                    <span>🔗 Sincronizado con tu Tema AVI</span><span>↻</span>
+                                </button>
+                            </div>
+
+                            <div class="color-pickers-row">
+                                <label class="color-picker-item">
+                                    <span>Color 1</span>
+                                    <input type="color" id="customArtColor1" value="#ff2e7e" />
+                                </label>
+                                <label class="color-picker-item">
+                                    <span>Color 2</span>
+                                    <input type="color" id="customArtColor2" value="#ff9f1c" />
+                                </label>
+                                <label class="color-picker-item">
+                                    <span>Texto</span>
+                                    <input type="color" id="customArtText" value="#18122b" />
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- 4. Texturas, Logo Propio y Geometría -->
+                        <div class="control-block">
+                            <h3><span>4. Textura, Logo y Geometría</span></h3>
+                            <div class="option-grid-2" id="patternSelector" style="margin-bottom:10px;">
+                                <button type="button" class="ctrl-btn active" data-pattern="none">Limpio Seda</button>
+                                <button type="button" class="ctrl-btn" data-pattern="dots">Puntos Halftone</button>
+                                <button type="button" class="ctrl-btn" data-pattern="lines">Trama Diagonal</button>
+                                <button type="button" class="ctrl-btn" data-pattern="waves">Ondas Bauhaus</button>
+                            </div>
+
+                            <div style="display:flex;gap:8px;margin-bottom:8px;">
+                                <button type="button" class="ctrl-btn" id="uploadLogoTrigger"
+                                    style="flex:1;justify-content:center;border-style:dashed;border-color:var(--c1);">
+                                    ↑ Subir Logo / Imagen al Lienzo
+                                </button>
+                                <button type="button" class="ctrl-btn" id="clearLogoBtn" hidden
+                                    style="justify-content:center;color:#e11d48;">✕</button>
+                                <input type="file" id="logoUploadInput" accept="image/*" hidden />
+                            </div>
+
+                            <div class="slider-row">
+                                <div style="display:flex;justify-content:space-between;">
+                                    <span>Redondeo de Bordes (Troquel)</span>
+                                    <strong id="radiusValueLabel" style="color:var(--c2)">18 px</strong>
+                                </div>
+                                <input type="range" id="artRadiusRange" min="0" max="60" value="18" />
+                            </div>
+
+                            <div class="slider-row">
+                                <div style="display:flex;justify-content:space-between;">
+                                    <span>Zoom de Vista Previa</span>
+                                    <strong id="zoomValueLabel" style="color:var(--c2)">100%</strong>
+                                </div>
+                                <input type="range" id="artZoomRange" min="80" max="115" value="100" />
+                            </div>
+                        </div>
+
+                        <!-- 5. Simulador de Tinta y Guías -->
+                        <div class="control-block">
+                            <h3><span>5. Simulador de Tinta y Corte</span></h3>
+                            <div class="option-grid-2" id="colorModeSelector" style="margin-bottom:8px;">
+                                <button type="button" class="ctrl-btn active" data-mode="rgb">☀ RGB Digital</button>
+                                <button type="button" class="ctrl-btn" data-mode="cmyk">🖨 CMYK Prensa</button>
+                                <button type="button" class="ctrl-btn" data-mode="uv">✨ Barniz UV</button>
+                                <button type="button" class="ctrl-btn" data-mode="foil">👑 Foil Dorado</button>
+                            </div>
+                            <label class="toggle-row">
+                                <span>Sangrado de Imprenta (3mm)</span>
+                                <input type="checkbox" id="toggleBleed" checked />
+                            </label>
+                            <label class="toggle-row">
+                                <span>Zona Segura de Textos</span>
+                                <input type="checkbox" id="toggleSafe" checked />
+                            </label>
+                            <label class="toggle-row">
+                                <span>Retícula de Composición Áurea</span>
+                                <input type="checkbox" id="toggleGrid" />
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Escenario Interactivo 3D -->
+                    <div class="canvas-stage-wrap">
+                        <div class="canvas-toolbar">
+                            <div style="display:flex;gap:14px;align-items:center;flex-wrap:wrap;">
+                                <span>Medida: <strong id="specDimsLabel" style="color:var(--c1)">1080 × 1080 px
+                                        (1:1)</strong></span>
+                                <span>·</span>
+                                <span>Modo: <strong id="specColorLabel" style="color:var(--c4)">sRGB
+                                        Vibrante</strong></span>
+                                <span>·</span>
+                                <span>Calidad: <strong style="color:var(--ok)">300 DPI ✓</strong></span>
+                            </div>
+                            <div style="display:flex;gap:8px;">
+                                <button type="button" class="ctrl-btn" id="downloadMockupBtn"
+                                    style="padding:6px 12px;background:#fff0f6;border-color:var(--c1);color:var(--c1);">⬇
+                                    Exportar Boceto PNG</button>
+                            </div>
+                        </div>
+
+                        <div class="artboard-viewport" id="artboardViewport">
+                            <div class="artboard-mockup" id="artboardMockup" data-format="social" data-colormode="rgb"
+                                data-pattern="none">
+                                <div class="artboard-bg-shape"></div>
+                                <div class="artboard-pattern"></div>
+                                <div class="artboard-glare"></div>
+
+                                <div class="guide-bleed" id="guideBleed"></div>
+                                <div class="guide-safe" id="guideSafe"></div>
+                                <div class="guide-grid" id="guideGrid" hidden></div>
+
+                                <div class="artboard-content" id="artboardContentBox">
+                                    <div class="artboard-top-tag">
+                                        <span>PIXAVI STUDIO</span>
+                                        <img id="mockupUploadedLogo" class="artboard-uploaded-logo" alt="Logo subido"
+                                            hidden />
+                                        <span id="mockupFormatTag">COLECCIÓN 2026</span>
+                                    </div>
+
+                                    <div id="mockupTextGroup">
+                                        <span class="artboard-cta-pill" id="mockupBadge"
+                                            style="margin-bottom:10px;">NUEVA CAMPAÑA</span>
+                                        <h4 class="artboard-headline" id="mockupHeadline">DISEÑO QUE INSPIRA</h4>
+                                        <p class="artboard-subline" id="mockupSubline">Colores vibrantes, composición
+                                            limpia y calidad de imprenta 300 DPI.</p>
+                                    </div>
+
+                                    <div class="artboard-footer">
+                                        <span>CUSCO · PERÚ</span>
+                                        <span>FOGRA39 / 300 DPI</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div
+                            style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;font-size:12.5px;color:var(--muted);">
+                            <span>💡 <strong>Tip Pre-Prensa:</strong> Puedes editar el texto, subir tu logo y descargar
+                                una captura PNG de tu idea o vincularla a tu pedido.</span>
+                            <button type="button" class="btn-primary" id="applyCanvasToQuoteBtn"
+                                style="padding:9px 18px;font-size:12px;">Vincular este diseño a mi pedido ↓</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECCIÓN 3: COTIZADOR DE PAQUETES EN SOLES (S/) -->
+            <section class="glass-card" id="cotizador" aria-labelledby="quoteTitle">
+                <div>
+                    <span class="kicker">COTIZADOR EN TIEMPO REAL · SOLES PERUANOS (S/)</span>
+                    <h2 id="quoteTitle"
+                        style="font-family:var(--font-display);font-size:clamp(24px,3vw,36px);margin:8px 0 4px;">Elige
+                        tu Paquete de Diseño Gráfico</h2>
+                    <p style="color:var(--muted);margin:0;font-size:14px;">Selecciona el alcance de tu proyecto y
+                        agrégalo al carrito compartido con todas las páginas de PIXAVI.</p>
+                </div>
+
+                <div class="packages-grid" id="packagesGrid">
+                    <article class="pkg-card selected" data-pkg-id="key-visual"
+                        data-pkg-name="Diseño Gráfico: Pieza Única / Key Visual" data-pkg-price="120" tabindex="0">
+                        <span class="pkg-badge">IMPACTO RÁPIDO</span>
+                        <h3>Pieza Única / Key Visual</h3>
+                        <div class="pkg-price">S/ 120 <small>/ pieza</small></div>
+                        <p style="font-size:12.5px;color:var(--muted);margin:0;">Para anuncios publicitarios, flyers,
+                            afiches o piezas clave listas para redes e imprenta.</p>
+                        <ul class="pkg-features">
+                            <li>1 propuesta maestra de alta energía visual</li>
+                            <li>2 rondas de ajustes con diseñador asignado</li>
+                            <li>Exportación sRGB (Redes) + PDF CMYK (Prensa)</li>
+                            <li>Control de sangrado 3mm y textos en curvas</li>
+                        </ul>
+                    </article>
+
+                    <article class="pkg-card" data-pkg-id="campana-multi"
+                        data-pkg-name="Diseño Gráfico: Pack Campaña Multiformato (5 piezas)" data-pkg-price="450"
+                        tabindex="0">
+                        <span class="pkg-badge" style="background:linear-gradient(90deg,var(--c2),var(--c4));">FAVORITO
+                            COMERCIAL</span>
+                        <h3>Campaña Multiformato (5 Piezas)</h3>
+                        <div class="pkg-price">S/ 450 <small>/ campaña</small></div>
+                        <p style="font-size:12.5px;color:var(--muted);margin:0;">Ideal para lanzamientos que necesitan
+                            presencia uniforme en redes sociales e impresos físicos.</p>
+                        <ul class="pkg-features">
+                            <li>5 adaptaciones gráficas coordinadas</li>
+                            <li>Formatos Post, Historia, Banner y Volante/Afiche</li>
+                            <li>Sistema cromático dual RGB + CMYK</li>
+                            <li>3 rondas de refinamiento creativo</li>
+                        </ul>
+                    </article>
+
+                    <article class="pkg-card" data-pkg-id="editorial-catalogo"
+                        data-pkg-name="Diseño Gráfico: Pack Editorial / Catálogo" data-pkg-price="850" tabindex="0">
+                        <span class="pkg-badge"
+                            style="background:linear-gradient(90deg,var(--c3),var(--c1));">CORPORATIVO PRO</span>
+                        <h3>Pack Editorial / Catálogo</h3>
+                        <div class="pkg-price">S/ 850 <small>/ proyecto</small></div>
+                        <p style="font-size:12.5px;color:var(--muted);margin:0;">Maquetación integral de catálogos
+                            comerciales, brochures multipágina, revistas o cartas.</p>
+                        <ul class="pkg-features">
+                            <li>Diseño de portada + hasta 16 páginas interiores</li>
+                            <li>Retoque fotográfico y diagramación en retícula</li>
+                            <li>Catálogo PDF interactivo + Pliegos para Offset</li>
+                            <li>Revisión de lomo, troqueles y reserva UV</li>
+                        </ul>
+                    </article>
+                </div>
+
+                <div class="customizer-bottom">
+                    <div>
+                        <h3 style="font-size:14px;margin:0 0 10px;color:var(--c4);">Complementos de Estudio (Opcional)
+                        </h3>
+                        <div class="addon-chip" data-addon-name="Prioridad Express 24h" data-addon-price="90"
+                            tabindex="0">
+                            <span>⚡ <strong>Prioridad Express 24h</strong> (Entrega en el día hábil)</span>
+                            <strong style="color:var(--c1);">+ S/ 90</strong>
+                        </div>
+                        <div class="addon-chip" data-addon-name="Archivos Editables Abiertos (AI / PSD / INDD)"
+                            data-addon-price="110" tabindex="0">
+                            <span>📂 <strong>Entrega de Editables Abiertos</strong> (Illustrator / Photoshop /
+                                InDesign)</span>
+                            <strong style="color:var(--c1);">+ S/ 110</strong>
+                        </div>
+                        <div class="addon-chip" data-addon-name="Prueba de Color Impresa Física" data-addon-price="45"
+                            tabindex="0">
+                            <span>🎨 <strong>Prueba de Color Física</strong> (Muestra impresa en Couché antes de
+                                producción)</span>
+                            <strong style="color:var(--c1);">+ S/ 45</strong>
+                        </div>
+                        <div class="addon-chip active" data-addon-name="Certificación Pre-Prensa 300 DPI"
+                            data-addon-price="0">
+                            <span>✓ <strong>Revisión Técnica Pre-Prensa</strong> (Garantía de impresión nítida)</span>
+                            <strong style="color:var(--ok);">GRATIS</strong>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h3 style="font-size:14px;margin:0 0 10px;color:var(--c4);">Brief Rápido del Cliente</h3>
+                        <div class="form-field">
+                            <label for="briefBrand">Marca, negocio o título de campaña</label>
+                            <input type="text" id="briefBrand" placeholder="Ej. Festival Gastronómico Cusco 2026"
+                                maxlength="90" />
+                        </div>
+                        <div class="form-field">
+                            <label for="briefStyle">Configuración seleccionada en la Mesa de Arte</label>
+                            <input type="text" id="briefStyle"
+                                value="Formato: Post Social 1:1 · Paleta: Tropical Fiesta · Modo: RGB Digital"
+                                readonly />
+                        </div>
+                        <div class="form-field">
+                            <label for="briefNotes">Detalles adicionales o requerimientos</label>
+                            <textarea id="briefNotes" rows="2"
+                                placeholder="Indica textos principales, medidas especiales o si también deseas cotizar la impresión..."
+                                maxlength="400"></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="quote-summary-bar">
+                    <div>
+                        <span
+                            style="font-size:10.5px;letter-spacing:0.18em;text-transform:uppercase;color:var(--c1);font-weight:800;display:block;">INVERSIÓN
+                            ESTIMADA</span>
+                        <strong id="totalQuotePrice"
+                            style="font-family:var(--font-display);font-size:34px;color:var(--ink);">S/ 120.00</strong>
+                        <span id="selectedPkgSummary"
+                            style="display:block;font-size:12.5px;color:var(--muted);font-weight:600;">Pieza Única / Key
+                            Visual + Pre-Prensa Certificada</span>
+                    </div>
+                    <div style="display:flex;gap:10px;flex-wrap:wrap;">
+                        <button type="button" class="btn-primary" id="addToSharedCartBtn">
+                            <span>Añadir al Carrito PIXAVI</span>
+                            <span>+</span>
+                        </button>
+                        <button type="button" class="btn-secondary" id="openCartFromQuoteBtn">Ver Carrito (<span
+                                id="quoteCartCount">0</span>)</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECCIÓN 4: VALIDADOR TÉCNICO DE ARCHIVOS PRE-PRENSA -->
+            <section class="glass-card" id="validadorPrePrensa" aria-labelledby="inspectorTitle">
+                <div class="inspector-grid">
+                    <div>
+                        <span class="kicker">PRE-FLIGHT CHECK GRATUITO</span>
+                        <h2 id="inspectorTitle" style="font-family:var(--font-display);font-size:26px;margin:8px 0;">
+                            Validador de Resolución Pre-Prensa</h2>
+                        <p style="color:var(--muted);font-size:13.5px;margin:0 0 16px;">Arrastra tu logotipo, fotografía
+                            o arte aquí para comprobar al instante si tiene los DPI reales necesarios para una impresión
+                            sin bordes borrosos.</p>
+
+                        <div class="dropzone-box" id="inspectorDropzone" tabindex="0" role="button"
+                            aria-label="Subir archivo para validar resolución">
+                            <div style="font-size:32px;color:var(--c1);margin-bottom:6px;">⚡</div>
+                            <strong style="display:block;font-size:14.5px;color:var(--ink);">Arrastra tu imagen o PDF
+                                aquí (PNG, JPG, SVG, PDF)</strong>
+                            <span style="font-size:12px;color:var(--muted);">Escaneo instantáneo en tu navegador · 100%
+                                privado</span>
+                            <input type="file" id="inspectorInput" accept="image/*,.pdf,.svg" hidden />
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="inspector-results">
+                            <div class="insp-tile">
+                                <small>Archivo Analizado</small>
+                                <strong id="inspFileName">Sin archivo...</strong>
+                            </div>
+                            <div class="insp-tile">
+                                <small>Resolución en Píxeles</small>
+                                <strong id="inspDimensions">—</strong>
+                            </div>
+                            <div class="insp-tile">
+                                <small>Densidad en Formato A4</small>
+                                <strong id="inspDpiStatus">—</strong>
+                            </div>
+                            <div class="insp-tile">
+                                <small>Medida Máxima a 300 DPI</small>
+                                <strong id="inspMaxPrint">—</strong>
+                            </div>
+                        </div>
+                        <div id="inspAdviceBox"
+                            style="margin-top:12px;padding:14px;border-radius:14px;background:#ffffff;border-left:4px solid var(--c2);font-size:12.5px;color:var(--ink);box-shadow:0 4px 14px rgba(24,18,43,0.05);">
+                            Sube cualquier imagen para que <strong>MAQUI</strong> verifique su nitidez para imprenta
+                            Offset o Gigantografía.
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- 3. DRAWER DE SINCRONIZACIÓN EN VIVO CON AVI.HTML -->
+    <div class="shade" id="syncShade" hidden></div>
+    <aside class="side-drawer" id="syncDrawer" role="dialog" aria-modal="true" aria-labelledby="syncDrawerTitle" hidden>
+        <header class="drawer-header">
+            <div>
+                <span class="kicker">CONEXIÓN EN TIEMPO REAL CON AVI.HTML</span>
+                <h2 id="syncDrawerTitle" style="margin:6px 0 0;font-size:20px;font-family:var(--font-display);">
+                    Sincronizador del Ecosistema</h2>
+            </div>
+            <button type="button" class="icon-btn" id="closeSyncDrawerBtn" aria-label="Cerrar">✕</button>
+        </header>
+
+        <div class="drawer-body">
+            <p style="font-size:12.5px;color:var(--muted);margin:0;">Cualquier cambio realizado en la configuración de
+                <code>avi.html</code> (o desde este panel) se guarda en <code>localStorage</code> y actualiza todas las
+                páginas del ecosistema al instante.</p>
+
+            <div class="control-block">
+                <h3><span>Modo de Atmósfera en PIXAVI</span></h3>
+                <div class="option-grid-2" id="colorFusionSelector">
+                    <button type="button" class="ctrl-btn active" data-fusion="vivid">☀ Estudio Claro Vivo</button>
+                    <button type="button" class="ctrl-btn" data-fusion="exact">🔗 Tema Exacto de AVI</button>
+                </div>
+            </div>
+
+            <div class="control-block">
+                <h3><span>Paletas Globales Sincronizadas</span><small id="syncThemeCount">Colores Vivos</small></h3>
+                <div class="theme-sync-grid" id="syncThemeGrid"></div>
+            </div>
+
+            <div class="control-block">
+                <h3><span>Tipografía y Accesibilidad Global (avi.html)</span></h3>
+                <div class="form-field" style="margin-bottom:10px;">
+                    <label for="syncFontSelect">Tipografía del Ecosistema</label>
+                    <select id="syncFontSelect">
+                        <option value="Inter">Inter</option>
+                        <option value="Outfit">Outfit</option>
+                        <option value="Montserrat">Montserrat</option>
+                        <option value="Poppins">Poppins</option>
+                        <option value="Orbitron">Orbitron</option>
+                    </select>
+                </div>
+                <label class="toggle-row">
+                    <span>Alto Contraste Global</span>
+                    <input type="checkbox" id="syncContrastToggle" />
+                </label>
+                <label class="toggle-row">
+                    <span>Reducir Movimiento (Modo Eco)</span>
+                    <input type="checkbox" id="syncReducedToggle" />
+                </label>
+            </div>
+        </div>
+
+        <footer class="drawer-footer" style="display:flex;justify-content:space-between;align-items:center;">
+            <span style="font-size:11.5px;color:var(--ok);font-weight:800;">● Sincronizado con avi.html</span>
+            <a href="../avi.html#suite" class="btn-secondary" style="padding:8px 16px;font-size:11.5px;">Ir a avi.html
+                ↗</a>
+        </footer>
+    </aside>
+
+    <!-- 4. DRAWER DEL CARRITO COMPARTIDO DE PIXAVI -->
+    <div class="shade" id="cartShade" hidden></div>
+    <aside class="side-drawer" id="cartDrawer" role="dialog" aria-modal="true" aria-labelledby="cartDrawerTitle" hidden>
+        <header class="drawer-header">
+            <div>
+                <span class="kicker">CARRITO COMPARTIDO PIXAVI</span>
+                <h2 id="cartDrawerTitle" style="margin:6px 0 0;font-size:20px;font-family:var(--font-display);">Tu Orden
+                    de Producción</h2>
+            </div>
+            <button type="button" class="icon-btn" id="closeCartBtn" aria-label="Cerrar carrito">✕</button>
+        </header>
+
+        <div class="drawer-body" id="cartItemsList"></div>
+
+        <footer class="drawer-footer">
+            <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:12px;">
+                <span style="color:var(--muted);font-size:13px;font-weight:700;">Total estimado PIXAVI:</span>
+                <strong id="cartTotalAmount" style="font-family:var(--font-display);font-size:26px;color:var(--c1);">S/
+                    0.00</strong>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+                <button type="button" class="btn-primary" id="exportOrderBtn">Descargar Orden ↗</button>
+                <a href="./tarjetas.html" class="btn-secondary" style="text-align:center;">Ir a Tarjetas →</a>
+            </div>
+        </footer>
+    </aside>
+
+    <!-- 5. CHATBOT MAQUI CON ./imagenes/maqui.png Y CONEXIÓN A GOOGLE GEMINI API -->
+    <div class="maqui-dock" aria-label="Asistente MAQUI con IA de Google">
+        <section class="maqui-chat-window" id="maquiChatWindow" hidden aria-label="Chat con MAQUI AI">
+            <header class="maqui-chat-head">
+                <img class="maqui-head-avatar" src="./imagenes/maqui.png" alt="MAQUI"
+                    onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 80 80%22><rect width=%2280%22 height=%2280%22 rx=%2240%22 fill=%22%23ff2e7e%22/><text x=%2250%25%22 y=%2255%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 fill=%22%23fff%22 font-family=%22sans-serif%22 font-weight=%22900%22 font-size=%2234%22>M</text></svg>';" />
+                <div style="flex:1;min-width:0;">
+                    <strong style="display:block;font-size:13.5px;letter-spacing:0.04em;">MAQUI · Asistente
+                        PIXAVI</strong>
+                    <small id="maquiApiStatus" style="display:block;font-size:10.5px;opacity:0.92;">Conectado a Google
+                        Gemini AI</small>
+                </div>
+                <button type="button" id="toggleApiKeyBoxBtn" title="Configurar API Key de Google Gemini"
+                    style="color:#fff;font-size:15px;padding:4px;">🔑</button>
+                <button type="button" id="closeMaquiChatBtn" aria-label="Minimizar chat"
+                    style="color:#fff;font-size:18px;padding:4px;">✕</button>
+            </header>
+
+            <!-- Barra desplegable opcional por si el usuario desea pegar su propia API Key de Google AI Studio -->
+            <div id="maquiApiKeyBar" hidden
+                style="padding:8px 12px;background:#fff0f6;border-bottom:1px solid rgba(255,46,126,0.2);display:flex;gap:6px;">
+                <input type="password" id="geminiApiKeyInput" placeholder="Pega tu Google Gemini API Key (AIza...)"
+                    style="flex:1;padding:6px 10px;border-radius:8px;border:1px solid rgba(24,18,43,0.2);font-size:11.5px;" />
+                <button type="button" id="saveGeminiKeyBtn"
+                    style="padding:6px 12px;border-radius:8px;background:var(--c1);color:#fff;font-size:11px;font-weight:800;">Guardar</button>
+            </div>
+
+            <div class="maqui-chat-messages" id="maquiMessages">
+                <div class="chat-msg bot">
+                    ¡Hola! Soy <strong>MAQUI</strong>, el asistente de IA de PIXAVI. Puedo sugerirte eslóganes para tu
+                    diseño, aconsejarte sobre impresión CMYK a 300 DPI o recomendarte un paquete en Soles. ¿Qué creamos
+                    hoy?
+                </div>
+            </div>
+
+            <div class="maqui-quick-chips">
+                <button type="button" class="maqui-chip"
+                    data-prompt="Dame 3 ideas de titulares llamativos para un afiche o post publicitario.">✨ Ideas de
+                    titular</button>
+                <button type="button" class="maquiqui-chip maqui-chip"
+                    data-prompt="¿Qué diferencia hay entre RGB, CMYK y Barniz UV sectorizado en imprenta?">🖨 RGB vs
+                    CMYK</button>
+                <button type="button" class="maqui-chip"
+                    data-prompt="¿Cuál de los paquetes de Diseño Gráfico de PIXAVI me recomiendas para lanzar mi marca?">📦
+                    Elegir paquete</button>
+            </div>
+
+            <form class="maqui-chat-form" id="maquiChatForm">
+                <input type="text" id="maquiChatInput" placeholder="Pregúntale a MAQUI (Google AI)..."
+                    autocomplete="off" required />
+                <button type="submit" class="maqui-send-btn" id="maquiSendBtn">Enviar</button>
+            </form>
+        </section>
+
+        <button type="button" class="maqui-btn" id="maquiAvatarBtn" title="Chatear con MAQUI (IA de Google)">
+            <img src="./imagenes/maqui.png" alt="MAQUI AI"
+                onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><defs><linearGradient id=%22mg%22 x1=%220%22 y1=%220%22 x2=%221%22 y2=%221%22><stop stop-color=%22%23ff2e7e%22/><stop offset=%221%22 stop-color=%22%2300b4d8%22/></linearGradient></defs><rect width=%22100%22 height=%22100%22 rx=%2224%22 fill=%22url(%23mg)%22/><text x=%2250%25%22 y=%2256%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 fill=%22%23fff%22 font-family=%22sans-serif%22 font-weight=%22900%22 font-size=%2224%22>MAQUI</text></svg>';" />
+        </button>
+    </div>
+
+    <!-- TOAST -->
+    <div id="toast" role="status" aria-live="polite" hidden
+        style="position:fixed;bottom:24px;left:50%;transform:translateX(-50%);z-index:120;padding:12px 22px;border-radius:99px;background:#18122b;border:2px solid var(--c1);color:#fff;font-size:12.5px;font-weight:700;box-shadow:0 16px 40px rgba(24,18,43,0.28);">
+    </div>
+
+    <script>
+        'use strict';
+        (() => {
+            const $ = id => document.getElementById(id);
+
+            /* ======================================================================
+               1. PALETAS VIVAS Y CLARAS + SINCRONIZACIÓN BIDIRECCIONAL CON AVI.HTML
+               ====================================================================== */
+            const AVI_THEMES = [
+                { id: 'avi-original', name: 'Día Vivo (Coral & Cielo)', a: '#fff9f5', b: '#f0f8ff', accent: '#ff2e7e', c2: '#00b4d8', c3: '#ff9f1c' },
+                { id: 'solar', name: 'Sol Tropical (Ámbar & Rosa)', a: '#fffdf2', b: '#fff2f6', accent: '#ff9f1c', c2: '#ff2e7e', c3: '#06d6a0' },
+                { id: 'aurora', name: 'Brisa Esmeralda (Menta & Cian)', a: '#f2fff9', b: '#f0f9ff', accent: '#06d6a0', c2: '#00b4d8', c3: '#ff9f1c' },
+                { id: 'prisma', name: 'Estudio Pop (Fucsia & Violeta)', a: '#fdf4ff', b: '#fff5f8', accent: '#f72585', c2: '#7209b7', c3: '#4cc9f0' },
+                { id: 'oceano', name: 'Cielo Pacífico (Turquesa & Coral)', a: '#f0faff', b: '#fff8f4', accent: '#0096c7', c2: '#ff4d6d', c3: '#ffb703' },
+                { id: 'alba', name: 'Alba Pastel (Lavanda & Durazno)', a: '#faf7ff', b: '#fff7f2', accent: '#7209b7', c2: '#ff6b6b', c3: '#4ecdc4' },
+                { id: 'esmeralda', name: 'Jardín Botánico (Verde & Sol)', a: '#f4fff8', b: '#fffff2', accent: '#10b981', c2: '#f59e0b', c3: '#3b82f6' },
+                { id: 'rubi', name: 'Energía Carmesí (Rojo & Oro)', a: '#fff5f5', b: '#fffdf2', accent: '#e11d48', c2: '#f59e0b', c3: '#0ea5e9' }
+            ];
+
+            const PREF_KEYS = [
+                'avi-connection-prefs-v10',
+                'avi-connection-prefs-v91',
+                'avi-experience-9-layout',
+                'pixavi-experience-preferences-v2'
+            ];
+            const SHARED_CART_KEY = 'pixavi-shared-cart-v1';
+            const LEGACY_CART_KEY = 'pixavi-cart-v1';
+            const AVI_RECENT_KEY = 'avi-connection-recent-v91';
+            const GEMINI_KEY_STORAGE = 'avi-gemini-api-key';
+
+            let state = {
+                theme: 'avi-original',
+                autoTheme: false,
+                customAccent: '',
+                colorMode: 'vivid',
+                font: 'Inter',
+                fontScale: 100,
+                panelOpacity: 88,
+                shape: 'pill',
+                highContrast: false,
+                reducedMotion: false,
+                sound: true,
+                particles: true,
+                particleDensity: 45,
+                particleSpeed: 50,
+                mediaKind: 'none',
+                mediaUrl: '',
+                mediaDim: 12,
+                mediaBlur: 0
+            };
+
+            function readGlobalAviPrefs() {
+                let merged = {};
+                for (const k of PREF_KEYS) {
+                    try {
+                        const raw = JSON.parse(localStorage.getItem(k) || '{}');
+                        if (raw && typeof raw === 'object') merged = { ...merged, ...raw };
+                    } catch { }
+                }
+
+                if (merged.theme) state.theme = merged.theme;
+                if (typeof merged.autoTheme === 'boolean') state.autoTheme = merged.autoTheme;
+                if (typeof merged.customAccent === 'string') state.customAccent = merged.customAccent;
+                if (merged.font) state.font = merged.font;
+                if (merged.textScale || merged.textSize || merged.fontScale) {
+                    state.fontScale = Number(merged.textScale || merged.textSize || merged.fontScale) || 100;
+                }
+                if (merged.iconShape || merged.uiShape) state.shape = merged.iconShape || merged.uiShape;
+                if (typeof merged.highContrast === 'boolean' || typeof merged.contrast === 'boolean') {
+                    state.highContrast = Boolean(merged.highContrast ?? merged.contrast);
+                }
+                if (typeof merged.reducedMotion === 'boolean' || typeof merged.reduced === 'boolean') {
+                    state.reducedMotion = Boolean(merged.reducedMotion ?? merged.reduced);
+                }
+                if (typeof merged.sound === 'boolean') state.sound = merged.sound;
+                if (typeof merged.muted === 'boolean') state.sound = !merged.muted;
+                if (typeof merged.particles === 'boolean') state.particles = merged.particles;
+                if (merged.particleDensity || merged.count) state.particleDensity = Number(merged.particleDensity || merged.count) || 45;
+                if (merged.particleSpeed || merged.speed) state.particleSpeed = Number(merged.particleSpeed || merged.speed) || 50;
+                if (merged.mediaKind) state.mediaKind = merged.mediaKind;
+                if (merged.mediaUrl) state.mediaUrl = merged.mediaUrl;
+            }
+
+            function writeGlobalAviPrefs(patch) {
+                state = { ...state, ...patch };
+                for (const k of ['avi-connection-prefs-v10', 'avi-connection-prefs-v91', 'pixavi-experience-preferences-v2']) {
+                    try {
+                        const prev = JSON.parse(localStorage.getItem(k) || '{}') || {};
+                        localStorage.setItem(k, JSON.stringify({
+                            ...prev,
+                            theme: state.theme,
+                            autoTheme: state.autoTheme,
+                            customAccent: state.customAccent,
+                            font: state.font,
+                            textScale: state.fontScale,
+                            fontScale: state.fontScale,
+                            highContrast: state.highContrast,
+                            contrast: state.highContrast,
+                            reducedMotion: state.reducedMotion,
+                            reduced: state.reducedMotion,
+                            sound: state.sound
+                        }));
+                    } catch { }
+                }
+                applyGlobalPrefsToDOM();
+            }
+
+            function applyGlobalPrefsToDOM() {
+                const th = AVI_THEMES.find(t => t.id === state.theme) || AVI_THEMES[0];
+                const root = document.documentElement;
+
+                const primaryAccent = state.customAccent || th.accent;
+                const secondaryAccent = th.c2 || '#00b4d8';
+                const tertiaryAccent = th.c3 || '#ff9f1c';
+
+                root.dataset.theme = th.id;
+                root.style.setProperty('--bg-a', th.a);
+                root.style.setProperty('--bg-b', th.b);
+                root.style.setProperty('--c1', primaryAccent);
+                root.style.setProperty('--c2', secondaryAccent);
+                root.style.setProperty('--c3', tertiaryAccent);
+
+                // Sincronizar botón "Sincronizado con tu Tema AVI" en la Mesa de Arte
+                const syncVibeBtn = $('vibeAviSyncBtn');
+                if (syncVibeBtn) {
+                    syncVibeBtn.dataset.c1 = primaryAccent;
+                    syncVibeBtn.dataset.c2 = secondaryAccent;
+                    syncVibeBtn.dataset.c3 = tertiaryAccent;
+                    syncVibeBtn.dataset.bg = th.a;
+                    if (syncVibeBtn.classList.contains('active')) {
+                        const mockup = $('artboardMockup');
+                        mockup.style.setProperty('--art-a', primaryAccent);
+                        mockup.style.setProperty('--art-b', secondaryAccent);
+                        mockup.style.setProperty('--art-c', tertiaryAccent);
+                        mockup.style.setProperty('--art-bg', th.a);
+                    }
+                }
+
+                root.style.setProperty('--ui-font', `'${state.font}', system-ui, sans-serif`);
+                root.style.setProperty('--sz', String((state.fontScale || 100) / 100));
+
+                document.body.dataset.shape = state.shape || 'pill';
+                document.body.classList.toggle('high-contrast', state.highContrast);
+                document.body.classList.toggle('reduced-motion', state.reducedMotion);
+
+                $('activeThemeBadge').textContent = `Sync AVI: ${th.name.split('(')[0].trim()}`;
+                $('soundToggleBtn').classList.toggle('is-active', state.sound);
+                $('syncFontSelect').value = state.font;
+                $('syncContrastToggle').checked = state.highContrast;
+                $('syncReducedToggle').checked = state.reducedMotion;
+
+                document.querySelectorAll('#syncThemeGrid .theme-sync-btn').forEach(b => {
+                    b.classList.toggle('active', b.dataset.themeId === th.id);
+                });
+            }
+
+            // Audio Sintetizado Amigable
+            let audioCtx;
+            function playChime(freq = 580, dur = 0.11, type = 'sine') {
+                if (!state.sound) return;
+                try {
+                    audioCtx ??= new (window.AudioContext || window.webkitAudioContext)();
+                    const osc = audioCtx.createOscillator();
+                    const gain = audioCtx.createGain();
+                    osc.type = type;
+                    osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+                    osc.frequency.exponentialRampToValueAtTime(freq * 1.2, audioCtx.currentTime + dur);
+                    gain.gain.setValueAtTime(0.03, audioCtx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + dur);
+                    osc.connect(gain).connect(audioCtx.destination);
+                    osc.start();
+                    osc.stop(audioCtx.currentTime + dur);
+                } catch { }
+            }
+
+            function showToast(msg) {
+                const t = $('toast');
+                t.textContent = msg;
+                t.hidden = false;
+                clearTimeout(showToast.timer);
+                showToast.timer = setTimeout(() => { t.hidden = true; }, 3400);
+            }
+
+            /* ======================================================================
+               2. EXPERIENCIA DE PANTALLA COMPLETA
+               ====================================================================== */
+            function updateFullscreenUI() {
+                const isFull = Boolean(document.fullscreenElement);
+                const btn = $('fullscreenBtn');
+                btn.classList.toggle('is-active', isFull);
+                btn.title = isFull ? 'Salir de pantalla completa' : 'Activar pantalla completa';
+                $('fullscreenIcon').innerHTML = isFull
+                    ? '<path d="M8 3v3a2 2 0 0 1-2 2H3m18 0h-3a2 2 0 0 1-2-2V3m0 18v-3a2 2 0 0 1 2-2h3M3 16h3a2 2 0 0 1 2 2v3"/>'
+                    : '<path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/>';
+            }
+
+            $('fullscreenBtn').addEventListener('click', async () => {
+                try {
+                    if (document.fullscreenElement) {
+                        await document.exitFullscreen();
+                    } else {
+                        await document.documentElement.requestFullscreen();
+                    }
+                } catch {
+                    showToast('Pulsa F11 para alternar pantalla completa en tu navegador.');
+                }
+                updateFullscreenUI();
+            });
+            document.addEventListener('fullscreenchange', updateFullscreenUI);
+
+            /* ======================================================================
+               3. MESA DE ARTE INTERACTIVA CON CONTROLES DE EDICIÓN AMPLIADOS
+               ====================================================================== */
+            const mockup = $('artboardMockup');
+            let currentFormatLabel = 'Post Social 1:1';
+            let currentVibeLabel = 'Tropical Fiesta';
+            let currentColorLabel = 'RGB Digital';
+
+            function updateBriefSummary() {
+                $('briefStyle').value = `Formato: ${currentFormatLabel} · Paleta: ${currentVibeLabel} · Modo: ${currentColorLabel}`;
+            }
+
+            $('formatSelector').addEventListener('click', e => {
+                const btn = e.target.closest('button[data-format]');
+                if (!btn) return;
+                $('formatSelector').querySelectorAll('button').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                mockup.dataset.format = btn.dataset.format;
+                $('specDimsLabel').textContent = btn.dataset.dims;
+                $('mockupFormatTag').textContent = btn.textContent.toUpperCase();
+                currentFormatLabel = btn.textContent.trim();
+                updateBriefSummary();
+                playChime(580, 0.1, 'triangle');
+            });
+
+            // Controles de Texto, Subtítulo, Etiqueta, Fuente, Alineación y Tamaño
+            $('liveHeadlineInput').addEventListener('input', e => {
+                $('mockupHeadline').textContent = e.target.value.trim() || 'DISEÑO QUE INSPIRA';
+            });
+            $('liveSublineInput').addEventListener('input', e => {
+                $('mockupSubline').textContent = e.target.value.trim() || 'Colores vibrantes y calidad 300 DPI.';
+            });
+            $('liveBadgeInput').addEventListener('input', e => {
+                const val = e.target.value.trim();
+                $('mockupBadge').textContent = val;
+                $('mockupBadge').hidden = !val;
+            });
+            $('artFontSelect').addEventListener('change', e => {
+                mockup.style.setProperty('--art-font', e.target.value);
+            });
+            $('artAlignSelect').addEventListener('change', e => {
+                $('mockupTextGroup').style.textAlign = e.target.value;
+            });
+            $('titleSizeRange').addEventListener('input', e => {
+                const px = e.target.value + 'px';
+                mockup.style.setProperty('--art-title-size', px);
+                $('titleSizeLabel').textContent = px;
+            });
+
+            // Paletas y Selectores de Color Libres
+            $('vibeSelector').addEventListener('click', e => {
+                const btn = e.target.closest('button[data-vibe]');
+                if (!btn) return;
+                $('vibeSelector').querySelectorAll('button').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                mockup.style.setProperty('--art-a', btn.dataset.c1);
+                mockup.style.setProperty('--art-b', btn.dataset.c2);
+                mockup.style.setProperty('--art-c', btn.dataset.c3 || '#00b4d8');
+                mockup.style.setProperty('--art-bg', btn.dataset.bg);
+                mockup.style.setProperty('--art-text', btn.dataset.text || '#18122b');
+                $('customArtColor1').value = btn.dataset.c1;
+                $('customArtColor2').value = btn.dataset.c2;
+                $('customArtText').value = btn.dataset.text || '#18122b';
+                currentVibeLabel = btn.querySelector('span').textContent.trim();
+                updateBriefSummary();
+                playChime(650, 0.12, 'sine');
+            });
+
+            $('customArtColor1').addEventListener('input', e => {
+                mockup.style.setProperty('--art-a', e.target.value);
+                currentVibeLabel = 'Color Personalizado';
+                updateBriefSummary();
+            });
+            $('customArtColor2').addEventListener('input', e => {
+                mockup.style.setProperty('--art-b', e.target.value);
+                currentVibeLabel = 'Color Personalizado';
+                updateBriefSummary();
+            });
+            $('customArtText').addEventListener('input', e => {
+                mockup.style.setProperty('--art-text', e.target.value);
+            });
+
+            // Texturas, Subida de Logo, Redondeo y Zoom
+            $('patternSelector').addEventListener('click', e => {
+                const btn = e.target.closest('button[data-pattern]');
+                if (!btn) return;
+                $('patternSelector').querySelectorAll('button').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                mockup.dataset.pattern = btn.dataset.pattern;
+                playChime(620, 0.1, 'sine');
+            });
+
+            $('uploadLogoTrigger').addEventListener('click', () => $('logoUploadInput').click());
+            $('logoUploadInput').addEventListener('change', e => {
+                const file = e.target.files?.[0];
+                if (!file) return;
+                const url = URL.createObjectURL(file);
+                const logoImg = $('mockupUploadedLogo');
+                logoImg.src = url;
+                logoImg.hidden = false;
+                $('clearLogoBtn').hidden = false;
+                showToast('Logo cargado en el lienzo de la Mesa de Arte.');
+            });
+
+            $('clearLogoBtn').addEventListener('click', () => {
+                const logoImg = $('mockupUploadedLogo');
+                logoImg.hidden = true;
+                logoImg.removeAttribute('src');
+                $('clearLogoBtn').hidden = true;
+            });
+
+            $('artRadiusRange').addEventListener('input', e => {
+                const px = e.target.value + 'px';
+                mockup.style.setProperty('--art-radius', px);
+                $('radiusValueLabel').textContent = px;
+            });
+
+            $('artZoomRange').addEventListener('input', e => {
+                const scale = (Number(e.target.value) / 100).toFixed(2);
+                mockup.style.setProperty('--art-scale', scale);
+                $('zoomValueLabel').textContent = e.target.value + '%';
+            });
+
+            // Simulador de Tinta (RGB / CMYK / UV / Foil) y Guías
+            $('colorModeSelector').addEventListener('click', e => {
+                const btn = e.target.closest('button[data-mode]');
+                if (!btn) return;
+                $('colorModeSelector').querySelectorAll('button').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                const mode = btn.dataset.mode;
+                mockup.dataset.colormode = mode;
+
+                const labels = {
+                    rgb: 'sRGB Vibrante',
+                    cmyk: 'CMYK FOGRA39',
+                    uv: 'Barniz UV Sectorizado',
+                    foil: 'Estampado Foil Dorado'
+                };
+                $('specColorLabel').textContent = labels[mode];
+                currentColorLabel = btn.textContent.trim();
+                updateBriefSummary();
+                playChime(720, 0.12, 'triangle');
+            });
+
+            $('toggleBleed').addEventListener('change', e => { $('guideBleed').hidden = !e.target.checked; });
+            $('toggleSafe').addEventListener('change', e => { $('guideSafe').hidden = !e.target.checked; });
+            $('toggleGrid').addEventListener('change', e => { $('guideGrid').hidden = !e.target.checked; });
+
+            // Exportar boceto como imagen PNG desde Canvas
+            $('downloadMockupBtn').addEventListener('click', () => {
+                const outCanvas = document.createElement('canvas');
+                outCanvas.width = 800;
+                outCanvas.height = 800;
+                const ctx = outCanvas.getContext('2d');
+                const c1 = $('customArtColor1').value || '#ff2e7e';
+                const c2 = $('customArtColor2').value || '#ff9f1c';
+                const txtCol = $('customArtText').value || '#18122b';
+
+                const grad = ctx.createLinearGradient(0, 0, 800, 800);
+                grad.addColorStop(0, c1);
+                grad.addColorStop(1, c2);
+                ctx.fillStyle = '#fff8fb';
+                ctx.fillRect(0, 0, 800, 800);
+                ctx.globalAlpha = 0.35;
+                ctx.fillStyle = grad;
+                ctx.fillRect(0, 0, 800, 800);
+                ctx.globalAlpha = 1;
+
+                ctx.strokeStyle = '#ff0055';
+                ctx.setLineDash([10, 8]);
+                ctx.strokeRect(24, 24, 752, 752);
+
+                ctx.fillStyle = txtCol;
+                ctx.font = 'bold 22px Outfit, sans-serif';
+                ctx.fillText('PIXAVI STUDIO · BOCETO DE PRE-PRENSA', 64, 90);
+                ctx.font = '800 54px Outfit, sans-serif';
+                ctx.fillText(($('mockupHeadline').textContent || '').slice(0, 24), 64, 390);
+                ctx.font = '600 24px Inter, sans-serif';
+                ctx.fillText(($('mockupSubline').textContent || '').slice(0, 48), 64, 445);
+                ctx.font = 'bold 18px Inter, sans-serif';
+                ctx.fillText(`CUSCO · PERÚ — ${currentFormatLabel} (${currentColorLabel})`, 64, 720);
+
+                const a = document.createElement('a');
+                a.href = outCanvas.toDataURL('image/png');
+                a.download = `boceto-pixavi-${Date.now()}.png`;
+                a.click();
+                showToast('Boceto PNG descargado con éxito.');
+            });
+
+            const viewport = $('artboardViewport');
+            viewport.addEventListener('pointermove', e => {
+                const rect = mockup.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                mockup.style.setProperty('--mx', `${x}px`);
+                mockup.style.setProperty('--my', `${y}px`);
+                if (!state.reducedMotion) {
+                    const rx = ((y / rect.height) - 0.5) * -14;
+                    const ry = ((x / rect.width) - 0.5) * 14;
+                    mockup.style.setProperty('--rx', `${rx.toFixed(1)}deg`);
+                    mockup.style.setProperty('--ry', `${ry.toFixed(1)}deg`);
+                }
+            });
+
+            viewport.addEventListener('pointerleave', () => {
+                mockup.style.setProperty('--rx', '0deg');
+                mockup.style.setProperty('--ry', '0deg');
+            });
+
+            $('applyCanvasToQuoteBtn').addEventListener('click', () => {
+                $('cotizador').scrollIntoView({ behavior: 'smooth' });
+                showToast('Configuración de la Mesa de Arte vinculada a tu cotización.');
+            });
+
+            /* ======================================================================
+               4. COTIZADOR EN SOLES (S/) Y CARRITO COMPARTIDO PIXAVI
+               ====================================================================== */
+            let selectedPkg = {
+                id: 'key-visual',
+                name: 'Diseño Gráfico: Pieza Única / Key Visual',
+                price: 120
+            };
+
+            function recalculateQuote() {
+                let addonSum = 0;
+                const activeAddons = [];
+                document.querySelectorAll('.addon-chip.active').forEach(chip => {
+                    const p = Number(chip.dataset.addonPrice) || 0;
+                    addonSum += p;
+                    activeAddons.push(chip.dataset.addonName);
+                });
+                const total = selectedPkg.price + addonSum;
+                $('totalQuotePrice').textContent = `S/ ${total.toFixed(2)}`;
+                $('selectedPkgSummary').textContent = `${selectedPkg.name}${activeAddons.length ? ' · ' + activeAddons.join(' + ') : ''}`;
+                return { total, activeAddons };
+            }
+
+            $('packagesGrid').addEventListener('click', e => {
+                const card = e.target.closest('.pkg-card');
+                if (!card) return;
+                document.querySelectorAll('.pkg-card').forEach(c => c.classList.remove('selected'));
+                card.classList.add('selected');
+                selectedPkg = {
+                    id: card.dataset.pkgId,
+                    name: card.dataset.pkgName,
+                    price: Number(card.dataset.pkgPrice) || 120
+                };
+                recalculateQuote();
+                playChime(640, 0.12, 'triangle');
+            });
+
+            document.querySelectorAll('.addon-chip[data-addon-price]').forEach(chip => {
+                if (chip.dataset.addonPrice === '0') return;
+                chip.addEventListener('click', () => {
+                    chip.classList.toggle('active');
+                    recalculateQuote();
+                    playChime(700, 0.1, 'sine');
+                });
+            });
+
+            function getSharedCart() {
+                try {
+                    const shared = JSON.parse(localStorage.getItem(SHARED_CART_KEY) || 'null');
+                    if (Array.isArray(shared)) return shared;
+                    const legacy = JSON.parse(localStorage.getItem(LEGACY_CART_KEY) || '[]');
+                    return Array.isArray(legacy) ? legacy : [];
+                } catch { return []; }
+            }
+
+            function saveSharedCart(list) {
+                try {
+                    localStorage.setItem(SHARED_CART_KEY, JSON.stringify(list));
+                    localStorage.setItem(LEGACY_CART_KEY, JSON.stringify(list));
+                } catch { }
+                renderSharedCart();
+            }
+
+            function renderSharedCart() {
+                const items = getSharedCart();
+                $('cartBadge').textContent = String(items.length);
+                $('cartBadge').hidden = items.length === 0;
+                $('quoteCartCount').textContent = String(items.length);
+
+                const container = $('cartItemsList');
+                if (!items.length) {
+                    container.innerHTML = `<div style="text-align:center;padding:40px 16px;color:var(--muted);">✦ Tu carrito compartido de PIXAVI está vacío.</div>`;
+                    $('cartTotalAmount').textContent = 'S/ 0.00';
+                    return;
+                }
+
+                let sum = 0;
+                container.innerHTML = items.map(item => {
+                    const p = Number(item.price || item.unitPrice || 120);
+                    sum += p;
+                    return `
+            <article class="cart-item-card">
+              <div>
+                <strong style="font-size:13.5px;display:block;color:var(--ink);">${item.name}</strong>
+                <span style="font-size:11.5px;color:var(--c1);font-weight:700;display:block;margin:2px 0;">${item.specs || 'Estándar'}</span>
+                <small style="font-size:11px;color:var(--muted);">${item.notes || ''}</small>
+              </div>
+              <div style="text-align:right;flex-shrink:0;">
+                <strong style="display:block;font-size:15px;color:var(--ink);">S/ ${p.toFixed(2)}</strong>
+                <button type="button" data-del-id="${item.id}" style="color:#e11d48;font-size:11px;font-weight:700;margin-top:6px;">Quitar ×</button>
+              </div>
+            </article>`;
+                }).join('');
+                $('cartTotalAmount').textContent = `S/ ${sum.toFixed(2)}`;
+            }
+
+            $('addToSharedCartBtn').addEventListener('click', () => {
+                const { total, activeAddons } = recalculateQuote();
+                const brand = $('briefBrand').value.trim();
+                const styleInfo = $('briefStyle').value;
+                const notes = $('briefNotes').value.trim();
+
+                const list = getSharedCart();
+                list.push({
+                    id: 'dg-' + Date.now(),
+                    serviceId: 'graphic',
+                    name: selectedPkg.name,
+                    specs: `${styleInfo}${activeAddons.length ? ' · ' + activeAddons.join(', ') : ''}`,
+                    notes: `${brand ? 'Marca: ' + brand + '. ' : ''}${notes}`,
+                    price: total,
+                    unitPrice: total,
+                    quantity: 1,
+                    addedAt: new Date().toISOString()
+                });
+                saveSharedCart(list);
+                playChime(840, 0.16, 'triangle');
+                showToast('¡Añadido al carrito compartido de PIXAVI!');
+            });
+
+            const openCart = () => { $('cartShade').hidden = $('cartDrawer').hidden = false; renderSharedCart(); };
+            const closeCart = () => { $('cartShade').hidden = $('cartDrawer').hidden = true; };
+            $('openCartBtn').addEventListener('click', openCart);
+            $('openCartFromQuoteBtn').addEventListener('click', openCart);
+            $('closeCartBtn').addEventListener('click', closeCart);
+            $('cartShade').addEventListener('click', closeCart);
+
+            $('cartItemsList').addEventListener('click', e => {
+                const btn = e.target.closest('[data-del-id]');
+                if (!btn) return;
+                saveSharedCart(getSharedCart().filter(x => x.id !== btn.dataset.delId));
+            });
+
+            $('exportOrderBtn').addEventListener('click', () => {
+                const items = getSharedCart();
+                if (!items.length) { showToast('El carrito está vacío.'); return; }
+                const data = {
+                    ecosistema: 'AVI CONNECTION — PIXAVI',
+                    fecha: new Date().toISOString(),
+                    moneda: 'PEN (S/)',
+                    totalEstimado: items.reduce((a, b) => a + Number(b.price || b.unitPrice || 0), 0),
+                    items
+                };
+                const url = URL.createObjectURL(new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' }));
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `orden-pixavi-${Date.now()}.json`;
+                a.click();
+                setTimeout(() => URL.revokeObjectURL(url), 2000);
+                showToast('Orden de cotización descargada.');
+            });
+
+            /* ======================================================================
+               5. DRAWER DE SINCRONIZACIÓN EN VIVO CON AVI.HTML
+               ====================================================================== */
+            const syncGrid = $('syncThemeGrid');
+            AVI_THEMES.forEach(th => {
+                const btn = document.createElement('button');
+                btn.type = 'button';
+                btn.className = 'theme-sync-btn';
+                btn.dataset.themeId = th.id;
+                btn.innerHTML = `<span class="swatch-dot" style="background:linear-gradient(135deg,${th.accent},${th.c2})"></span><span>${th.name}</span>`;
+                btn.addEventListener('click', () => {
+                    writeGlobalAviPrefs({ theme: th.id, autoTheme: false, customAccent: '' });
+                    playChime(680, 0.12, 'triangle');
+                    showToast(`Paleta "${th.name}" sincronizada con avi.html`);
+                });
+                syncGrid.append(btn);
+            });
+
+            $('syncFontSelect').addEventListener('change', e => {
+                writeGlobalAviPrefs({ font: e.target.value });
+                showToast(`Fuente "${e.target.value}" sincronizada con avi.html`);
+            });
+            $('syncContrastToggle').addEventListener('change', e => writeGlobalAviPrefs({ highContrast: e.target.checked }));
+            $('syncReducedToggle').addEventListener('change', e => writeGlobalAviPrefs({ reducedMotion: e.target.checked }));
+
+            const openSync = () => { $('syncShade').hidden = $('syncDrawer').hidden = false; };
+            const closeSync = () => { $('syncShade').hidden = $('syncDrawer').hidden = true; };
+            $('openSyncDrawerBtn').addEventListener('click', openSync);
+            $('closeSyncDrawerBtn').addEventListener('click', closeSync);
+            $('syncShade').addEventListener('click', closeSync);
+
+            /* ======================================================================
+               6. CHATBOT MAQUI CONECTADO A LA API DE IA DE GOOGLE (GEMINI)
+               ====================================================================== */
+            let geminiHistory = [];
+
+            function getSavedGeminiKey() {
+                return (localStorage.getItem(GEMINI_KEY_STORAGE) || '').trim();
+            }
+
+            function appendChatMessage(text, role = 'bot') {
+                const box = $('maquiMessages');
+                const div = document.createElement('div');
+                div.className = `chat-msg ${role}`;
+                div.textContent = text;
+                box.append(div);
+                box.scrollTop = box.scrollHeight;
+                return div;
+            }
+
+            function localSmartFallback(promptText) {
+                const q = promptText.toLowerCase();
+                if (q.includes('titular') || q.includes('slogan') || q.includes('idea')) {
+                    return '¡Aquí tienes 3 titulares potentes!: 1) "Impulsa tu marca con color real", 2) "Ideas que se sienten en papel y brillan en pantalla", 3) "Tu negocio merece una primera impresión inolvidable". (Puedes probarlos en la Mesa de Arte arriba).';
+                }
+                if (q.includes('rgb') || q.includes('cmyk') || q.includes('uv')) {
+                    return 'En PIXAVI trabajamos con ambos: RGB usa luz para pantallas (Instagram/Web), mientras que CMYK FOGRA39 mezcla tintas Cian, Magenta, Amarillo y Negro a 300 DPI para papel Couché. El Barniz UV Sectorizado añade una capa brillante en relieve sobre tu logo.';
+                }
+                if (q.includes('paquete') || q.includes('precio') || q.includes('recomienda')) {
+                    return 'Para una pieza puntual te recomiendo "Pieza Única / Key Visual" (S/ 120). Si vas a lanzar una promoción completa en redes e imprenta, el "Pack Campaña Multiformato de 5 piezas" (S/ 450) es nuestro favorito comercial.';
+                }
+                return 'Soy MAQUI, tu asistente creativo de PIXAVI. Para respuestas generativas ilimitadas con Google Gemini AI, haz clic en el ícono 🔑 arriba en esta ventana y pega tu API Key de Google AI Studio.';
+            }
+
+            async function askGoogleGemini(userPrompt) {
+                appendChatMessage(userPrompt, 'user');
+                const thinkingNode = appendChatMessage('MAQUI está pensando...', 'bot');
+                const apiKey = getSavedGeminiKey();
+
+                const systemInstruction = 'Eres MAQUI, el carismático gato asistente de inteligencia artificial de PIXAVI (estudio de diseño gráfico e imprenta digital creado por AVI CONNECTION en Cusco, Perú). Responde siempre en español, de forma breve, entusiasta y experta en diseño gráfico, pre-prensa CMYK a 300 DPI, sangrado de 3mm, barniz UV sectorizado y paquetes en Soles peruanos (Pieza Única S/ 120, Campaña Multiformato S/ 450, Catálogo Editorial S/ 850).';
+
+                const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${encodeURIComponent(apiKey)}`;
+
+                geminiHistory.push({ role: 'user', parts: [{ text: userPrompt }] });
+
+                try {
+                    const res = await fetch(endpoint, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            systemInstruction: { parts: [{ text: systemInstruction }] },
+                            contents: geminiHistory.slice(-8)
+                        })
+                    });
+
+                    if (!res.ok) throw new Error('API request failed');
+                    const data = await res.json();
+                    const reply = data?.candidates?.[0]?.content?.parts?.[0]?.text;
+                    if (!reply) throw new Error('Empty reply');
+
+                    thinkingNode.textContent = reply.trim();
+                    geminiHistory.push({ role: 'model', parts: [{ text: reply.trim() }] });
+                    $('maquiApiStatus').textContent = '✓ Google Gemini AI Activo';
+                } catch {
+                    thinkingNode.textContent = localSmartFallback(userPrompt);
+                }
+            }
+
+            $('maquiAvatarBtn').addEventListener('click', () => {
+                const win = $('maquiChatWindow');
+                win.hidden = !win.hidden;
+                if (!win.hidden) $('maquiChatInput').focus();
+                playChime(740, 0.12, 'triangle');
+            });
+
+            $('closeMaquiChatBtn').addEventListener('click', () => {
+                $('maquiChatWindow').hidden = true;
+            });
+
+            $('toggleApiKeyBoxBtn').addEventListener('click', () => {
+                const bar = $('maquiApiKeyBar');
+                bar.hidden = !bar.hidden;
+                if (!bar.hidden) {
+                    $('geminiApiKeyInput').value = getSavedGeminiKey();
+                    $('geminiApiKeyInput').focus();
+                }
+            });
+
+            $('saveGeminiKeyBtn').addEventListener('click', () => {
+                const val = $('geminiApiKeyInput').value.trim();
+                if (val) {
+                    localStorage.setItem(GEMINI_KEY_STORAGE, val);
+                    $('maquiApiStatus').textContent = '✓ Google Gemini API Key guardada';
+                    showToast('API Key de Google Gemini guardada en tu navegador.');
+                } else {
+                    localStorage.removeItem(GEMINI_KEY_STORAGE);
+                    $('maquiApiStatus').textContent = 'Modo asistente local activo';
+                }
+                $('maquiApiKeyBar').hidden = true;
+            });
+
+            $('maquiChatForm').addEventListener('submit', e => {
+                e.preventDefault();
+                const text = $('maquiChatInput').value.trim();
+                if (!text) return;
+                $('maquiChatInput').value = '';
+                askGoogleGemini(text);
+            });
+
+            document.querySelectorAll('.maqui-chip').forEach(chip => {
+                chip.addEventListener('click', () => {
+                    askGoogleGemini(chip.dataset.prompt);
+                });
+            });
+
+            /* ======================================================================
+               7. INSPECTOR PRE-PRENSA Y PARTÍCULAS SUAVES DE ESTUDIO
+               ====================================================================== */
+            function inspectFile(file) {
+                if (!file) return;
+                $('inspFileName').textContent = file.name.slice(0, 24);
+                const mb = (file.size / (1024 * 1024)).toFixed(2);
+                if (file.type.startsWith('image/')) {
+                    const img = new Image();
+                    const url = URL.createObjectURL(file);
+                    img.onload = () => {
+                        const w = img.naturalWidth, h = img.naturalHeight;
+                        URL.revokeObjectURL(url);
+                        $('inspDimensions').textContent = `${w} × ${h} px (${mb} MB)`;
+                        const dpiA4 = Math.round(Math.min(w, h) / 8.27);
+                        const maxW = ((w / 300) * 2.54).toFixed(1);
+                        const maxH = ((h / 300) * 2.54).toFixed(1);
+                        $('inspMaxPrint').textContent = `${maxW} × ${maxH} cm a 300 DPI`;
+                        if (dpiA4 >= 240) {
+                            $('inspDpiStatus').textContent = `✓ ~${Math.min(dpiA4, 350)} DPI (Óptimo)`;
+                            $('inspDpiStatus').style.color = 'var(--ok)';
+                            $('inspAdviceBox').innerHTML = `✓ <strong>Diagnóstico de MAQUI:</strong> ¡Calidad óptima! Tu archivo tiene densidad suficiente para impresión nítida en catálogos, volantes o afiches.`;
+                        } else {
+                            $('inspDpiStatus').textContent = `⚠ ~${dpiA4} DPI en A4`;
+                            $('inspDpiStatus').style.color = 'var(--warn)';
+                            $('inspAdviceBox').innerHTML = `💡 <strong>Diagnóstico de MAQUI:</strong> Da nitidez perfecta hasta <strong>${maxW} × ${maxH} cm</strong>. Si necesitas ampliarlo más, podemos vectorizarlo en nuestro estudio.`;
+                        }
+                        playChime(750, 0.14, 'triangle');
+                    };
+                    img.src = url;
+                } else {
+                    $('inspDimensions').textContent = `Vector / PDF (${mb} MB)`;
+                    $('inspDpiStatus').textContent = '✓ Vectorial Infinito';
+                    $('inspDpiStatus').style.color = 'var(--ok)';
+                    $('inspMaxPrint').textContent = 'Escalable sin límite';
+                }
+            }
+
+            const dz = $('inspectorDropzone');
+            dz.addEventListener('click', () => $('inspectorInput').click());
+            dz.addEventListener('dragover', e => { e.preventDefault(); dz.classList.add('dragover'); });
+            dz.addEventListener('dragleave', () => dz.classList.remove('dragover'));
+            dz.addEventListener('drop', e => { e.preventDefault(); dz.classList.remove('dragover'); inspectFile(e.dataTransfer.files?.[0]); });
+            $('inspectorInput').addEventListener('change', e => inspectFile(e.target.files?.[0]));
+
+            const canvas = $('ambientCanvas');
+            const cx = canvas.getContext('2d');
+            let w = 0, h = 0, particles = [];
+
+            function resizeCanvas() {
+                const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+                w = window.innerWidth;
+                h = window.innerHeight;
+                canvas.width = Math.ceil(w * dpr);
+                canvas.height = Math.ceil(h * dpr);
+                cx.setTransform(dpr, 0, 0, dpr, 0, 0);
+                const count = Math.max(12, Math.min(60, Math.round(state.particleDensity * 0.5)));
+                particles = Array.from({ length: count }, () => ({
+                    x: Math.random() * w,
+                    y: Math.random() * h,
+                    vx: (Math.random() - 0.5) * 0.45,
+                    vy: (Math.random() - 0.5) * 0.45,
+                    r: Math.random() * 2.5 + 1
+                }));
+            }
+
+            function animateParticles() {
+                requestAnimationFrame(animateParticles);
+                if (document.hidden || state.reducedMotion || !state.particles) {
+                    cx.clearRect(0, 0, w, h);
+                    return;
+                }
+                cx.clearRect(0, 0, w, h);
+                const styles = getComputedStyle(document.documentElement);
+                const c1 = styles.getPropertyValue('--c1').trim() || '#ff2e7e';
+                const c2 = styles.getPropertyValue('--c2').trim() || '#00b4d8';
+                const c3 = styles.getPropertyValue('--c3').trim() || '#ff9f1c';
+
+                for (let i = 0; i < particles.length; i++) {
+                    const p = particles[i];
+                    p.x = (p.x + p.vx + w) % w;
+                    p.y = (p.y + p.vy + h) % h;
+                    cx.fillStyle = i % 3 === 0 ? c1 : i % 3 === 1 ? c2 : c3;
+                    cx.globalAlpha = 0.28;
+                    cx.beginPath();
+                    cx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+                    cx.fill();
+                }
+                cx.globalAlpha = 1;
+            }
+
+            $('soundToggleBtn').addEventListener('click', () => {
+                writeGlobalAviPrefs({ sound: !state.sound });
+                showToast(state.sound ? 'Audio sincronizado activado' : 'Audio silenciado');
+            });
+
+            window.addEventListener('storage', e => {
+                if (PREF_KEYS.includes(e.key)) {
+                    readGlobalAviPrefs();
+                    applyGlobalPrefsToDOM();
+                    resizeCanvas();
+                    showToast('Ajustes actualizados en tiempo real desde avi.html');
+                }
+                if (e.key === SHARED_CART_KEY || e.key === LEGACY_CART_KEY) {
+                    renderSharedCart();
+                }
+            });
+
+            window.addEventListener('resize', resizeCanvas, { passive: true });
+
+            readGlobalAviPrefs();
+            applyGlobalPrefsToDOM();
+            recalculateQuote();
+            renderSharedCart();
+            resizeCanvas();
+            requestAnimationFrame(animateParticles);
+        })();
+    </script>
+</body>
+
+</html>
