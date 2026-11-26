@@ -1,0 +1,1 @@
+Se utilizan fuentes del sistema. Añadir aquí WOFF2 con licencia propia si se desea. No se distribuyen archivos de fuentes.
