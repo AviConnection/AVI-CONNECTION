@@ -1,0 +1,10 @@
+WORKSVI 2.0 — AVI CONNECTION
+
+Instalación: extrae la carpeta worksvi dentro de AVI CONNECTION. Abre index.html para ver la introducción de 5,2 segundos, o worksvi.html para acceder directamente al panel. Recomendado: servidor local estático (Live Server o python -m http.server) para conservar localStorage según el origen.
+
+Diseño: marfil (base 60%), salvia (superficies 30%), terracota (acento 10%); proporción visual orientativa. Cuatro SVG originales incluidos en assets/imagenes. Se conserva el logotipo oficial en sus colores.
+Sidebar: acerca el puntero al borde izquierdo; se abre automáticamente. Al salir, espera 3 segundos. Si vuelves antes de ese plazo se cancela el cierre. Menú manual disponible para móvil y teclado.
+AVI Styles: Editorial, Compacto, Minimal. AVI Colors: Salvia, Lavanda, Arena y Rosa. Preferencias locales.
+AVI APPS: enlaces relativos ../carpeta/index.html. Los nombres de carpeta se basan en la estructura anterior (astrovia, balu tours, etc.). Si cambiaste los nombres, ajusta el arreglo apps en worksvi.js. Los logos de las otras aplicaciones se buscan en ../assets/imagenes/; si faltan, se muestran iniciales. Las aplicaciones hermanas no están incluidas en este ZIP.
+
+Tareas, proyectos, tablero, calendario, notas, Ritmo, enfoque, reglas, estadísticas y configuración conservan el funcionamiento local de V1. No se usa backend ni base de datos remota. Los ejemplos iniciales son ficticios. Las reglas se ejecutan con la pestaña abierta. Los datos se conservan en localStorage si está permitido. Se puede exportar/importar JSON. No incluye AVI Go, AVI Pay ni AVI Nest como herramientas internas.
