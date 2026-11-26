@@ -1,0 +1,2 @@
+/* Estilos específicos: Comunidad; apariencia global en avi-portal-core/appearance.css */
+#comments{display:grid;gap:14px} #comment textarea{min-height:105px}

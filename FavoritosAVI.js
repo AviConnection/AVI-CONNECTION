@@ -1,0 +1,2 @@
+/* Interfaz independiente: Favoritos */
+window.AVIPageRender=function(c){c.innerHTML=`<h1>Favoritos</h1><p>Proyectos, productos y catálogos guardados desde las aplicaciones.</p><div class="cards">${read('favorites',[]).map(a=>`<article class="tile"><small>${esc(a.app)}</small><h3>${esc(a.title)}</h3><button type="button" data-remove-fav="${esc(a.id)}">Quitar</button></article>`).join('')||'<p class="muted">Todavía no hay favoritos. Guarda un proyecto desde una aplicación.</p>'}</div>`};
