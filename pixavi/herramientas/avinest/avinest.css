@@ -1,0 +1,3 @@
+/* Estilos propios de avinest. */
+#main[data-route="avinest"] .tool-head{padding-bottom:4px;}
+#main[data-route="avinest"] .tool-head .icon{color:var(--accent);}

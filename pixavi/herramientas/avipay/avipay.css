@@ -1,0 +1,3 @@
+/* Estilos propios de avipay. */
+#main[data-route="avipay"] .tool-head{padding-bottom:4px;}
+#main[data-route="avipay"] .tool-head .icon{color:var(--accent);}

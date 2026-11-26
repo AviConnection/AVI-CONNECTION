@@ -1,0 +1,3 @@
+/* Estilos propios de avigo. */
+#main[data-route="avigo"] .tool-head{padding-bottom:4px;}
+#main[data-route="avigo"] .tool-head .icon{color:var(--accent);}

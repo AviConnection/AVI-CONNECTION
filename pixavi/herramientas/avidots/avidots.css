@@ -1,0 +1,3 @@
+/* Estilos propios de avidots. */
+#main[data-route="avidots"] .tool-head{padding-bottom:4px;}
+#main[data-route="avidots"] .tool-head .icon{color:var(--accent);}
