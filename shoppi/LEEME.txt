@@ -1,0 +1,11 @@
+SHOPPI — FRONTEND DE AVI CONNECTION
+
+1. Extraiga la carpeta shoppi dentro de su carpeta principal AVI CONNECTION.
+2. Abra index.html en el navegador (preferiblemente con Live Server de VS Code).
+3. El preloader construye el logo por partes y muestra cada letra con Mask Rise; a los 5 s abre shoppi.html.
+4. Para trabajar directamente en la tienda, abra shoppi.html.
+
+Archivos: index.html, shoppi.html, shoppi.css, shoppi.js y assets/imagenes.
+El logotipo se obtiene de los recursos originales recuperados de Shoppi. Las ilustraciones de productos y banners son SVG locales, recreadas para aproximar la referencia visual.
+
+Esta versión es un prototipo frontend. El catálogo, precios, descuentos, notificaciones y órdenes son de demostración; no constituyen ofertas reales. El carrito, favoritos, preferencias, perfil y órdenes de prueba se guardan en el navegador. El flujo Skavya no cobra dinero, no confirma pagos ni envía pedidos. Los enlaces a Skavya presuponen la carpeta hermana ../skavya/index.html. AviDots, AviGo y AviTracks requieren conexión a sus servicios reales. No se incluye backend ni base de datos de servidor.
