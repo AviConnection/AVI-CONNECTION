@@ -1,0 +1,7 @@
+/* Tarifas en céntimos PEN. No inventar precios: null significa cotización obligatoria.
+   En producción, Skavya debe reconstruir y validar cada importe en servidor. */
+window.PX_PRECIOS={
+  'tarjetas-de-fidelizacion':{unit:'millar',rate:10000,extras:{'paper:Estándar (por confirmar)':0,'finish:Estándar':0,'corners:Rectas':0,'sides:Estándar':0,'design:Tengo mi diseño':0,'design:Importar desde Avi Nest':0}},
+  'gigantografias':{unit:'m2',rate:null},'banners':{unit:'m2',rate:null},'vinilos':{unit:'m2',rate:null},'roll-screen':{unit:'m2',rate:null},'paneles':{unit:'m2',rate:null}
+};
+window.PX_PRICE=(()=>{const calc=(id,kind,quantity,config)=>{const rule=PX_PRECIOS[id];if(!rule||!Number.isInteger(rule.rate)||rule.rate<0)return{totalCents:0,quoteRequired:true};let base=quantity*rule.rate;let invalid=false;if(rule.unit==='m2'){const a=Number(config.width)*Number(config.height)*quantity;if(!Number.isFinite(a)||a<=0)return{totalCents:0,quoteRequired:true};base=Math.round(a*rule.rate)}let extra=0;if(rule.extras){for(const field of ['paper','finish','corners','sides','design'])if(config[field]){const v=rule.extras[field+':'+config[field]];if(!Number.isInteger(v))invalid=true;else extra+=v*quantity;}for(const a of config.extra||[]){const v=rule.extras['extra:'+a];if(!Number.isInteger(v))invalid=true;else extra+=v*quantity;}}else if(config.extra?.length||config.design==='Necesito diseño de Pixavi')invalid=true;return{totalCents:base+extra,quoteRequired:invalid}};return{calc,estimateDots:c=>c>=50000?7:c>=15000?5:c>=10000?4:c>=5000?2:0}})();
