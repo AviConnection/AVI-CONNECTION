@@ -1,0 +1,1 @@
+Los logotipos de integraciones externas deben incorporarse desde recursos autorizados. Se utilizan nombres e iconos neutrales en esta versión.
