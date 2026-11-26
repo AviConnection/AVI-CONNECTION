@@ -1,0 +1,4 @@
+.module-avipay .bank-card:nth-child(2){background:#eaf1fb}.module-avipay .bank-card:nth-child(3){background:#f7e9ed}.module-avipay .payment-detail{max-width:620px}.module-avipay .bank-card:hover{border-color:var(--wine)}.address-fields{display:grid;grid-template-columns:1fr 1fr;gap:10px}.address-fields .wide{grid-column:1/-1}.address-details summary{cursor:pointer;font-size:14px;padding:10px 0}.address-details[open] summary{margin-bottom:8px}
+body.dark .module-avipay .bank-card:nth-child(2){background:#382a24;color:#f5eee6}body.dark .module-avipay .bank-card:nth-child(3){background:#462b2a;color:#fae9df}
+
+body:not(.dark) .module-avipay .bank-card:nth-child(2){background:#D4EFED;border-color:#B4DCD9}body:not(.dark) .module-avipay .bank-card:nth-child(3){background:#FAD6DD;border-color:#E6ABB8}

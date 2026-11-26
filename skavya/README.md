@@ -1,0 +1,2 @@
+# SKAVYA
+Instalar la carpeta skavya dentro de la raíz de AVI CONNECTION. Abrir index.html. Perfil local editable desde el menú superior. Las aplicaciones se abren por sus index.html relativos y el portal por ../avi.html. Los datos se guardan en el navegador; no se conecta a AVI ID, Google, SUNAT ni a bancos. No usar datos sensibles ni dinero real. Los PDFs generados carecen de validez tributaria. Los enlaces requieren las carpetas de las demás apps.

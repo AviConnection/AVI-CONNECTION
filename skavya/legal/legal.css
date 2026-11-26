@@ -1,0 +1,5 @@
+@import url('../skavya.css');body{background:#faf8f4;color:#253344}main{max-width:780px;margin:48px auto;padding:28px;background:white;border:1px solid #e2e5e9;border-radius:12px}header{display:flex;gap:12px;align-items:center;margin-bottom:36px}header img{width:44px}header b{font-size:25px;color:#142a43}h2{margin:25px 0 10px}p{line-height:1.75}.note{background:#faf2e4}@media(max-width:800px){main{margin:0;border:0;border-radius:0;padding:22px}}
+
+body.dark{min-height:100vh}body.dark main{background:var(--surface);color:var(--text);border-color:var(--line)}body.dark header b{color:var(--navy)}body.dark header img{filter:brightness(1.18) drop-shadow(0 0 1px #f2dfc7)}body.dark .note{background:var(--soft);color:var(--muted)}
+
+body:not(.dark){background:#F2F9FA;color:var(--text)}body:not(.dark) main{background:var(--surface);border-color:var(--line)}body:not(.dark) header b{color:var(--navy)}body:not(.dark) .note{background:var(--soft);color:var(--muted)}
