@@ -1,0 +1,2 @@
+/* Catálogo Publicidad: personalización sobre la estructura compartida. */
+#main[data-catalog="publicidad"] .product-image{object-position:center;}

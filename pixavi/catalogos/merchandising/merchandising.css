@@ -1,0 +1,2 @@
+/* Catálogo Merchandising: personalización sobre la estructura compartida. */
+#main[data-catalog="merchandising"] .product-image{object-position:center;}

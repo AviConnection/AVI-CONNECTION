@@ -1,0 +1,2 @@
+/* Catálogo Tarjetas: personalización sobre la estructura compartida. */
+#main[data-catalog="tarjetas"] .product-image{object-position:center;}

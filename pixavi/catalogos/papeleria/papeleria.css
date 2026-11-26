@@ -1,0 +1,2 @@
+/* Catálogo Papelería y materiales: personalización sobre la estructura compartida. */
+#main[data-catalog="papeleria"] .product-image{object-position:center;}
